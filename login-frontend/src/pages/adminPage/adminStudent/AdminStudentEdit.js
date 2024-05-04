@@ -41,7 +41,7 @@ function AdminStudentEdit() {
           <ul className="nav flex-column" style={{ height: '100%', backgroundColor: 'rgb(58, 35, 35)', color: 'white' }}>
             <li className="nav-item" style={{ paddingTop: '2rem', cursor: 'pointer' }} onClick={() => setIsOpen(!isOpen)}>
               <i className="fas fa-regular fa-id-badge fa-md fa-2x"></i> User Information
-              <i className="fa-solid fa-angles-down"></i>
+              <i class="fa-solid fa-angles-down"></i>
             </li>
             {isOpen && (
               <ul>
@@ -68,16 +68,16 @@ function AdminStudentEdit() {
           <Tab.Container defaultActiveKey={'#info'}>
             <ListGroup style={{ marginTop: '2%', flexDirection: 'row' }}>
               <ListGroup.Item action href="#info" style={{ width: '25%' }}>
-                <b>Personal Information</b>
+                <b>Thông tin sinh viên</b>
               </ListGroup.Item>
               <ListGroup.Item action href="#training" style={{ width: '25%' }}>
-                <b>Training Information</b>
+                <b>Thông tin đào tạo</b>
               </ListGroup.Item>
             </ListGroup>
             
             <div style={{ margin: '10px 0', borderTop: '1px solid gray', borderBottom: '1px solid gray' }}>
               <i>
-                <b>Last profile update time: ___</b>
+                <b>Thời điểm cập nhật gần nhất:</b>
               </i>
               <b>dd/mm/yyyy realtime</b>
             </div>
@@ -86,7 +86,7 @@ function AdminStudentEdit() {
               <Tab.Pane eventKey='#info' style={{ borderTop: 'none' }}>
                 <div style={{ backgroundColor: 'rgb(204, 203, 203)', fontWeight: 'bold', width: '96%', margin: '2% auto' }}>
                   <p style={{ boxShadow: '2px 2px 10px rgb(104, 103, 103)' }}>
-                    Personal Information
+                    Thông tin cá nhân
                   </p>
                 </div>
                 <Row style={{ width: '96%', margin: 'auto' }}>
@@ -96,81 +96,81 @@ function AdminStudentEdit() {
                     </div>
                     <div style={{ textAlign: 'center' }}>
                       <b style={{ textAlign: 'center' }}>
-                        Last profile photo update time: ___
+                        Thời điểm cập nhật ảnh thẻ gần nhất: ___
                       </b>
                     </div>
                   </Col>
                   <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
-                    <label htmlFor="mssv" className="form-label"><b>#Student ID</b></label>
+                    <label htmlFor="mssv" className="form-label"><b>#Mã số sinh viên</b></label>
                     <input type="text" className="form-control" id="mssv" placeholder="Nhập Mã số sinh viên" aria-label="Mã số sinh viên" value={mssv} onChange={(e) => setMssv(e.target.value)} />
 
                     <div style={{ marginBottom: '6px' }}>
-                      <p style={{ fontWeight: 'bold' }}>#Sex</p>
+                      <p style={{ fontWeight: 'bold' }}>#Giới tính</p>
                       <input className="form-check-input" type="radio" name="gioitinh" id="nam" value='M' checked={gender === 'M'} onChange={(e) => setGender(e.target.value)} />
                       <label className="form-check-label" htmlFor="nam">
-                        Male
+                        Nam
                       </label>
                       <input className="form-check-input" type="radio" name="gioitinh" id="nu" value='F' checked={gender === 'F'} onChange={(e) => setGender(e.target.value)} />
                       <label className="form-check-label" htmlFor="nu">
-                        Female
+                        Nữ
                       </label>
                       <input className="form-check-input" type="radio" name="gioitinh" id="khac" value='O' checked={gender === 'O'} onChange={(e) => setGender(e.target.value)} />
                       <label className="form-check-label" htmlFor="khac">
-                        Other
+                        Khác
                       </label>
                     </div>
 
-                    <label htmlFor="khoa" className="form-label"><b>#Faculty</b></label>
+                    <label htmlFor="khoa" className="form-label"><b>#Khoa</b></label>
                     <input type="text" className="form-control" id="khoa" placeholder="Nhập Khoa" aria-label="Khoa" value={faculty} onChange={(e) => setFaculty(e.target.value)} />
                   </Col>
                   <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
-                    <label htmlFor="hovaten" className="form-label"><b>#Full Name</b></label>
+                    <label htmlFor="hovaten" className="form-label"><b>#Họ & Tên</b></label>
                     <input type="text" className="form-control" id="hovaten" placeholder="Nhập Họ & tên" aria-label="Họ & tên" value={fullName} onChange={(e) => setFullName(e.target.value)} />
 
-                    <label htmlFor="ngaysinh" className="form-label"><b>#Day of Births</b></label>
+                    <label htmlFor="ngaysinh" className="form-label"><b>#Ngày sinh</b></label>
                     <input type="date" className="form-control" id="ngaysinh" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
 
-                    <label htmlFor="malop" className="form-label"><b>#Class</b></label>
+                    <label htmlFor="malop" className="form-label"><b>#Mã lớp</b></label>
                     <input type="text" className="form-control" id="malop" placeholder="Nhập Mã lớp" aria-label="Mã lớp" value={classId} onChange={(e) => setClassId(e.target.value)} />
                   </Col>
                   <Col sm={2} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
-                    <label htmlFor="cccd" className="form-label"><b>#Identity Card Number</b></label>
+                    <label htmlFor="cccd" className="form-label"><b>#Số CCCD</b></label>
                     <input type="text" className="form-control" id="cccd" placeholder="Nhập Số CCCD" aria-label="Số CCCD" value={cccd} onChange={(e) => setCccd(e.target.value)} />
 
-                    <label htmlFor="ngaycapcccd" className="form-label"><b>#Date of issue of identity card</b></label>
+                    <label htmlFor="ngaycapcccd" className="form-label"><b>#Ngày cấp CCCD</b></label>
                     <input type="date" className="form-control" id="ngaycapcccd" value={cccdDay} onChange={(e) => setCccdDay(e.target.value)} />
                     
-                    <label htmlFor="noicapcccd" className="form-label"><b>#Place of issue of identity card</b></label>
+                    <label htmlFor="noicapcccd" className="form-label"><b>#Nơi cấp CCCD</b></label>
                     <input type="text" className="form-control" id="noicapcccd" placeholder="Nhập Nơi cấp CCCD" aria-label="Nơi cấp CCCD" value={cccdLocation} onChange={(e) => setCccdLocation(e.target.value)} />
                   </Col>
                   <Col sm={2} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
-                    <label htmlFor="donviquanly" className="form-label"><b>#Manager Unit</b></label>
+                    <label htmlFor="donviquanly" className="form-label"><b>#Đơn vị quản lý</b></label>
                     <input type="text" className="form-control" id="donviquanly" placeholder="Nhập Đơn vị quản lý" aria-label="Đơn vị quản lý" value={unit} onChange={(e) => setUnit(e.target.value)} />
                   </Col>
                 </Row>
                 <div style={{ backgroundColor: 'rgb(204, 203, 203)', fontWeight: 'bold', width: '96%', margin: '2% auto' }}>
                   <p style={{ boxShadow: '2px 2px 10px rgb(104, 103, 103)' }}>
-                    Address Information
+                    Thông tin liên lạc
                   </p>
                 </div>
                 <Row style={{ width: '96%', margin: '2% auto' }}>
                   <Col sm={3}>
                     <div style={{ paddingLeft: '1vh' }}>
-                      <label htmlFor="diachi" className="form-label"><b>#Address</b></label>
+                      <label htmlFor="diachi" className="form-label"><b>#Địa chỉ</b></label>
                       <input type="text" className="form-control" id="diachi" placeholder="Nhập Địa chỉ" aria-label="Địa chỉ" value={address} onChange={(e) => setAddress(e.target.value)} />
                     </div>
                   </Col>
                   <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
-                    <label htmlFor="sdt" className="form-label"><b>#Telephone Number</b></label>
+                    <label htmlFor="sdt" className="form-label"><b>#Số điện thoại</b></label>
                     <input type="text" className="form-control" id="sdt" placeholder="Nhập Số điện thoại" aria-label="Số điện thoại" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
                   </Col>
                   <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
-                    <label htmlFor="emailtruong" className="form-label"><b>#University Email</b></label>
+                    <label htmlFor="emailtruong" className="form-label"><b>#Email trường</b></label>
                     <input type="text" className="form-control" id="emailtruong" placeholder="Nhập Email trường" aria-label="Email trường" value={email} onChange={(e) => setEmail(e.target.value)} />
                   </Col>
                   <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
-                    <label htmlFor="email" className="form-label"><b>#Other Email</b></label>
-                    <input type="text" className="form-control" id="email" placeholder="Nhập Email liên lạc" aria-label="Em#Email liên lạc" value={personalEmail} onChange={(e) => setPersonalEmail(e.target.value)} />
+                    <label htmlFor="email" className="form-label"><b>#Email liên lạc</b></label>
+                    <input type="text" className="form-control" id="email" placeholder="Nhập Em#Email liên lạc" aria-label="Em#Email liên lạc" value={personalEmail} onChange={(e) => setPersonalEmail(e.target.value)} />
                   </Col>
                 </Row>
               </Tab.Pane>
@@ -178,12 +178,12 @@ function AdminStudentEdit() {
               <Tab.Pane eventKey='#training' style={{ borderTop: 'none' }}>
                 <div style={{ backgroundColor: 'rgb(204, 203, 203)', fontWeight: 'bold', width: '96%', margin: '2% auto' }}>
                   <p style={{ boxShadow: '2px 2px 10px rgb(104, 103, 103)' }}>
-                    Training Infomation
+                    Thông tin đào tạo
                   </p>
                 </div>
                 <div style={{ backgroundColor: 'rgb(204, 203, 203)', fontWeight: 'bold', width: '96%', margin: '2% auto' }}>
                   <p style={{ boxShadow: '2px 2px 10px rgb(104, 103, 103)' }}>
-                    Graduated Infomation
+                    Thông tin tốt nghiệp
                   </p>
                 </div>
               </Tab.Pane>

@@ -1,6 +1,5 @@
 import React, { useMemo, useState, useEffect, useRef, createContext, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { ViewContext } from '../../pages/dashboardPage/AdminDashboard';
 import {
   MRT_EditActionButtons,
   MaterialReactTable,
@@ -10,7 +9,6 @@ import IconButton from '@mui/material/IconButton';
 import { Button, Modal, Form } from 'react-bootstrap';
 
 function ListStudent() {
-  const {currentView, handleNavigation} = useContext(ViewContext);
 
   const [faculty, setFaculty] = useState('CSE');
   const [validationErrors, setValidationErrors] = useState({});

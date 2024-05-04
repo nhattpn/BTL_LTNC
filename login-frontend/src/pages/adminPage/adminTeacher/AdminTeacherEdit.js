@@ -17,7 +17,7 @@ function AdminTeacherEdit() {
           <ul className="nav flex-column" style={{ height: '100%', backgroundColor: 'rgb(58, 35, 35)', color: 'white' }}>
             <li className="nav-item" style={{ paddingTop: '2rem', cursor: 'pointer' }} onClick={() => setIsOpen(!isOpen)}>
               <i className="fas fa-regular fa-id-badge fa-md fa-2x"></i> User Information
-              <i className="fa-solid fa-angles-down"></i>
+              <i class="fa-solid fa-angles-down"></i>
             </li>
             {isOpen && (
               <ul>

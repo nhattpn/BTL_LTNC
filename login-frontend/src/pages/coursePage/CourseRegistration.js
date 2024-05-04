@@ -9,27 +9,29 @@ import {
   useMaterialReactTable,
 } from 'material-react-table';
 
-import StudentHeader from '../../components/header_footer/CourseHeader';
+import CourseHeader from '../../components/header_footer/CourseHeader';
 import Footer from '../../components/header_footer/Footer';
 
 const CourseRegistration = () => {
   const [validationErrors, setValidationErrors] = useState({});
   const [courses, setCourses] = useState([
     {
-      'subjectId': 'CO2039',
-      'name': 'LTNC',
-      'room': '413-H6',
-      'amount': '40',
-      'teacher': 'Mai Đức Trung',
-      'time': '13:00-15:00',
+      'courseCode': 'CO2039',
+      'courseName': 'LTNC',
+      'classroom': '413-H6',
+      'credit': '40',
+      'instructorName': 'Mai Đức Trung',
+      'scheduleDay': 'Thứ 2',
+      'scheduleTime': '13:00-15:00',
     },
     {
-      'subjectId': 'COxxxx',
-      'name': 'XYZ',
-      'room': '202-H6',
-      'amount': '50',
-      'teacher': 'Tên Giảng Viên',
-      'time': 'hh:mm-hh:mm',
+      'courseCode': 'COxxxx',
+      'courseName': 'XYZ',
+      'classroom': '202-H6',
+      'credit': '50',
+      'instructorName': 'Tên Giảng Viên',
+      'scheduleDay': 'Thứ 3',
+      'scheduleTime': 'hh:mm-hh:mm',
     }
   ]);
   const [showModal, setShowModal] = useState(false);
@@ -37,49 +39,64 @@ const CourseRegistration = () => {
   const [registeredCourses, setRegisteredCourses] = useState([
     {
       'stt': '1',
-      'subjectId': 'CO2039',
-      'name': 'LTNC',
-      'room': '413-H6',
-      'amount': '40',
-      'teacher': 'Mai Đức Trung',
-      'time': '13:00-15:00',
+      'courseCode': 'CO2039',
+      'courseName': 'LTNC',
+      'classroom': '413-H6',
+      'credit': '40',
+      'instructorName': 'Mai Đức Trung',
+      'scheduleDay': 'Thứ 2',
+      'scheduleTime': '13:00-15:00',
     }
   ]);
-  const [teacher, setTeacher] = useState('');
-  const [time, setTime] = useState('');
+  const [instructorName, setInstructorName] = useState('');
+  const [scheduleTime, setScheduleTime] = useState('');
+
+  // Lấy JWT từ Session Storage
+  const jwtToken = sessionStorage.getItem('jwtToken');
+  // Gửi yêu cầu GET với JWT trong header
+  const getCourses = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/student/dashboard/dangkimon", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        const result = await response.json();
+        console.log("All course(s):", result);
+
+        setCourses(result);
+      }
+      else {
+        console.error("Failed to get all course(s)");
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await fetch('your_api_endpoint_here');
-        const data = await response.json();
-        setCourses(data);
-      } catch (error) {
-        console.error('Error fetching courses:', error);
-      }
-    };
-    fetchCourses();
+    getCourses();
   }, []);
 
   const handleRegister = async (row) => {
-    // Your code to post registration data to the server
-    // This could involve sending selectedCourse, teacher, and time
-    // to the server to handle the registration process
     for (let i in registeredCourses) {
-      if (row.original.subjectId === registeredCourses[i]['subjectId']) {
+      if (row.original.courseCode === registeredCourses[i]['courseCode']) {
         alert('Môn học đã được đăng ký!!!');
         return;
       }
     }
     console.log('Đăng ký cho:', row.original);
     alert('Đăng ký môn thành công');
-    setTeacher('');
-    setTime('');
+    setInstructorName('');
+    setScheduleTime('');
     setShowModal(false);
   };
   const handleCloseModal = () => {
-    setTeacher('');
-    setTime('');
+    setInstructorName('');
+    setScheduleTime('');
     setShowModal(false);
   };
   const handleShowModal = () => {
@@ -90,93 +107,108 @@ const CourseRegistration = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'subjectId',
+        accessorKey: 'courseCode',
         header: 'Mã môn học',
         muiEditTextFieldProps: {
           type: 'text',
           required: true,
-          error: !!validationErrors?.subjectId,
-          helperText: validationErrors?.subjectId,
+          error: !!validationErrors?.courseCode,
+          helperText: validationErrors?.courseCode,
           onFocus: () =>
             setValidationErrors({
               ...validationErrors,
-              subjectId: undefined,
+              courseCode: undefined,
             }),
           //readOnly: true,
         },
       },
       {
-        accessorKey: 'name',
+        accessorKey: 'courseName',
         header: 'Tên môn học',
         muiEditTextFieldProps: {
           type: 'text',
           required: true,
-          error: !!validationErrors?.name,
-          helperText: validationErrors?.name,
+          error: !!validationErrors?.courseName,
+          helperText: validationErrors?.courseName,
           onFocus: () =>
             setValidationErrors({
               ...validationErrors,
-              name: undefined,
+              courseName: undefined,
             }),
         },
       },
       {
-        accessorKey: 'room',
+        accessorKey: 'classroom',
         header: 'Phòng học',
         muiEditTextFieldProps: {
           type: 'text',
           required: true,
-          error: !!validationErrors?.room,
-          helperText: validationErrors?.room,
+          error: !!validationErrors?.classroom,
+          helperText: validationErrors?.classroom,
           onFocus: () =>
             setValidationErrors({
               ...validationErrors,
-              room: undefined,
+              classroom: undefined,
             }),
         },
       },
       {
-        accessorKey: 'amount',
+        accessorKey: 'credit',
         header: 'Số lượng',
         muiEditTextFieldProps: {
           type: 'text',
           required: true,
-          error: !!validationErrors?.amount,
-          helperText: validationErrors?.amount,
+          error: !!validationErrors?.credit,
+          helperText: validationErrors?.credit,
           onFocus: () =>
             setValidationErrors({
               ...validationErrors,
-              amount: undefined,
+              credit: undefined,
             }),
         },
       },
       {
-        accessorKey: 'teacher',
+        accessorKey: 'instructorName',
         header: 'Giảng viên',
         muiEditTextFieldProps: {
           type: 'text',
           required: true,
-          error: !!validationErrors?.teacher,
-          helperText: validationErrors?.teacher,
+          error: !!validationErrors?.instructorName,
+          helperText: validationErrors?.instructorName,
           onFocus: () =>
             setValidationErrors({
               ...validationErrors,
-              teacher: undefined,
+              instructorName: undefined,
             }),
         },
       },
       {
-        accessorKey: 'time',
+        accessorKey: 'scheduleDay',
+        header: 'Ngày học',
+        muiEditTextFieldProps: {
+          type: 'text',
+          required: true,
+          error: !!validationErrors?.scheduleDay,
+          helperText: validationErrors?.scheduleDay,
+          onFocus: () =>
+            setValidationErrors({
+              ...validationErrors,
+              scheduleDay: undefined,
+            }),
+        },
+      },
+      {
+        accessorKey: 'scheduleTime',
         header: 'Giờ học',
         muiEditTextFieldProps: {
           type: 'text',
           required: true,
-          error: !!validationErrors?.time,
-          helperText: validationErrors?.time,
+          error: !!validationErrors?.scheduleTime,
+          helperText: validationErrors?.scheduleTime,
           onFocus: () =>
             setValidationErrors({
               ...validationErrors,
-              time: undefined,
+              scheduleTime: undefined,
             }),
         },
       },
@@ -197,8 +229,8 @@ const CourseRegistration = () => {
   const table = useMaterialReactTable({
     columns,
     data: courses,
-    getRowId: (row) => row.subjectId,
-    initialState: { columnVisibility: { subjectId: true, name: true, room: true, amount: true, teacher: true, time: true } },
+    getRowId: (row) => row.courseCode,
+    initialState: { columnVisibility: { courseCode: true, courseName: true, classroom: true, credit: true, instructorName: true, scheduleTime: true } },
     muiTableContainerProps: {
       sx: {
         overflowX: 'auto',
@@ -209,7 +241,7 @@ const CourseRegistration = () => {
 
   return (
     <>
-      <StudentHeader />
+      <CourseHeader />
       <Tab.Container id="list-group-tabs-example" defaultActiveKey="#register">
         <Row style={{ marginTop: '2%' }}>
           <Col sm={2}>
@@ -238,6 +270,7 @@ const CourseRegistration = () => {
                       <th>Phòng học</th>
                       <th>Số lượng</th>
                       <th>Giảng viên</th>
+                      <th>Ngày học</th>
                       <th>Giờ học</th>
                     </tr>
                   </thead>
@@ -245,12 +278,13 @@ const CourseRegistration = () => {
                     {registeredCourses.map(registeredCourse => (
                       <tr key={registeredCourse.id}>
                         <td>{registeredCourse.stt}</td>
-                        <td>{registeredCourse.subjectId}</td>
-                        <td>{registeredCourse.name}</td>
-                        <td>{registeredCourse.room}</td>
-                        <td>{registeredCourse.amount}</td>
-                        <td>{registeredCourse.teacher}</td>
-                        <td>{registeredCourse.time}</td>
+                        <td>{registeredCourse.courseCode}</td>
+                        <td>{registeredCourse.courseName}</td>
+                        <td>{registeredCourse.classroom}</td>
+                        <td>{registeredCourse.credit}</td>
+                        <td>{registeredCourse.instructorName}</td>
+                        <td>{registeredCourse.scheduleDay}</td>
+                        <td>{registeredCourse.scheduleTime}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -267,26 +301,26 @@ const CourseRegistration = () => {
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Đăng ký môn ... {/*selectedCourse && selectedCourse.name*/}</Modal.Title>
+          <Modal.Title>Đăng ký môn ... {/*selectedCourse && selectedCourse.courseName*/}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="formTeacher">
+            <Form.Group controlId="formInstructorName">
               <Form.Label>Giảng viên</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Nhập tên giảng viên"
-                value={teacher}
-                onChange={(e) => setTeacher(e.target.value)}
+                value={instructorName}
+                onChange={(e) => setInstructorName(e.target.value)}
               />
             </Form.Group>
-            <Form.Group controlId="formTime">
+            <Form.Group controlId="formScheduleTime">
               <Form.Label>Giờ học</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Nhập giờ học"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
+                value={scheduleTime}
+                onChange={(e) => setScheduleTime(e.target.value)}
               />
             </Form.Group>
           </Form>
