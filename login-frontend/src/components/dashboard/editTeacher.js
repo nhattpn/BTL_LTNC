@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup } from 'react-bootstrap';
 import { ViewContext } from '../../pages/dashboardPage/TeacherDashBoard';
 function EditTeacher() {
+  const jwtToken = sessionStorage.getItem('jwtToken');
   const {currentView, setCurrentView} = useContext(ViewContext);
   const toggleSwitch = () => {
     setCurrentView(currentView === 'TeacherInfo' ? 'EditTeacher' : 'TeacherInfo');
@@ -24,7 +25,26 @@ function EditTeacher() {
     },
     training_info: ''    
   });
-  const jwtToken = sessionStorage.getItem('jwtToken');
+  const getData = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/teacher/dashboard/thongtingiangvien", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        const result = await response.json();
+        sessionStorage.setItem('userdata', JSON.stringify(result[0]));
+      }
+      else {
+        console.error("Failed to get all student(s)");
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -38,6 +58,7 @@ function EditTeacher() {
       });
       if (response.ok) {
         console.log('Update successfully');
+        getData();
         alert('Update successfully.');
       } else {
         console.error('Failed to update student');

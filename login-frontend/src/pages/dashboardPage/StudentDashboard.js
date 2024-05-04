@@ -22,7 +22,7 @@ function DataTable() {
           <div className="col-md-2 leftBody">
             <ul className="nav flex-column">
               <li className="nav-item" style={{ marginTop: '2rem', cursor: 'pointer' }}>
-                <a onClick={() => handleNavigation('TeacherInfo')}>
+                <a onClick={() => handleNavigation('StudentInfo')}>
                     <i className="fa-regular fa-address-book fa-2x"></i> Personal
                 </a>
               </li>

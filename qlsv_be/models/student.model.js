@@ -39,7 +39,7 @@ const studentSchema = new mongoose.Schema(
       // Training information
     training_info:{
         yearOfAdmission: String,
-        traingTime: String,
+        trainingTime: String,
         educationProgram: String,
         status: String,
         expectSemester: String,

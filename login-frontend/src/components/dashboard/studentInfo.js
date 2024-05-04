@@ -7,7 +7,7 @@ function StudentInfo() {
   const toggleSwitch = () => {
     setCurrentView(currentView === 'StudentInfo' ? 'EditStudent' : 'StudentInfo');
   }
-
+  
   const [mssv, setMssv] = useState('');  const [gender, setGender] = useState('');
   const [faculty, setFaculty] = useState('');  const [name, setName] = useState('');
   const [birthday, setBirthday] = useState('');  const [classId, setClassId] = useState('');
@@ -137,7 +137,7 @@ function StudentInfo() {
             <div className="data-container" style={{ display: 'flex' }}> 
               <div className="data-box" style={{ marginLeft: '4vh' }}>
                 <div style={{ textAlign: 'center' }}>
-                  <i className="fa-regular fa-id-badge fa-8x"></i>
+                  <img src={''} alt="avatar" style={{ padding: '3vh', backgroundColor: 'rgb(204, 203, 203)' }} />
                 </div>
                 <p style={{ fontWeight: 'bold' }}>
                   Last profile photo update time: ___

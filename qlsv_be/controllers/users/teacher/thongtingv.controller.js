@@ -5,7 +5,7 @@ module.exports.dashboard = async (req, res) => {
     try {
         const tea = await teacher.findOne({"msgv": msgv})
         .select({"password": 0, "passwordChanged": 0});
-        res.json(tea); // send response to client
+        res.json({tea}); // send response to client
     } catch (error) {
         console.error(error);
         res.status(500).send('Server error'); // send error response to client

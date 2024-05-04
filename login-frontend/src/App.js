@@ -39,8 +39,6 @@ function App() {
             <Route path='/student/mycourse' element={<MyCourse />} />
             <Route path='/student/courseRegistration' element={<CourseRegistration />} />
             
-            {/*<Route path='/admin/dashboard/student/add' element={<AdminStudent />} />*/}
-            {/* <Route path='/admin/dashboard/teacher/add' element={<AdminTeacher />} /> */}
             <Route path='/admin/dashboard/student/:studentid' element={<AdminStudentEdit />} />
             <Route path='/admin/dashboard/teacher/:teacherid' element={<AdminTeacherEdit />} />
             {/* <Route path='/admin/dashboard/student/:studentid' element={<AdminDashBoard />} />

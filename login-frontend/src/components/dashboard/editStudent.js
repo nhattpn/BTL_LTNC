@@ -3,10 +3,12 @@ import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup } from 'react-boot
 import { ViewContext } from '../../pages/dashboardPage/StudentDashboard';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 function EditStudent() {
+  const jwtToken = sessionStorage.getItem('jwtToken');
   const {currentView, setCurrentView} = useContext(ViewContext);
   const toggleSwitch = () => {
     setCurrentView(currentView === 'StudentInfo' ? 'EditStudent' : 'StudentInfo');
-  }
+  };
+
   const [formData, setFormData] = useState({
     name: '',
     mssv: '',
@@ -25,7 +27,7 @@ function EditStudent() {
     },
     training_info: {
       yearOfAdmission: '',
-      traingTime: '',
+      trainingTime: '',
       educationProgram: '',
       status: '',
       expectSemester: '',
@@ -36,7 +38,26 @@ function EditStudent() {
       expectGrationDate: '',
     }    
   });
-  const jwtToken = sessionStorage.getItem('jwtToken');
+  const getData = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/student/dashboard/thongtinsinhvien", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        const result = await response.json();
+        sessionStorage.setItem('userdata', JSON.stringify(result[0]));
+      }
+      else {
+        console.error("Failed to get all student(s)");
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -50,6 +71,7 @@ function EditStudent() {
       });
       if (response.ok) {
         console.log('Update successfully');
+        getData();
         alert('Update successfully.');
       } else {
         console.error('Failed to update student');
@@ -204,10 +226,10 @@ function EditStudent() {
             <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
               <label htmlFor="" className="form-label"><b>#Year of Admission</b></label>
               <input type="text" className="form-control" id="" placeholder="Enter"value={formData.training_info.yearOfAdmission} 
-                onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, traingTime: e.target.value}} )} />
+                onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, yearOfAdmission: e.target.value}} )} />
               
               <label htmlFor="" className="form-label"><b>#Training Time</b></label>
-              <input type="text" className="form-control" id="" placeholder="Enter"value={formData.training_info.traingTime} 
+              <input type="text" className="form-control" id="" placeholder="Enter"value={formData.training_info.trainingTime} 
                 onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, traingTime: e.target.value}} )} />
               
               <label htmlFor="" className="form-label"><b>#Education Program</b></label>
@@ -232,8 +254,8 @@ function EditStudent() {
             </Col>
             <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
               <label htmlFor="" className="form-label"><b>#Accumulate Academic Credits</b></label>
-              <input type="text" className="form-control" id="" placeholder="Enter"aria-label="Số CCCD" value={formData.training_info.AAC} 
-                onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, cccd: e.target.AAC}} )} />
+              <input type="text" className="form-control" id="" placeholder="Enter" value={formData.training_info.AAC} 
+                onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, AAC: e.target.AAC}} )} />
 
               <label htmlFor="" className="form-label"><b>#GPA</b></label>
               <input type="text" className="form-control" id="" placeholder="Enter"value={formData.training_info.GPA} 
