@@ -47,10 +47,12 @@ function DataTable() {
           </div>
 
           <div className="col-md-10 rightBody">
-            <ViewContext.Provider value={{currentView, setCurrentView}} >
-              {currentView === 'StudentInfo' && <StudentInfo />}
-              {currentView === 'EditStudent' && <EditStudent />}
-            </ViewContext.Provider>
+            <div className="dataTable mx-auto">
+              <ViewContext.Provider value={{currentView, setCurrentView}} >
+                {currentView === 'StudentInfo' && <StudentInfo />}
+                {currentView === 'EditStudent' && <EditStudent />}
+              </ViewContext.Provider>
+            </div>
           </div>
         </div>
       </div>

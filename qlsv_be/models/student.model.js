@@ -38,18 +38,16 @@ const studentSchema = new mongoose.Schema(
     },
       // Training information
     training_info:{
-        namNhapHoc: String,
-        giaHanHocKy: String,
-        soHocKyDaoTao: Number,
-        soHocKyDaoTaoToiDa: Number,
-        thoiGianDaoTao: String,
-        thoiGianDaoTaoToiDa: String,
-        namHoc: String,
-        capHoc: String,
-        heDaoTao: String,
-        nganhDaoTao: String,
-        trangThaiSinhVien: String,
-        
+        yearOfAdmission: String,
+        traingTime: String,
+        educationProgram: String,
+        status: String,
+        expectSemester: String,
+        maximumSemester: String,
+        AAC: String,
+        GPA: String,
+        major: String,
+        expectGrationDate: String,
     },
     courseEnroll: {
         type: [couSem],

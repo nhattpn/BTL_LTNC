@@ -8,19 +8,19 @@ function StudentInfo() {
     setCurrentView(currentView === 'StudentInfo' ? 'EditStudent' : 'StudentInfo');
   }
 
-  const [mssv, setMssv] = useState('');
-  const [gender, setGender] = useState('');
-  const [faculty, setFaculty] = useState('');
-  const [name, setName] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [classId, setClassId] = useState('');
-  const [cccd, setCccd] = useState('');
-  const [cccdDay, setCccdDay] = useState('');
-  const [cccdLocation, setCccdLocation] = useState('');
-  const [address, setAddress] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [email, setEmail] = useState('');
+  const [mssv, setMssv] = useState('');  const [gender, setGender] = useState('');
+  const [faculty, setFaculty] = useState('');  const [name, setName] = useState('');
+  const [birthday, setBirthday] = useState('');  const [classId, setClassId] = useState('');
+  const [cccd, setCccd] = useState('');  const [cccdDay, setCccdDay] = useState('');
+  const [cccdLocation, setCccdLocation] = useState('');  const [address, setAddress] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');  const [email, setEmail] = useState('');
   const [personalEmail, setPersonalEmail] = useState('');
+
+  const[yearOfAdmission, setYearOfAdmission] = useState('');  const [traingTime, setTraingTime] = useState('');
+  const [educationProgram, setEducationProgram] = useState('');  const [status, setEtatus] = useState('');
+  const [expectSemester, setExpectSemester] = useState('');  const [maximumSemester, setMaximumSemester] = useState('');
+  const [AAC, setAAC] = useState('');  const [GPA, setGPA] = useState('');
+  const [major, setMajor] = useState('');  const [expectGrationDate, setExpectGrationDate] = useState('');
   useEffect(() => {
     const userdata = sessionStorage.getItem('userdata');
     if(userdata){
@@ -38,6 +38,17 @@ function StudentInfo() {
       setPhoneNumber(retrivedata.private_info?.phoneNumber || '');
       setEmail(retrivedata.private_info?.email || '');
       setPersonalEmail(retrivedata.private_info?.personalEmail || '');
+
+      setYearOfAdmission(retrivedata.training_info?.yearOfAdmission || '');
+      setTraingTime(retrivedata.training_info?.traingTime || '');
+      setEducationProgram(retrivedata.training_info?.educationProgram || '');
+      setEtatus(retrivedata.training_info?.status || '');
+      setExpectSemester(retrivedata.training_info?.expectSemester || '');
+      setMaximumSemester(retrivedata.training_info?.maximumSemester || '');
+      setAAC(retrivedata.training_info?.AAC || '');
+      setGPA(retrivedata.training_info?.GPA || '');
+      setMajor(retrivedata.training_info?.major || '');
+      setExpectGrationDate(retrivedata.training_info?.expectGrationDate || '');
     }
   }, [])
 
@@ -134,25 +145,25 @@ function StudentInfo() {
               </div>
               <div className="data-box">
                 <p style={{ fontWeight: 'bold' }}>#Year of Admission</p>
-                <p>{''||'None'}</p>
+                <p>{yearOfAdmission||'None'}</p>
                 <p style={{ fontWeight: 'bold' }}>#Training Time</p>
-                <p>{''||'None'}</p>
+                <p>{traingTime||'None'}</p>
                 <p style={{ fontWeight: 'bold' }}>#Education Program</p>
-                <p>{''||'None'}</p>
+                <p>{educationProgram||'None'}</p>
               </div>
               <div className="data-box">
                 <p style={{ fontWeight: 'bold' }}>#Status</p>
-                <p>{''||'None'}</p>
+                <p>{status||'None'}</p>
                 <p style={{ fontWeight: 'bold' }}>#Expected number of semesters</p>
-                <p>{''||'None'}</p>
+                <p>{expectSemester||'None'}</p>
                 <p style={{ fontWeight: 'bold' }}>#Maximum Number of Semesters</p>
-                <p>{''||'None'}</p>
+                <p>{maximumSemester||'None'}</p>
               </div>
               <div className="data-box">
-                <p style={{ fontWeight: 'bold' }}>#Cumulative Academic Credits</p>
-                <p>{''||'None'}</p>
+                <p style={{ fontWeight: 'bold' }}>#Accumulate Academic Credits</p>
+                <p>{AAC||'None'}</p>
                 <p style={{ fontWeight: 'bold' }}>#GPA</p>
-                <p>{''||'None'}</p>
+                <p>{GPA||'None'}</p>
               </div>
             </div>
             <div className="smallbox">
@@ -161,11 +172,11 @@ function StudentInfo() {
             <div className="data-container" style={{ display: 'flex' }}>
               <div className="data-box" style={{ marginLeft: '4vh' }}>
                 <p style={{ fontWeight: 'bold' }}>#Major</p>
-                <p>{''||'None'}</p>
+                <p>{major||'None'}</p>
               </div>
               <div className="data-box">
                 <p style={{ fontWeight: 'bold' }}>#Expected Graduation Date</p>
-                <p>{''||'None'}</p>
+                <p>{expectGrationDate||'None'}</p>
               </div>
             </div>
           </div>

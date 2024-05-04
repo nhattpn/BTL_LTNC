@@ -23,7 +23,18 @@ function EditStudent() {
       email: '',
       personalEmail: '',
     },
-    training_info: ''    
+    training_info: {
+      yearOfAdmission: '',
+      traingTime: '',
+      educationProgram: '',
+      status: '',
+      expectSemester: '',
+      maximumSemester: '',
+      AAC: '',
+      GPA: '',
+      major: '',
+      expectGrationDate: '',
+    }    
   });
   const jwtToken = sessionStorage.getItem('jwtToken');
   const handleSubmit = async (e) => {
@@ -179,11 +190,75 @@ function EditStudent() {
               Training Infomation
             </p>
           </div>
+          <Row style={{ width: '96%', margin: 'auto' }}>
+            <Col sm={3}>
+              <div style={{ textAlign: 'center' }}>
+                <img src={''} alt="avatar" style={{ padding: '3vh', backgroundColor: 'rgb(204, 203, 203)' }} />
+              </div>
+              <div style={{ textAlign: 'center' }}>
+                <b style={{ textAlign: 'center' }}>
+                  Last profile photo update time: ___
+                </b>
+              </div>
+            </Col>
+            <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
+              <label htmlFor="" className="form-label"><b>#Year of Admission</b></label>
+              <input type="text" className="form-control" id="" placeholder="Enter"value={formData.training_info.yearOfAdmission} 
+                onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, traingTime: e.target.value}} )} />
+              
+              <label htmlFor="" className="form-label"><b>#Training Time</b></label>
+              <input type="text" className="form-control" id="" placeholder="Enter"value={formData.training_info.traingTime} 
+                onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, traingTime: e.target.value}} )} />
+              
+              <label htmlFor="" className="form-label"><b>#Education Program</b></label>
+              <input type="text" className="form-control" id="" placeholder="Enter"value={formData.training_info.educationProgram} 
+                onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, educationProgram: e.target.value}} )} />
+              
+            </Col>
+            <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
+              
+              <label htmlFor="" className="form-label"><b>#Status</b></label>
+              <input type="text" className="form-control" id="" placeholder="Enter"value={formData.training_info.status} 
+                onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, status: e.target.value}} )} />
+              
+              <label htmlFor="" className="form-label"><b>#Expected number of semesters</b></label>
+              <input type="text" className="form-control" id="" placeholder="Enter"value={formData.training_info.expectSemester} 
+                onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, expectSemester: e.target.value}} )} />
+              
+              <label htmlFor="" className="form-label"><b>#Maximum Number of Semesters</b></label>
+              <input type="text" className="form-control" id="" placeholder="Enter"value={formData.training_info.maximumSemester} 
+                onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, maximumSemester: e.target.value}} )} />
+              
+            </Col>
+            <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
+              <label htmlFor="" className="form-label"><b>#Accumulate Academic Credits</b></label>
+              <input type="text" className="form-control" id="" placeholder="Enter"aria-label="Số CCCD" value={formData.training_info.AAC} 
+                onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, cccd: e.target.AAC}} )} />
+
+              <label htmlFor="" className="form-label"><b>#GPA</b></label>
+              <input type="text" className="form-control" id="" placeholder="Enter"value={formData.training_info.GPA} 
+                onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, GPA: e.target.value}} )} />
+            </Col>
+          </Row>
           <div style={{ backgroundColor: 'rgb(204, 203, 203)', fontWeight: 'bold', width: '96%', margin: '2% auto' }}>
             <p style={{ boxShadow: '2px 2px 10px rgb(104, 103, 103)' }}>
               Graduated Infomation
             </p>
           </div>
+          <Row style={{ width: '96%', margin: '2% auto' }}>
+            <Col sm={3}>
+              <div style={{ paddingLeft: '1vh' }}>
+                <label htmlFor="diachi" className="form-label"><b>#Major</b></label>
+                <input type="text" className="form-control" id="diachi" placeholder="Enter" value={formData.training_info.major} 
+                  onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, major: e.target.value}} )} />
+              </div>
+            </Col>
+            <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
+              <label htmlFor="sdt" className="form-label"><b>#Expected Graduation Date</b></label>
+              <input type="text" className="form-control" id="sdt" placeholder="Enter" value={formData.training_info.expectGrationDate} 
+                onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, expectGrationDate: e.target.value}} )} />
+            </Col>
+          </Row>
           <Button type="submit" onClick={handleSubmit} style={{marginLeft: '40em', backgroundColor: 'green', width: '10vh'}}>
             Save
           </Button>
