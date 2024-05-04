@@ -23,7 +23,7 @@ const userRoute = require('./routes/users/index.route');
 
 
 // Connect to MongoDB
-//To test this db with local host, use mongodb://localhost:27017/MUT_LMS
+//To use locally, use 'mongodb://localhost:27017/MUT_LMS'
 mongoose.connect(process.env.ATLAS_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
@@ -46,4 +46,4 @@ adminRoute(app);
 userRoute(app);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));

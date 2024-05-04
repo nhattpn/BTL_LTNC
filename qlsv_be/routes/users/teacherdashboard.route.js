@@ -8,8 +8,11 @@ const cloudinary = require('../../configs/cloudinary')
 const multer = require('multer');
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  folder: 'images',
-  allowedFormats: ['jpg', 'png', 'jpeg'],
+  params: {
+    folder: 'image',  // Thay 'desired_folder_name' bằng tên folder bạn chọn
+    allowedFormats: ['jpeg', 'png'],  // Định dạng file cho phép
+    public_id: (req, file) => file.originalname  // Sử dụng tên file gốc làm public ID
+  }
 });
 
 const upload = multer({ storage: storage });
