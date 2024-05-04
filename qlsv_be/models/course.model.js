@@ -13,8 +13,7 @@ const courseSchema = new mongoose.Schema({
     tinhchihocphi:{type: Number, required: false },
     STT:{type: Number, required: false },
     classroom: {
-        room: {type: String, required: false },
-        building: {type: String, required: false },
+        type: String
     },
     midterm:{
         examDay: {type: String,required: false },
