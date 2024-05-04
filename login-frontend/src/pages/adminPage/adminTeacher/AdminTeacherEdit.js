@@ -15,32 +15,27 @@ function AdminTeacherEdit() {
       <Row>
         <Col sm={2}>
           <ul className="nav flex-column" style={{ height: '100%', backgroundColor: 'rgb(58, 35, 35)', color: 'white' }}>
-            <li className="nav-item" style={{ paddingTop: '2rem' }}>
-              <Link to='/' style={{ color: 'white', padding: '0', textDecoration: 'none' }}>
-                <i className="fas fa-solid fa-home fa-md fa-2x"></i> Trang chủ
-              </Link>
-            </li>
             <li className="nav-item" style={{ paddingTop: '2rem', cursor: 'pointer' }} onClick={() => setIsOpen(!isOpen)}>
-              <i className="fas fa-regular fa-id-badge fa-md fa-2x"></i> Thông tin cá nhân
-              <i class="fa-solid fa-angles-down"></i>
+              <i className="fas fa-regular fa-id-badge fa-md fa-2x"></i> User Information
+              <i className="fa-solid fa-angles-down"></i>
             </li>
             {isOpen && (
               <ul>
                 <li className="nav-item" style={{ paddingTop: '2rem' }}>
-                  <Link to='/admin/dashboard/student/add' style={{ color: 'white', padding: '0', textDecoration: 'none' }}>
-                    Sinh viên
+                  <Link to='/admin/dashboard' style={{ color: 'white', padding: '0', textDecoration: 'none' }}>
+                    Student
                   </Link>
                 </li>
                 <li className="nav-item" style={{ paddingTop: '2rem' }}>
                   <div style={{ color: '#90f216', padding: '0' }}>
-                    Giảng viên
+                    Teacher
                   </div>
                 </li>
               </ul>
             )}
             <li className="nav-item" style={{ paddingTop: '2rem' }}>
-              <Link to='/bangdieukhien' style={{ color: 'white', padding: '0', textDecoration: 'none' }}>
-                <i className="fa fa-solid fa-question fa-md fa-2x"></i> Bảng điều khiển
+              <Link to='/dashboard' style={{ color: 'white', padding: '0', textDecoration: 'none' }}>
+                <i className="fa fa-solid fa-question fa-md fa-2x"></i> Dashboard
               </Link>
             </li>
           </ul>

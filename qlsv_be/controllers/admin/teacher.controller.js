@@ -15,7 +15,7 @@ const addTeacher = async (req, res) => {
     try {
         const { name, email, private_info, training_info } = req.body;
 
-        // Generate new mssv
+        // Generate new msgv
         let msgv = await generateUniqueMsgv();
 
         // Check if email is already taken
@@ -47,6 +47,8 @@ const deleteTeacher = async (req, res) => {
         if (!deletedTeacher) {
             return res.status(404).json({ message: "Teacher not found." });
         }
+
+        res.status(200).json({ message: "Teacher deleted successfully." });
     }
     catch (error) {
         res.status(500).json({ message: error.message });
@@ -76,12 +78,12 @@ const updateTeacher = async (req, res) => {
     }
 };
 
-// Find a student by mssv
+// Find a teacher by msgv
 const findTeacherByMsgv = async (req, res) => {
-    const { mssv } = req.params;
+    const { msgv } = req.params;
 
     try {
-        const teacher = await Teacher.findOne({ mssv: mssv });
+        const teacher = await Teacher.findOne({ msgv: msgv });
         if (!teacher) {
             return res.status(404).json({ message: "Teacher not found." });
         }

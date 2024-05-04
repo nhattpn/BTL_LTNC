@@ -8,6 +8,7 @@ import Footer from '../../../components/header_footer/Footer';
 
 function AdminStudentEdit() {
   const [isOpen, setIsOpen] = useState(true);
+  
   const [mssv, setMssv] = useState('SV0000000');
   const [gender, setGender] = useState('M');
   const [faculty, setFaculty] = useState('CSE');
@@ -20,8 +21,17 @@ function AdminStudentEdit() {
   const [unit, setUnit] = useState('CSE');
   const [address, setAddress] = useState('KTX khu A');
   const [phoneNumber, setPhoneNumber] = useState('0123456789');
-  const [universityEmail, setUniversityEmail] = useState('abcxyz@mut.edu.vn');
-  const [email, setEmail] = useState('123456@gmail.com');
+  const [email, setEmail] = useState('abcxyz@mut.edu.vn');
+  const [personalEmail, setPersonalEmail] = useState('123456@gmail.com');
+  const [info, setInfo] = useState({});
+  
+  useEffect(() => {
+    const userdata = sessionStorage.getItem('userdata');
+    if(userdata){
+      const retrivedata = JSON.parse(userdata);
+      setInfo(retrivedata);
+    }
+  }, [])
 
   return (
     <>
@@ -29,32 +39,27 @@ function AdminStudentEdit() {
       <Row>
         <Col sm={2}>
           <ul className="nav flex-column" style={{ height: '100%', backgroundColor: 'rgb(58, 35, 35)', color: 'white' }}>
-            <li className="nav-item" style={{ paddingTop: '2rem' }}>
-              <Link to='/' style={{ color: 'white', padding: '0', textDecoration: 'none' }}>
-                <i className="fas fa-solid fa-home fa-md fa-2x"></i> Trang chủ
-              </Link>
-            </li>
             <li className="nav-item" style={{ paddingTop: '2rem', cursor: 'pointer' }} onClick={() => setIsOpen(!isOpen)}>
-              <i className="fas fa-regular fa-id-badge fa-md fa-2x"></i> Thông tin cá nhân
-              <i class="fa-solid fa-angles-down"></i>
+              <i className="fas fa-regular fa-id-badge fa-md fa-2x"></i> User Information
+              <i className="fa-solid fa-angles-down"></i>
             </li>
             {isOpen && (
               <ul>
                 <li className="nav-item" style={{ paddingTop: '2rem' }}>
                   <div style={{ color: '#90f216', padding: '0' }}>
-                    Sinh viên
+                    Student
                   </div>
                 </li>
                 <li className="nav-item" style={{ paddingTop: '2rem' }}>
-                  <Link to={'/admin/dashboard/teacher/add'} style={{ color: 'white', padding: '0', textDecoration: 'none' }}>
-                    Giảng viên
+                  <Link to={'/admin/dashboard'} style={{ color: 'white', padding: '0', textDecoration: 'none' }}>
+                    Teacher
                   </Link>
                 </li>
               </ul>
             )}
             <li className="nav-item" style={{ paddingTop: '2rem' }}>
-              <Link to='/bangdieukhien' style={{ color: 'white', padding: '0', textDecoration: 'none' }}>
-                <i className="fa fa-solid fa-question fa-md fa-2x"></i> Bảng điều khiển
+              <Link to='/dashboard' style={{ color: 'white', padding: '0', textDecoration: 'none' }}>
+                <i className="fa fa-solid fa-question fa-md fa-2x"></i> Dashboard
               </Link>
             </li>
           </ul>
@@ -63,16 +68,16 @@ function AdminStudentEdit() {
           <Tab.Container defaultActiveKey={'#info'}>
             <ListGroup style={{ marginTop: '2%', flexDirection: 'row' }}>
               <ListGroup.Item action href="#info" style={{ width: '25%' }}>
-                <b>Thông tin sinh viên</b>
+                <b>Personal Information</b>
               </ListGroup.Item>
               <ListGroup.Item action href="#training" style={{ width: '25%' }}>
-                <b>Thông tin đào tạo</b>
+                <b>Training Information</b>
               </ListGroup.Item>
             </ListGroup>
             
             <div style={{ margin: '10px 0', borderTop: '1px solid gray', borderBottom: '1px solid gray' }}>
               <i>
-                <b>Thời điểm cập nhật gần nhất:</b>
+                <b>Last profile update time: ___</b>
               </i>
               <b>dd/mm/yyyy realtime</b>
             </div>
@@ -81,7 +86,7 @@ function AdminStudentEdit() {
               <Tab.Pane eventKey='#info' style={{ borderTop: 'none' }}>
                 <div style={{ backgroundColor: 'rgb(204, 203, 203)', fontWeight: 'bold', width: '96%', margin: '2% auto' }}>
                   <p style={{ boxShadow: '2px 2px 10px rgb(104, 103, 103)' }}>
-                    Thông tin cá nhân
+                    Personal Information
                   </p>
                 </div>
                 <Row style={{ width: '96%', margin: 'auto' }}>
@@ -91,81 +96,81 @@ function AdminStudentEdit() {
                     </div>
                     <div style={{ textAlign: 'center' }}>
                       <b style={{ textAlign: 'center' }}>
-                        Thời điểm cập nhật ảnh thẻ gần nhất: ___
+                        Last profile photo update time: ___
                       </b>
                     </div>
                   </Col>
                   <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
-                    <label htmlFor="mssv" className="form-label"><b>#Mã số sinh viên</b></label>
+                    <label htmlFor="mssv" className="form-label"><b>#Student ID</b></label>
                     <input type="text" className="form-control" id="mssv" placeholder="Nhập Mã số sinh viên" aria-label="Mã số sinh viên" value={mssv} onChange={(e) => setMssv(e.target.value)} />
 
                     <div style={{ marginBottom: '6px' }}>
-                      <p style={{ fontWeight: 'bold' }}>#Giới tính</p>
+                      <p style={{ fontWeight: 'bold' }}>#Sex</p>
                       <input className="form-check-input" type="radio" name="gioitinh" id="nam" value='M' checked={gender === 'M'} onChange={(e) => setGender(e.target.value)} />
                       <label className="form-check-label" htmlFor="nam">
-                        Nam
+                        Male
                       </label>
                       <input className="form-check-input" type="radio" name="gioitinh" id="nu" value='F' checked={gender === 'F'} onChange={(e) => setGender(e.target.value)} />
                       <label className="form-check-label" htmlFor="nu">
-                        Nữ
+                        Female
                       </label>
                       <input className="form-check-input" type="radio" name="gioitinh" id="khac" value='O' checked={gender === 'O'} onChange={(e) => setGender(e.target.value)} />
                       <label className="form-check-label" htmlFor="khac">
-                        Khác
+                        Other
                       </label>
                     </div>
 
-                    <label htmlFor="khoa" className="form-label"><b>#Khoa</b></label>
+                    <label htmlFor="khoa" className="form-label"><b>#Faculty</b></label>
                     <input type="text" className="form-control" id="khoa" placeholder="Nhập Khoa" aria-label="Khoa" value={faculty} onChange={(e) => setFaculty(e.target.value)} />
                   </Col>
                   <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
-                    <label htmlFor="hovaten" className="form-label"><b>#Họ & Tên</b></label>
+                    <label htmlFor="hovaten" className="form-label"><b>#Full Name</b></label>
                     <input type="text" className="form-control" id="hovaten" placeholder="Nhập Họ & tên" aria-label="Họ & tên" value={fullName} onChange={(e) => setFullName(e.target.value)} />
 
-                    <label htmlFor="ngaysinh" className="form-label"><b>#Ngày sinh</b></label>
+                    <label htmlFor="ngaysinh" className="form-label"><b>#Day of Births</b></label>
                     <input type="date" className="form-control" id="ngaysinh" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
 
-                    <label htmlFor="malop" className="form-label"><b>#Mã lớp</b></label>
+                    <label htmlFor="malop" className="form-label"><b>#Class</b></label>
                     <input type="text" className="form-control" id="malop" placeholder="Nhập Mã lớp" aria-label="Mã lớp" value={classId} onChange={(e) => setClassId(e.target.value)} />
                   </Col>
                   <Col sm={2} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
-                    <label htmlFor="cccd" className="form-label"><b>#Số CCCD</b></label>
+                    <label htmlFor="cccd" className="form-label"><b>#Identity Card Number</b></label>
                     <input type="text" className="form-control" id="cccd" placeholder="Nhập Số CCCD" aria-label="Số CCCD" value={cccd} onChange={(e) => setCccd(e.target.value)} />
 
-                    <label htmlFor="ngaycapcccd" className="form-label"><b>#Ngày cấp CCCD</b></label>
+                    <label htmlFor="ngaycapcccd" className="form-label"><b>#Date of issue of identity card</b></label>
                     <input type="date" className="form-control" id="ngaycapcccd" value={cccdDay} onChange={(e) => setCccdDay(e.target.value)} />
                     
-                    <label htmlFor="noicapcccd" className="form-label"><b>#Nơi cấp CCCD</b></label>
+                    <label htmlFor="noicapcccd" className="form-label"><b>#Place of issue of identity card</b></label>
                     <input type="text" className="form-control" id="noicapcccd" placeholder="Nhập Nơi cấp CCCD" aria-label="Nơi cấp CCCD" value={cccdLocation} onChange={(e) => setCccdLocation(e.target.value)} />
                   </Col>
                   <Col sm={2} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
-                    <label htmlFor="donviquanly" className="form-label"><b>#Đơn vị quản lý</b></label>
+                    <label htmlFor="donviquanly" className="form-label"><b>#Manager Unit</b></label>
                     <input type="text" className="form-control" id="donviquanly" placeholder="Nhập Đơn vị quản lý" aria-label="Đơn vị quản lý" value={unit} onChange={(e) => setUnit(e.target.value)} />
                   </Col>
                 </Row>
                 <div style={{ backgroundColor: 'rgb(204, 203, 203)', fontWeight: 'bold', width: '96%', margin: '2% auto' }}>
                   <p style={{ boxShadow: '2px 2px 10px rgb(104, 103, 103)' }}>
-                    Thông tin liên lạc
+                    Address Information
                   </p>
                 </div>
                 <Row style={{ width: '96%', margin: '2% auto' }}>
                   <Col sm={3}>
                     <div style={{ paddingLeft: '1vh' }}>
-                      <label htmlFor="diachi" className="form-label"><b>#Địa chỉ</b></label>
+                      <label htmlFor="diachi" className="form-label"><b>#Address</b></label>
                       <input type="text" className="form-control" id="diachi" placeholder="Nhập Địa chỉ" aria-label="Địa chỉ" value={address} onChange={(e) => setAddress(e.target.value)} />
                     </div>
                   </Col>
                   <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
-                    <label htmlFor="sdt" className="form-label"><b>#Số điện thoại</b></label>
+                    <label htmlFor="sdt" className="form-label"><b>#Telephone Number</b></label>
                     <input type="text" className="form-control" id="sdt" placeholder="Nhập Số điện thoại" aria-label="Số điện thoại" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
                   </Col>
                   <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
-                    <label htmlFor="emailtruong" className="form-label"><b>#Email trường</b></label>
-                    <input type="text" className="form-control" id="emailtruong" placeholder="Nhập Email trường" aria-label="Email trường" value={universityEmail} onChange={(e) => setUniversityEmail(e.target.value)} />
+                    <label htmlFor="emailtruong" className="form-label"><b>#University Email</b></label>
+                    <input type="text" className="form-control" id="emailtruong" placeholder="Nhập Email trường" aria-label="Email trường" value={email} onChange={(e) => setEmail(e.target.value)} />
                   </Col>
                   <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
-                    <label htmlFor="email" className="form-label"><b>#Email liên lạc</b></label>
-                    <input type="text" className="form-control" id="email" placeholder="Nhập Em#Email liên lạc" aria-label="Em#Email liên lạc" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <label htmlFor="email" className="form-label"><b>#Other Email</b></label>
+                    <input type="text" className="form-control" id="email" placeholder="Nhập Email liên lạc" aria-label="Em#Email liên lạc" value={personalEmail} onChange={(e) => setPersonalEmail(e.target.value)} />
                   </Col>
                 </Row>
               </Tab.Pane>
@@ -173,12 +178,12 @@ function AdminStudentEdit() {
               <Tab.Pane eventKey='#training' style={{ borderTop: 'none' }}>
                 <div style={{ backgroundColor: 'rgb(204, 203, 203)', fontWeight: 'bold', width: '96%', margin: '2% auto' }}>
                   <p style={{ boxShadow: '2px 2px 10px rgb(104, 103, 103)' }}>
-                    Thông tin đào tạo
+                    Training Infomation
                   </p>
                 </div>
                 <div style={{ backgroundColor: 'rgb(204, 203, 203)', fontWeight: 'bold', width: '96%', margin: '2% auto' }}>
                   <p style={{ boxShadow: '2px 2px 10px rgb(104, 103, 103)' }}>
-                    Thông tin tốt nghiệp
+                    Graduated Infomation
                   </p>
                 </div>
               </Tab.Pane>
