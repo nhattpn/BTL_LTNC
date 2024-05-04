@@ -19,7 +19,7 @@ const addCourse = async (req, res) => {
     const newCourse = new Course({
         semester: req.body.semester,
         courseCode: req.body.courseCode,
-        courseName: req.body.name,
+        courseName: req.body.courseName,
         instructorName: req.body.instructorName,
         msgv: req.body.msgv,
         credit: req.body.credit,
@@ -46,7 +46,7 @@ const updateCourse = async (req, res) => {
     const courseUpdate = {
       semester: req.body.semester,
       courseCode: req.body.courseCode,
-      courseName: req.body.name,
+      courseName: req.body.courseName,
       instructorName: req.body.instructorName,
       msgv: req.body.msgv,
       credit: req.body.credit,
