@@ -22,8 +22,9 @@ function EditTeacher() {
     training_info: ''    
   });
   const getData = async () => {
+    const id = window.location.pathname.split('/')[4];
     try {
-      const response = await fetch("http://localhost:5000/admin/dashboard/teacher/:msgv", {
+      const response = await fetch(`http://localhost:5000/admin/dashboard/teacher/${id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
@@ -32,7 +33,7 @@ function EditTeacher() {
       });
       if (response.status === 200) {
         const result = await response.json();
-        sessionStorage.setItem('editData', JSON.stringify(result[0]));
+        sessionStorage.setItem('editData', JSON.stringify(result));
       }
       else {
         console.error("Failed to get all student(s)");
@@ -43,8 +44,9 @@ function EditTeacher() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const id = window.location.pathname.split('/')[4];
     try {
-      const response = await fetch(`http://localhost:5000/admin/dashboard/teacher/:msgv`, {
+      const response = await fetch(`http://localhost:5000/admin/dashboard/teacher/${id}`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${jwtToken}`,

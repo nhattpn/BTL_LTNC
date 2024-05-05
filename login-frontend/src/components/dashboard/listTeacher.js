@@ -33,6 +33,9 @@ function ListTeacher() {
   // Lấy JWT từ Session Storage
   const jwtToken = sessionStorage.getItem('jwtToken');
   // Gửi yêu cầu GET với JWT trong header
+  useEffect(() => {
+    sessionStorage.removeItem('editData');
+  },[])
   const getAllUser = async () => {
     try {
       const response = await fetch("http://localhost:5000/admin/dashboard/teacher", {
@@ -66,6 +69,7 @@ function ListTeacher() {
       if (response.status === 200) {
         const result = await response.json();
         sessionStorage.setItem('editData', JSON.stringify(result));
+        setCurrentView('AdminEditTeacher'); 
       }
       else {
         console.error("Failed to get user");
@@ -197,7 +201,7 @@ function ListTeacher() {
         accessorKey: 'edit',
         header: 'Edit',
         Cell: ({ row }) => (
-          <a onClick={() => {setCurrentView('AdminEditTeacher'); getData(row)}}>
+          <a onClick={(e) => {e.preventDefault();getData(row)}}>
           <Link to={`/admin/dashboard/teacher/${row.original.msgv}`} style={{ padding: 0 }}>
             <IconButton >
               <svg width="23" height="26" viewBox="0 0 23 26" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect, useRef, createContext, useContext } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { ViewContext } from '../../pages/dashboardPage/AdminDashboard';
 import {
   MRT_EditActionButtons,
@@ -21,6 +21,9 @@ function ListStudent() {
   // Lấy JWT từ Session Storage
   const jwtToken = sessionStorage.getItem('jwtToken');
   // Gửi yêu cầu GET với JWT trong header
+  useEffect(() => {
+    sessionStorage.removeItem('editData');
+  },[])
   const getAllUser = async () => {
     try {
       const response = await fetch("http://localhost:5000/admin/dashboard/student", {
@@ -55,6 +58,7 @@ function ListStudent() {
       if (response.status === 200) {
         const result = await response.json();
         sessionStorage.setItem('editData', JSON.stringify(result));
+        setCurrentView('AdminEditStudent'); 
       }
       else {
         console.error("Failed to get user");
@@ -185,7 +189,7 @@ function ListStudent() {
         accessorKey: 'edit',
         header: 'Edit',
         Cell: ({ row }) => (
-          <a onClick={() => {setCurrentView('AdminEditStudent'); getData(row)}}>
+          <a onClick={(e) => {e.preventDefault(); getData(row)}}>
           <Link to={`/admin/dashboard/student/${row.original.mssv}`} style={{ padding: 0 }}>
             <IconButton>
               <svg width="23" height="26" viewBox="0 0 23 26" fill="none" xmlns="http://www.w3.org/2000/svg">

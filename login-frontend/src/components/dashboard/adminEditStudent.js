@@ -45,7 +45,7 @@ function EditStudent() {
       });
       if (response.status === 200) {
         const result = await response.json();
-        sessionStorage.setItem('editData', JSON.stringify(result[0]));
+        sessionStorage.setItem('editData', JSON.stringify(result));
       }
       else {
         console.error("Failed to get student(s)");
@@ -84,7 +84,7 @@ function EditStudent() {
       const retrivedata = JSON.parse(editData);
       setFormData({...formData, ...retrivedata});
     }
-  }, [])
+  }, [sessionStorage.getItem('editData')]);
   return (
     <Tab.Container defaultActiveKey={'#info'}>
       <ListGroup style={{ marginTop: '2%', flexDirection: 'row' }}>
