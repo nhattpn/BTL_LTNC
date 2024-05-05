@@ -34,22 +34,19 @@ const CourseRegistration = () => {
       'scheduleTime': 'hh:mm-hh:mm',
     }
   ]);
-  const [showModal, setShowModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [registeredCourses, setRegisteredCourses] = useState([
     {
-      'stt': '1',
-      'courseCode': 'CO2039',
-      'courseName': 'LTNC',
-      'classroom': '413-H6',
-      'credit': '40',
-      'instructorName': 'Mai Đức Trung',
-      'scheduleDay': 'Thứ 2',
-      'scheduleTime': '13:00-15:00',
+      'stt': '',
+      'courseCode': '',
+      'courseName': '',
+      'classroom': '',
+      'credit': '',
+      'instructorName': '',
+      'scheduleDay': '',
+      'scheduleTime': '',
     }
   ]);
-  const [instructorName, setInstructorName] = useState('');
-  const [scheduleTime, setScheduleTime] = useState('');
 
   // Lấy JWT từ Session Storage
   const jwtToken = sessionStorage.getItem('jwtToken');
@@ -76,33 +73,94 @@ const CourseRegistration = () => {
       console.error('Error fetching data:', error);
     }
   };
+  const getRegCourses = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/student/dashboard/dangkimon/viewReg", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        const result = await response.json();
+        console.log("All registered course(s):", result);
 
-  useEffect(() => {
-    getCourses();
-  }, []);
-
+        setRegisteredCourses(result);
+      }
+      else {
+        console.error("Failed to get all registered course(s)");
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  
   const handleRegister = async (row) => {
     for (let i in registeredCourses) {
       if (row.original.courseCode === registeredCourses[i]['courseCode']) {
-        alert('Môn học đã được đăng ký!!!');
+        alert('Subject has been registered!!!');
         return;
       }
     }
     console.log('Đăng ký cho:', row.original);
-    alert('Đăng ký môn thành công');
-    setInstructorName('');
-    setScheduleTime('');
-    setShowModal(false);
+    let courseid = row.original.courseCode;
+    try {
+      const response = await fetch(`http://localhost:5000/student/dashboard/dangkimon/reg/${courseid}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        const result = await response.json();
+        console.log("Register subject successfully");
+
+        alert('Register subject successfully.');
+
+        getRegCourses();
+      }
+      else {
+        console.error("Failed to register subject");
+
+        alert('Subject has been registered!');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
-  const handleCloseModal = () => {
-    setInstructorName('');
-    setScheduleTime('');
-    setShowModal(false);
+  const handleDelete = async (courseCode) => {
+    //event.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:5000/student/dashboard/dangkimon/delOne/${courseCode}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        const result = await response.json();
+        console.log("Registered subject deleted successfully");
+
+        alert('Registered subject deleted successfully.');
+
+        getRegCourses();
+      }
+      else {
+        console.error("Failed to delete registered subject");
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
-  const handleShowModal = () => {
-    //setSelectedCourse(course);
-    setShowModal(true);
-  };
+
+  useEffect(() => {
+    getCourses();
+    getRegCourses();
+  }, []);
 
   const columns = useMemo(
     () => [
@@ -225,7 +283,6 @@ const CourseRegistration = () => {
     ],
     [validationErrors]
   );
-
   const table = useMaterialReactTable({
     columns,
     data: courses,
@@ -264,7 +321,7 @@ const CourseRegistration = () => {
                 <Table striped bordered hover>
                   <thead>
                     <tr>
-                      <th>STT</th>
+                      {/*<th>STT</th>*/}
                       <th>Mã môn học</th>
                       <th>Tên môn học</th>
                       <th>Phòng học</th>
@@ -277,7 +334,7 @@ const CourseRegistration = () => {
                   <tbody>
                     {registeredCourses.map(registeredCourse => (
                       <tr key={registeredCourse.id}>
-                        <td>{registeredCourse.stt}</td>
+                        {/*<td>{registeredCourse.stt}</td>*/}
                         <td>{registeredCourse.courseCode}</td>
                         <td>{registeredCourse.courseName}</td>
                         <td>{registeredCourse.classroom}</td>
@@ -285,6 +342,7 @@ const CourseRegistration = () => {
                         <td>{registeredCourse.instructorName}</td>
                         <td>{registeredCourse.scheduleDay}</td>
                         <td>{registeredCourse.scheduleTime}</td>
+                        <td><Button variant='danger' onClick={() => handleDelete(registeredCourse.courseCode)}>Hủy đăng ký</Button></td>
                       </tr>
                     ))}
                   </tbody>
@@ -298,42 +356,6 @@ const CourseRegistration = () => {
         </Row>
       </Tab.Container>
       <Footer />
-
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Đăng ký môn ... {/*selectedCourse && selectedCourse.courseName*/}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="formInstructorName">
-              <Form.Label>Giảng viên</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Nhập tên giảng viên"
-                value={instructorName}
-                onChange={(e) => setInstructorName(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group controlId="formScheduleTime">
-              <Form.Label>Giờ học</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Nhập giờ học"
-                value={scheduleTime}
-                onChange={(e) => setScheduleTime(e.target.value)}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Hủy
-          </Button>
-          <Button variant="primary" onClick={handleRegister}>
-            Đăng ký
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </>
   );
 };

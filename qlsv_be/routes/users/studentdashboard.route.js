@@ -1,20 +1,26 @@
 const express = require('express');
 const { body } = require('express-validator');
 const router = express.Router();
-
+const {CloudinaryStorage} = require('multer-storage-cloudinary')
+const cloudinary = require('../../configs/cloudinary')
 const multer = require('multer');
-const path = require('path'); //Upload image
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-      cb(null, 'uploads/')  // Store files in the 'uploads' folder
-    },
-    filename: function(req, file, cb) {
-      cb(null, file.fieldname + '-sv-' + Date.now() + path.extname(file.originalname))  // Create a unique file name
-    }
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'image',  // Thay 'desired_folder_name' bằng tên folder bạn chọn
+    allowedFormats: ['jpeg', 'png', 'jpg'],  // Định dạng file cho phép
+    public_id: (req, file) => file.originalname  // Sử dụng tên file gốc làm public ID
+  }
 });
 
-// Create the upload middleware
 const upload = multer({ storage: storage });
+
+// Route to update a student's information and handle image upload
+router.post('/thongtinsinhvien/updatePicture', upload.fields([{name: 'img', maxCount: 1}]), (req, res) => {
+  const link_img = req.files['img'][0]
+  res.send(link_img);
+});
 
 
 //router
@@ -33,7 +39,7 @@ const khoahoc = require('../../controllers/users/student/khoahoc.controller');
 //get all route
 router.get('/thongtinsinhvien', thongtinSinhVien.dashboard);
 router.put('/thongtinsinhvien', thongtinSinhVien.updateStudent);
-router.post('/thongtinsinhvien/updatePicture', upload.single('image'), thongtinSinhVien.updatePicture);
+//router.post('/thongtinsinhvien/updatePicture', upload.single('image'), thongtinSinhVien.updatePicture);
 router.get('/thongtindaotao', thongtinDaoTao.getAllDaoTao);
 router.get('/tkb', tkb.getTKB);
 router.get('/lichthi', lichthi.getAllLichThi);

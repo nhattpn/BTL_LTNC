@@ -3,7 +3,7 @@ const teacher = require('../../../models/teacher.model');
 module.exports.dashboard = async (req, res) => {
     const {msgv} = req.user
     try {
-        const tea = await teacher.find({"msgv": msgv})
+        const tea = await teacher.findOne({"msgv": msgv})
         .select({"password": 0, "passwordChanged": 0});
         res.json(tea); // send response to client
     } catch (error) {

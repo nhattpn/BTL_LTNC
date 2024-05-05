@@ -36,7 +36,7 @@ function EditTeacher() {
       });
       if (response.status === 200) {
         const result = await response.json();
-        sessionStorage.setItem('userdata', JSON.stringify(result[0]));
+        sessionStorage.setItem('userdata', JSON.stringify(result));
       }
       else {
         console.error("Failed to get all student(s)");

@@ -20,5 +20,4 @@ router.post('/changepassword', [
 
 router.use('/dashboard', authenticate, teacherDashboard);
 
-
 module.exports = router;
