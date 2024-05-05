@@ -11,12 +11,8 @@ import CourseRegistration from './pages/coursePage/CourseRegistration';
 import StudentDashBoard from './pages/dashboardPage/StudentDashboard';
 import TeacherDashBoard from './pages/dashboardPage/TeacherDashBoard';
 import AdminDashBoard from './pages/dashboardPage/AdminDashboard';
-import AdminStudent from './pages/adminPage/adminStudent/AdminStudent';
 import AdminStudentEdit from './pages/adminPage/adminStudent/AdminStudentEdit';
-import AdminTeacher from './pages/adminPage/adminTeacher/AdminTeacher';
 import AdminTeacherEdit from './pages/adminPage/adminTeacher/AdminTeacherEdit';
-import { AuthProvider } from './context/authContext';
-import { useRequireAuth } from './hooks/useAuth';
 import PrivateRoute from './components/auth/PrivateRoute';
 
 function App() {
@@ -31,18 +27,16 @@ function App() {
           <Route path='/student/changepassword' element={<AuthPage />} />
           <Route path='/admin/changepassword' element={<AuthPage />} />
 
-          <Route element={< PrivateRoute/>} >
-            <Route path='/teacher/dashboard' element={< TeacherDashBoard/>} />
-            <Route path='/student/dashboard' element={< StudentDashBoard/>} />
-            <Route path='/admin/dashboard' element={< AdminDashBoard/>} />
+          <Route element={<PrivateRoute />} >
+            <Route path='/teacher/dashboard' element={<TeacherDashBoard />} />
+            <Route path='/student/dashboard' element={<StudentDashBoard />} />
+            <Route path='/admin/dashboard' element={<AdminDashBoard />} />
             <Route path='/student/course' element={<Course />} />
             <Route path='/student/mycourse' element={<MyCourse />} />
             <Route path='/student/courseRegistration' element={<CourseRegistration />} />
             
-            <Route path='/admin/dashboard/student/add' element={<AdminStudent />} />
-            <Route path='/admin/dashboard/student/:studentid' element={<AdminStudentEdit />} />
-            <Route path='/admin/dashboard/teacher/add' element={<AdminTeacher />} />
-            <Route path='/admin/dashboard/teacher/:teacherid' element={<AdminTeacherEdit />} />
+            <Route path='/admin/dashboard/student/:studentid' element={<AdminDashBoard />} />
+            <Route path='/admin/dashboard/teacher/:teacherid' element={<AdminDashBoard />} />
           </Route>
         </Routes>
       </Router>

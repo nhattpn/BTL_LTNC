@@ -8,6 +8,7 @@ import Footer from '../../../components/header_footer/Footer';
 
 function AdminStudentEdit() {
   const [isOpen, setIsOpen] = useState(true);
+  
   const [mssv, setMssv] = useState('SV0000000');
   const [gender, setGender] = useState('M');
   const [faculty, setFaculty] = useState('CSE');
@@ -20,8 +21,17 @@ function AdminStudentEdit() {
   const [unit, setUnit] = useState('CSE');
   const [address, setAddress] = useState('KTX khu A');
   const [phoneNumber, setPhoneNumber] = useState('0123456789');
-  const [universityEmail, setUniversityEmail] = useState('abcxyz@mut.edu.vn');
-  const [email, setEmail] = useState('123456@gmail.com');
+  const [email, setEmail] = useState('abcxyz@mut.edu.vn');
+  const [personalEmail, setPersonalEmail] = useState('123456@gmail.com');
+  const [info, setInfo] = useState({});
+  
+  useEffect(() => {
+    const userdata = sessionStorage.getItem('userdata');
+    if(userdata){
+      const retrivedata = JSON.parse(userdata);
+      setInfo(retrivedata);
+    }
+  }, [])
 
   return (
     <>
@@ -29,32 +39,27 @@ function AdminStudentEdit() {
       <Row>
         <Col sm={2}>
           <ul className="nav flex-column" style={{ height: '100%', backgroundColor: 'rgb(58, 35, 35)', color: 'white' }}>
-            <li className="nav-item" style={{ paddingTop: '2rem' }}>
-              <Link to='/' style={{ color: 'white', padding: '0', textDecoration: 'none' }}>
-                <i className="fas fa-solid fa-home fa-md fa-2x"></i> Trang chủ
-              </Link>
-            </li>
             <li className="nav-item" style={{ paddingTop: '2rem', cursor: 'pointer' }} onClick={() => setIsOpen(!isOpen)}>
-              <i className="fas fa-regular fa-id-badge fa-md fa-2x"></i> Thông tin cá nhân
+              <i className="fas fa-regular fa-id-badge fa-md fa-2x"></i> User Information
               <i class="fa-solid fa-angles-down"></i>
             </li>
             {isOpen && (
               <ul>
                 <li className="nav-item" style={{ paddingTop: '2rem' }}>
                   <div style={{ color: '#90f216', padding: '0' }}>
-                    Sinh viên
+                    Student
                   </div>
                 </li>
                 <li className="nav-item" style={{ paddingTop: '2rem' }}>
-                  <Link to={'/admin/dashboard/teacher/add'} style={{ color: 'white', padding: '0', textDecoration: 'none' }}>
-                    Giảng viên
+                  <Link to={'/admin/dashboard'} style={{ color: 'white', padding: '0', textDecoration: 'none' }}>
+                    Teacher
                   </Link>
                 </li>
               </ul>
             )}
             <li className="nav-item" style={{ paddingTop: '2rem' }}>
-              <Link to='/bangdieukhien' style={{ color: 'white', padding: '0', textDecoration: 'none' }}>
-                <i className="fa fa-solid fa-question fa-md fa-2x"></i> Bảng điều khiển
+              <Link to='/dashboard' style={{ color: 'white', padding: '0', textDecoration: 'none' }}>
+                <i className="fa fa-solid fa-question fa-md fa-2x"></i> Dashboard
               </Link>
             </li>
           </ul>
@@ -161,11 +166,11 @@ function AdminStudentEdit() {
                   </Col>
                   <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
                     <label htmlFor="emailtruong" className="form-label"><b>#Email trường</b></label>
-                    <input type="text" className="form-control" id="emailtruong" placeholder="Nhập Email trường" aria-label="Email trường" value={universityEmail} onChange={(e) => setUniversityEmail(e.target.value)} />
+                    <input type="text" className="form-control" id="emailtruong" placeholder="Nhập Email trường" aria-label="Email trường" value={email} onChange={(e) => setEmail(e.target.value)} />
                   </Col>
                   <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
                     <label htmlFor="email" className="form-label"><b>#Email liên lạc</b></label>
-                    <input type="text" className="form-control" id="email" placeholder="Nhập Em#Email liên lạc" aria-label="Em#Email liên lạc" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input type="text" className="form-control" id="email" placeholder="Nhập Em#Email liên lạc" aria-label="Em#Email liên lạc" value={personalEmail} onChange={(e) => setPersonalEmail(e.target.value)} />
                   </Col>
                 </Row>
               </Tab.Pane>
