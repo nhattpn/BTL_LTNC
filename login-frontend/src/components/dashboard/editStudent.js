@@ -123,10 +123,10 @@ function EditStudent() {
             </Col>
             <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
               <label htmlFor="hovaten" className="form-label"><b>#Full Name</b></label>
-              <input type="text" className="form-control" id="hovaten" placeholder="Nhập Họ & tên" aria-label="Họ & tên" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} />
+              <input type="text" className="form-control" id="hovaten" placeholder="Enter" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} />
 
               <label htmlFor="mssv" className="form-label"><b>#Student ID</b></label>
-              <input type="text" className="form-control" id="mssv" placeholder="Nhập Mã số sinh viên" aria-label="Mã số sinh viên" value={formData.mssv} onChange={(e) => setFormData({...formData, mssv: e.target.value})} />
+              <input type="text" className="form-control" id="mssv" placeholder="Enter" value={formData.mssv}/>
 
               <div style={{ marginBottom: '6px' }}>
                 <p style={{ fontWeight: 'bold' }}>#Sex</p>
@@ -147,28 +147,28 @@ function EditStudent() {
             </Col>
             <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
               <label htmlFor="ngaysinh" className="form-label"><b>#Day of Births</b></label>
-              <input type="date" className="form-control" id="ngaysinh" value={formData.private_info.birthday} 
+              <input type="date" className="form-control" id="" placeholder="Enter" value={formData.private_info.birthday} 
                 onChange={(e) => setFormData({...formData, private_info: {...formData.private_info, birthday: e.target.value}} )} />
 
               <label htmlFor="malop" className="form-label"><b>#Class</b></label>
-              <input type="text" className="form-control" id="malop" placeholder="Nhập Mã lớp" aria-label="Mã lớp" value={formData.private_info.classId} 
+              <input type="text" className="form-control" id="" placeholder="Enter" value={formData.private_info.classId} 
                 onChange={(e) => setFormData({...formData, private_info: {...formData.private_info, classId: e.target.value}} )} />
 
               <label htmlFor="khoa" className="form-label"><b>#Faculty</b></label>
-              <input type="text" className="form-control" id="khoa" placeholder="Nhập Khoa" aria-label="Khoa" value={formData.private_info.faculty} 
+              <input type="text" className="form-control" id="" placeholder="Enter"  value={formData.private_info.faculty} 
                 onChange={(e) => setFormData({...formData, private_info: {...formData.private_info, faculty: e.target.value}} )} />
             </Col>
             <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
               <label htmlFor="cccd" className="form-label"><b>#Identity Card Number</b></label>
-              <input type="text" className="form-control" id="cccd" placeholder="Nhập Số CCCD" aria-label="Số CCCD" value={formData.private_info.cccd} 
+              <input type="text" className="form-control" id="" placeholder="Enter" value={formData.private_info.cccd} 
                 onChange={(e) => setFormData({...formData, private_info: {...formData.private_info, cccd: e.target.value}} )} />
 
               <label htmlFor="ngaycapcccd" className="form-label"><b>#Date of issue of identity card</b></label>
-              <input type="date" className="form-control" id="ngaycapcccd" value={formData.private_info.cccdDay} 
+              <input type="date" className="form-control" id="" placeholder="Enter" value={formData.private_info.cccdDay} 
                 onChange={(e) => setFormData({...formData, private_info: {...formData.private_info, cccdDay: e.target.value}} )} />
               
               <label htmlFor="noicapcccd" className="form-label"><b>#Place of issue of identity card</b></label>
-              <input type="text" className="form-control" id="noicapcccd" placeholder="Nhập Nơi cấp CCCD" aria-label="Nơi cấp CCCD" value={formData.private_info.cccdLocation} 
+              <input type="text" className="form-control" id="" placeholder="Enter" value={formData.private_info.cccdLocation} 
                 onChange={(e) => setFormData({...formData, private_info: {...formData.private_info, cccdLocation: e.target.value}} )} />
             </Col>
           </Row>
@@ -181,23 +181,23 @@ function EditStudent() {
             <Col sm={3}>
               <div style={{ paddingLeft: '1vh' }}>
                 <label htmlFor="diachi" className="form-label"><b>#Address</b></label>
-                <input type="text" className="form-control" id="diachi" placeholder="Nhập Địa chỉ" aria-label="Địa chỉ" value={formData.private_info.address} 
+                <input type="text" className="form-control" id="diachi" placeholder="Enter"  value={formData.private_info.address} 
                   onChange={(e) => setFormData({...formData, private_info: {...formData.private_info, address: e.target.value}} )} />
               </div>
             </Col>
             <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
               <label htmlFor="sdt" className="form-label"><b>#Telephone Number</b></label>
-              <input type="text" className="form-control" id="sdt" placeholder="Nhập Số điện thoại" aria-label="Số điện thoại" value={formData.private_info.phoneNumber} 
+              <input type="text" className="form-control" id="sdt" placeholder="Enter" value={formData.private_info.phoneNumber} 
                 onChange={(e) => setFormData({...formData, private_info: {...formData.private_info, phoneNumber: e.target.value}} )} />
             </Col>
             <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
               <label htmlFor="emailtruong" className="form-label"><b>#University Email</b></label>
-              <input type="text" className="form-control" id="emailtruong" placeholder="Nhập Email trường" aria-label="Email trường" value={formData.private_info.email} 
+              <input type="text" className="form-control" id="emailtruong" placeholder="Enter" value={formData.private_info.email} 
                 onChange={(e) => setFormData({...formData, private_info: {...formData.private_info, email: e.target.value}} )} />
             </Col>
             <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
               <label htmlFor="email" className="form-label"><b>#Other Email</b></label>
-              <input type="text" className="form-control" id="email" placeholder="Nhập Email liên lạc" aria-label="Em#Email liên lạc" value={formData.private_info.personalEmail}
+              <input type="text" className="form-control" id="email" placeholder="Enter" value={formData.private_info.personalEmail}
                 onChange={(e) => setFormData({...formData, private_info: {...formData.private_info, personalEmail: e.target.value}} )} />
             </Col>
           </Row>

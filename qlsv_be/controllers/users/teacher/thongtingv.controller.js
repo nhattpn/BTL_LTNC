@@ -3,9 +3,9 @@ const teacher = require('../../../models/teacher.model');
 module.exports.dashboard = async (req, res) => {
     const {msgv} = req.user
     try {
-        const tea = await teacher.findOne({"msgv": msgv})
+        const tea = await teacher.find({"msgv": msgv})
         .select({"password": 0, "passwordChanged": 0});
-        res.json({tea}); // send response to client
+        res.json(tea); // send response to client
     } catch (error) {
         console.error(error);
         res.status(500).send('Server error'); // send error response to client
@@ -44,7 +44,7 @@ module.exports.updateTeacher = async (req, res) => {
         if (!tea) {
             return res.status(404).send();
         }
-        res.json(tea);
+        res.send(tea);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

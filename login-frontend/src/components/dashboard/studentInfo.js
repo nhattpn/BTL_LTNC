@@ -53,7 +53,7 @@ function StudentInfo() {
   }, [])
 
   return (
-    <div className="dataTable mx-auto">
+    <>
       <Tab.Container defaultActiveKey={'#info'}>
         <ListGroup style={{ marginTop: '2%', flexDirection: 'row' }}>
           <ListGroup.Item action href="#info" style={{ width: '25%' }}>
@@ -183,7 +183,7 @@ function StudentInfo() {
         </Tab.Pane>
       </Tab.Content>
     </Tab.Container>
-    </div>
+    </>
   );
 }
 
