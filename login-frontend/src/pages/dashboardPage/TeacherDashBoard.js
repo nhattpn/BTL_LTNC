@@ -1,7 +1,7 @@
 import React, {createContext, useState } from 'react';
 import TeacherInfo from './../../components/dashboard/teacherInfo';
 import Footer from '../../components/header_footer/Footer';
-import SubjectSchedule from './../../components/dashboard/subjectSchedule';
+import TeacherDashBoard from './../../components/dashboard/teacherDashboard';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import TeacherHeader from '../../components/header_footer/TeacherHeader';
 import EditTeacher from '../../components/dashboard/editTeacher';
@@ -26,7 +26,7 @@ function DataTable() {
                 </a>
               </li>
               <li className="nav-item" style={{ marginTop: '2rem', cursor: 'pointer'}}>
-                <a onClick={() => handleNavigation('SubjectSchedule')}>
+                <a onClick={() => handleNavigation('TeacherDashBoard')}>
                     <i className="fa-brands fa-blackberry fa-2x"></i> DashBoard
                 </a>
               </li>
@@ -37,6 +37,7 @@ function DataTable() {
               <ViewContext.Provider value={{currentView, setCurrentView}} >
                 {currentView === 'TeacherInfo' && <TeacherInfo />}
                 {currentView === 'EditTeacher' && <EditTeacher />}
+                {currentView === 'TeacherDashBoard' && <TeacherDashBoard />}
               </ViewContext.Provider>
             </div>
           </div>

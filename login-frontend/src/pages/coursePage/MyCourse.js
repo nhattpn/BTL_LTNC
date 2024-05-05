@@ -57,7 +57,7 @@ function MyCourse() {
       <CourseHeader />
       <div style={{ margin: '5% 10%' }}>
         <div style={{ marginBottom: '2%' }}>
-          <h2 style={{ color: '#eba234' }}>Khóa học của tôi</h2>
+          <h2 style={{ color: '#eba234' }}>My Course</h2>
         </div>
         <Row xs={1} md={3} className="g-4">
           {mycourses.map((mycourse, idx) => (

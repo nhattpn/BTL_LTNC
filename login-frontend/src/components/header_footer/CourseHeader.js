@@ -20,9 +20,7 @@ function StudentHeader() {
         </a>
         <Navbar.Collapse id="basic-navbar-nav" style={{ marginLeft: '5%' }}>
           <Nav className="me-auto">
-            <NavDropdown title="Các khóa học" id="basic-nav-dropdown" style={{ fontSize: '1.5em' }}>
-              <NavDropdown.Item href="/student/mycourse">My Course</NavDropdown.Item>
-            </NavDropdown>
+              <Nav.Link href="/student/mycourse" style={{ fontSize: '1.5em' }}>My Course</Nav.Link>
             <Nav.Link href="/student/courseRegistration" style={{ fontSize: '1.5em' }}>Course Registration</Nav.Link>
           </Nav>
         </Navbar.Collapse>

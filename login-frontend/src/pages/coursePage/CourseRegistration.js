@@ -1,8 +1,5 @@
 import React, { useMemo, useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
 import {
   MRT_EditActionButtons,
   MaterialReactTable,
@@ -14,26 +11,7 @@ import Footer from '../../components/header_footer/Footer';
 
 const CourseRegistration = () => {
   const [validationErrors, setValidationErrors] = useState({});
-  const [courses, setCourses] = useState([
-    {
-      'courseCode': 'CO2039',
-      'courseName': 'LTNC',
-      'classroom': '413-H6',
-      'credit': '40',
-      'instructorName': 'Mai Đức Trung',
-      'scheduleDay': 'Thứ 2',
-      'scheduleTime': '13:00-15:00',
-    },
-    {
-      'courseCode': 'COxxxx',
-      'courseName': 'XYZ',
-      'classroom': '202-H6',
-      'credit': '50',
-      'instructorName': 'Tên Giảng Viên',
-      'scheduleDay': 'Thứ 3',
-      'scheduleTime': 'hh:mm-hh:mm',
-    }
-  ]);
+  const [courses, setCourses] = useState([{}]);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [registeredCourses, setRegisteredCourses] = useState([
     {
@@ -304,37 +282,35 @@ const CourseRegistration = () => {
           <Col sm={2}>
             <ListGroup>
               <ListGroup.Item action href="#register">
-                Đăng ký học phần
+                Register Form
               </ListGroup.Item>
               <ListGroup.Item action href="#education">
-                Chương trình đào tạo
+                Training Program
               </ListGroup.Item>
             </ListGroup>
           </Col>
           <Col sm={10}>
             <Tab.Content>
               <Tab.Pane eventKey="#register">
-                <h4>Chọn môn học đăng ký</h4>
+                <h4>Choose your subject</h4>
                 <MaterialReactTable style={{ minWidth: '1000px' }} table={table} />
 
-                <h4 style={{ marginTop: '2rem' }}>Phiếu đăng ký</h4>
+                <h4 style={{ marginTop: '2rem' }}>Registered Course</h4>
                 <Table striped bordered hover>
                   <thead>
                     <tr>
-                      {/*<th>STT</th>*/}
-                      <th>Mã môn học</th>
-                      <th>Tên môn học</th>
-                      <th>Phòng học</th>
-                      <th>Số lượng</th>
-                      <th>Giảng viên</th>
-                      <th>Ngày học</th>
-                      <th>Giờ học</th>
+                      <th>Course Code</th>
+                      <th>courseName</th>
+                      <th>Classroom</th>
+                      <th>Amount</th>
+                      <th>Instructor Name</th>
+                      <th>Schedule Day</th>
+                      <th>Schedule Time</th>
                     </tr>
                   </thead>
                   <tbody>
                     {registeredCourses.map(registeredCourse => (
                       <tr key={registeredCourse.id}>
-                        {/*<td>{registeredCourse.stt}</td>*/}
                         <td>{registeredCourse.courseCode}</td>
                         <td>{registeredCourse.courseName}</td>
                         <td>{registeredCourse.classroom}</td>
@@ -342,7 +318,7 @@ const CourseRegistration = () => {
                         <td>{registeredCourse.instructorName}</td>
                         <td>{registeredCourse.scheduleDay}</td>
                         <td>{registeredCourse.scheduleTime}</td>
-                        <td><Button variant='danger' onClick={() => handleDelete(registeredCourse.courseCode)}>Hủy đăng ký</Button></td>
+                        <td><Button variant='danger' onClick={() => handleDelete(registeredCourse.courseCode)}>Cancel Registrattion</Button></td>
                       </tr>
                     ))}
                   </tbody>
