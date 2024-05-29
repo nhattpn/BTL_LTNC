@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {LogOut} from './../../components/auth/logout';
+import { logo } from '../image';
 function AdminHeader() {
   const [info, setInfo] = useState({});
   useEffect(() => {
@@ -13,7 +14,7 @@ function AdminHeader() {
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a className="navbar-brand" href="/">
-          <img className="logo" src="https://i.imgur.com/lSgDz8N.png" alt="logo" />
+          <img className="logo" src={logo} alt="logo" />
         </a>
         <ul className="navbar-nav ms-auto">
           <li style={{padding: '2vh'}}>
