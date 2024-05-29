@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { AuthProvider } from '../context/authContext';
 import Login from '../components/auth/login';
 import ChangePassword from './../components/auth/changePassword';
-
-const authBG = "https://i.ibb.co/9YFh3Tn/lhuEjVn.jpg";
-const logo = "https://i.ibb.co/CMwkBmw/lSgDz8N.png";
+import { logo } from '../components/image';
+import { authBG } from '../components/image';
 
 function App() {
   const [authType, setAuthType] = useState('Login');
@@ -25,6 +24,7 @@ function App() {
     switch (authType){
       case 'Login': return <Login/>;
       case 'ChangePassword': return <ChangePassword />;
+      default: return;
     }
   }
   return (<>

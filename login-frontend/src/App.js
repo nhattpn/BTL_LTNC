@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -11,8 +11,6 @@ import CourseRegistration from './pages/coursePage/CourseRegistration';
 import StudentDashBoard from './pages/dashboardPage/StudentDashboard';
 import TeacherDashBoard from './pages/dashboardPage/TeacherDashBoard';
 import AdminDashBoard from './pages/dashboardPage/AdminDashboard';
-import AdminStudentEdit from './pages/adminPage/adminStudent/AdminStudentEdit';
-import AdminTeacherEdit from './pages/adminPage/adminTeacher/AdminTeacherEdit';
 import PrivateRoute from './components/auth/PrivateRoute';
 
 function App() {

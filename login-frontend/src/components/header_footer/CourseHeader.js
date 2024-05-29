@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Navbar, Nav, Form, Button, Row, Col } from "react-bootstrap";
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Navbar, Nav, Button} from "react-bootstrap";
 import {LogOut} from '../auth/logout';
-
+import {logo} from './../image';
 function StudentHeader() {
   const [info, setInfo] = useState({});
   useEffect(() => {
@@ -16,7 +15,7 @@ function StudentHeader() {
     <>
       <Navbar expand="lg" style={{ borderBlockEnd: '1px solid' }}>
         <a href="/">
-          <img style={{ width: '30%' }} src={'https://i.ibb.co/CMwkBmw/lSgDz8N.png'} alt="logo" />
+          <img style={{ width: '30%' }} src={logo} alt="logo" />
         </a>
         <Navbar.Collapse id="basic-navbar-nav" style={{ marginLeft: '5%' }}>
           <Nav className="me-auto">

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { Navbar, Nav, Form, Button, Row, Col } from "react-bootstrap";
+import React, { useState} from 'react';
+import { BrowserRouter as Link } from 'react-router-dom';
+import { Navbar} from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import {logo} from './../image';
 
 function FirstHeader() {
   const [notifications, setNotifications] = useState([]);
@@ -21,7 +21,7 @@ function FirstHeader() {
   return (
     <>
       <Navbar style={{ display: 'flex' }}>
-        <img style={{ width: '20vh', marginLeft: '3vh' }} src={'https://i.ibb.co/CMwkBmw/lSgDz8N.png'} alt="logo" />
+        <img style={{ width: '20vh', marginLeft: '3vh' }} src={logo} alt="logo" />
         <Link to={'/teacher/dashboard'} style={{ marginLeft: '5vh', color: 'black', textDecorationLine: 'none' }}>
           <h4 style={{marginLeft: '5vh', marginRight: '5vh', width:'15vh', textAlign: 'center' }}>TEACHER</h4>
         </Link>

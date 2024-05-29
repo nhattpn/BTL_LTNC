@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { Navbar, Nav, Form, Button, Row, Col } from "react-bootstrap";
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import {LogOut} from './../../components/auth/logout';
 function AdminHeader() {
   const [info, setInfo] = useState({});
@@ -17,7 +13,7 @@ function AdminHeader() {
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a className="navbar-brand" href="/">
-          <img className="logo" src="https://i.ibb.co/CMwkBmw/lSgDz8N.png" alt="logo" />
+          <img className="logo" src="https://i.imgur.com/lSgDz8N.png" alt="logo" />
         </a>
         <ul className="navbar-nav ms-auto">
           <li style={{padding: '2vh'}}>
