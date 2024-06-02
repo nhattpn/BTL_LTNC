@@ -1,8 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup } from 'react-bootstrap';
-import { ViewContext } from '../../pages/dashboardPage/TeacherDashBoard';
+import { ViewContext } from '../../../pages/dashboardPage/TeacherDashBoard';
 function EditTeacher() {
   const jwtToken = sessionStorage.getItem('jwtToken');
+  const {currentView, setCurrentView} = useContext(ViewContext);
+  const toggleSwitch = () => {
+    setCurrentView(currentView === 'InfoTeacher' ? 'EditTeacher' : 'InfoTeacher');
+  }
   const [formData, setFormData] = useState({
     name: '',
     msgv: '',
@@ -22,9 +26,8 @@ function EditTeacher() {
     training_info: ''    
   });
   const getData = async () => {
-    const id = window.location.pathname.split('/')[4];
     try {
-      const response = await fetch(`http://localhost:5000/admin/dashboard/teacher/${id}`, {
+      const response = await fetch("http://localhost:5000/teacher/dashboard/thongtingiangvien", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
@@ -33,7 +36,7 @@ function EditTeacher() {
       });
       if (response.status === 200) {
         const result = await response.json();
-        sessionStorage.setItem('editData', JSON.stringify(result));
+        sessionStorage.setItem('userdata', JSON.stringify(result));
       }
       else {
         console.error("Failed to get all student(s)");
@@ -44,9 +47,8 @@ function EditTeacher() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const id = window.location.pathname.split('/')[4];
     try {
-      const response = await fetch(`http://localhost:5000/admin/dashboard/teacher/${id}`, {
+      const response = await fetch(`http://localhost:5000/teacher/dashboard/thongtingiangvien`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${jwtToken}`,
@@ -67,7 +69,7 @@ function EditTeacher() {
     }
   };
   useEffect(() => {
-    const userdata = sessionStorage.getItem('editData');
+    const userdata = sessionStorage.getItem('userdata');
     if(userdata){
       const retrivedata = JSON.parse(userdata);
       setFormData({...formData, ...retrivedata});
@@ -82,6 +84,7 @@ function EditTeacher() {
       </ListGroup>
       <div style={{ padding: '10px' }}>
         <i style={{ fontWeight: 'bold' }}>Last updated time: dd/mm/yyyy realtime</i>
+        <Button onClick={toggleSwitch} style={{marginLeft :'100vh', marginRight: '1vh'}}>Edit</Button>
       </div>
       <Tab.Content>
         <Tab.Pane eventKey='#info' style={{ borderTop: 'none' }}>

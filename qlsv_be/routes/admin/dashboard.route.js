@@ -6,6 +6,9 @@ const teacherRoute = require('./teacher.route');
 const control_panelRoute = require('./control_panel.route');
 // Import routes
 
+//***************/
+// route: "/admin/dashboard" 
+//***************/
 // Dashboard route
 router.get('/', (req, res) => {
     res.send('Welcome to the dashboard!');

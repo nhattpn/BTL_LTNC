@@ -4,7 +4,9 @@ const multer = require('multer');
 const path = require('path'); //Upload image
 
 const teacherController = require('../../controllers/admin/teacher.controller');
-
+//***************/
+// route: "/admin/dashboard/teacher" 
+//***************/
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {

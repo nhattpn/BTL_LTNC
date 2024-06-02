@@ -5,6 +5,9 @@ const studentDashboard = require('./studentdashboard.route');
 const { body } = require('express-validator');
 const authenticate = require('../../middlewares/authenticate');
 
+//***************/
+// route: "/student" 
+//***************/
 // login route
 router.post('/login', [
     body('email').isEmail().withMessage('Invalid email address'),

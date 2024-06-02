@@ -2,8 +2,12 @@ const Student = require('../../models/student.model');
 const { generateUniqueMssv } = require('../../helpers/generateMssv');
 
 
+//***************/
+// route: "/admin/dashboard/student" 
+//***************/
+
 // Get all students
-const getAllStudents = async (req, res) => {
+const getAllStudents = async (req, res) => { // get: ../
     try {
         const students = await Student.find();
         res.json(students);
@@ -13,7 +17,7 @@ const getAllStudents = async (req, res) => {
 };
 
 // Add a new student
-const addStudent = async (req, res) => {
+const addStudent = async (req, res) => { // post: ../add
     try {
         const { name, email, private_info, training_info } = req.body;
 
@@ -36,14 +40,14 @@ const addStudent = async (req, res) => {
         });
 
         await newStudent.save();
-        res.status(201).json({ message: "Add successfully", newStudent });
+        res.status(201).json({ message: "Student add successfully", newStudent });
     } catch (error) {
         res.status(400).send(error.message);
     }
 };
 
 // Delete a student
-const deleteStudent = async (req, res) => {
+const deleteStudent = async (req, res) => { // delete: ../:mssv
     const { mssv } = req.params;
 
     try {
@@ -59,7 +63,7 @@ const deleteStudent = async (req, res) => {
 };
 
 // Update an existing student
-const updateStudent = async (req, res) => {
+const updateStudent = async (req, res) => { // put: ../:mssv
     try {
         const studentUpdated = {
             name: req.body.name,
@@ -76,17 +80,16 @@ const updateStudent = async (req, res) => {
         const student = await Student.findOneAndUpdate({ mssv: req.params.mssv }, studentUpdated, { new: true });
 
         if (!student) {
-            return res.status(404).send();
+            return res.status(404).json({ message:'Failed to update student!'});
         }
-
-        res.send(student);
+        res.status(200).json({ message: 'Update successfully.'});  // No content to send back, but indicate success
     } catch (e) {
         res.status(400).send(e);
     }
 };
 
 // Find a student by mssv
-const findStudentByMssv = async (req, res) => {
+const findStudentByMssv = async (req, res) => { // get: ../:mssv
     const { mssv } = req.params;
 
     try {

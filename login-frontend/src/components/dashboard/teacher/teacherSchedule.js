@@ -19,9 +19,9 @@ const DashBoard = () => {
     }
   ]);
   useEffect(() => {
-    getCourses();
+    getAllCourses();
   }, []);
-  const getCourses = async () => {
+  const getAllCourses = async () => {
     try {
       const response = await fetch("http://localhost:5000/teacher/dashboard/bangdieukhien/", {
         method: "GET",

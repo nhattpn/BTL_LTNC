@@ -1,14 +1,15 @@
 import React, {createContext, useState } from 'react';
-import TeacherInfo from './../../components/dashboard/teacherInfo';
-import Footer from '../../components/header_footer/Footer';
-import TeacherDashBoard from './../../components/dashboard/teacherDashboard';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import InfoTeacher from '../../components/dashboard/teacher/infoTeacher';
+import TeacherSchedule from '../../components/dashboard/teacher/teacherSchedule';
+import EditTeacher from '../../components/dashboard/teacher/editTeacher';
+
 import TeacherHeader from '../../components/header_footer/TeacherHeader';
-import EditTeacher from '../../components/dashboard/editTeacher';
+import Footer from '../../components/header_footer/Footer';
 
 export const ViewContext = createContext();
 function DataTable() {
-  const [currentView, setCurrentView] = useState('TeacherInfo');
+  const [currentView, setCurrentView] = useState('InfoTeacher');
   const handleNavigation = (viewName) => {
     setCurrentView(viewName);
   };
@@ -21,13 +22,13 @@ function DataTable() {
           <div className="col-md-2 leftBody">
             <ul className="nav flex-column">
               <li className="nav-item" style={{ marginTop: '2rem', cursor: 'pointer' }}>
-                <a onClick={() => handleNavigation('TeacherInfo')}>
+                <a onClick={() => handleNavigation('InfoTeacher')}>
                     <i className="fa-regular fa-address-book fa-2x"></i> Personal
                 </a>
               </li>
               <li className="nav-item" style={{ marginTop: '2rem', cursor: 'pointer'}}>
-                <a onClick={() => handleNavigation('TeacherDashBoard')}>
-                    <i className="fa-brands fa-blackberry fa-2x"></i> DashBoard
+                <a onClick={() => handleNavigation('TeacherSchedule')}>
+                    <i className="fa-brands fa-blackberry fa-2x"></i> Schedule
                 </a>
               </li>
             </ul>
@@ -35,9 +36,9 @@ function DataTable() {
           <div className="col-md-10 rightBody">
             <div className="dataTable mx-auto">
               <ViewContext.Provider value={{currentView, setCurrentView}} >
-                {currentView === 'TeacherInfo' && <TeacherInfo />}
+                {currentView === 'InfoTeacher' && <InfoTeacher />}
                 {currentView === 'EditTeacher' && <EditTeacher />}
-                {currentView === 'TeacherDashBoard' && <TeacherDashBoard />}
+                {currentView === 'TeacherSchedule' && <TeacherSchedule />}
               </ViewContext.Provider>
             </div>
           </div>

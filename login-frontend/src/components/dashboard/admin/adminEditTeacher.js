@@ -1,12 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup } from 'react-bootstrap';
-import { ViewContext } from '../../pages/dashboardPage/TeacherDashBoard';
 function EditTeacher() {
   const jwtToken = sessionStorage.getItem('jwtToken');
-  const {currentView, setCurrentView} = useContext(ViewContext);
-  const toggleSwitch = () => {
-    setCurrentView(currentView === 'TeacherInfo' ? 'EditTeacher' : 'TeacherInfo');
-  }
   const [formData, setFormData] = useState({
     name: '',
     msgv: '',
@@ -26,8 +21,9 @@ function EditTeacher() {
     training_info: ''    
   });
   const getData = async () => {
+    const id = window.location.pathname.split('/')[4];
     try {
-      const response = await fetch("http://localhost:5000/teacher/dashboard/thongtingiangvien", {
+      const response = await fetch(`http://localhost:5000/admin/dashboard/teacher/${id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
@@ -36,7 +32,7 @@ function EditTeacher() {
       });
       if (response.status === 200) {
         const result = await response.json();
-        sessionStorage.setItem('userdata', JSON.stringify(result));
+        sessionStorage.setItem('editData', JSON.stringify(result));
       }
       else {
         console.error("Failed to get all student(s)");
@@ -47,8 +43,9 @@ function EditTeacher() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const id = window.location.pathname.split('/')[4];
     try {
-      const response = await fetch(`http://localhost:5000/teacher/dashboard/thongtingiangvien`, {
+      const response = await fetch(`http://localhost:5000/admin/dashboard/teacher/${id}`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${jwtToken}`,
@@ -56,20 +53,20 @@ function EditTeacher() {
         },
         body: JSON.stringify(formData),
       });
-      if (response.ok) {
-        console.log('Update successfully');
+
+      const result = await response.json();
+      if (response.status === 200) {
         getData();
-        alert('Update successfully.');
+        alert(result.message);
       } else {
-        console.error('Failed to update student');
-        alert('Failed to update student!');
+        alert(result?.message || "Error");
       }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
   useEffect(() => {
-    const userdata = sessionStorage.getItem('userdata');
+    const userdata = sessionStorage.getItem('editData');
     if(userdata){
       const retrivedata = JSON.parse(userdata);
       setFormData({...formData, ...retrivedata});
@@ -84,7 +81,6 @@ function EditTeacher() {
       </ListGroup>
       <div style={{ padding: '10px' }}>
         <i style={{ fontWeight: 'bold' }}>Last updated time: dd/mm/yyyy realtime</i>
-        <Button onClick={toggleSwitch} style={{marginLeft :'100vh', marginRight: '1vh'}}>Edit</Button>
       </div>
       <Tab.Content>
         <Tab.Pane eventKey='#info' style={{ borderTop: 'none' }}>

@@ -15,7 +15,6 @@ function Login(props) {
     try {
       // Gọi hàm auth.login() và chờ phản hồi
       const response = await auth.login(email, password);
-      console.log("response data: ", response);
       if (response.message === "Login successful") {
         setErrorMsg(null);
         setSuccessMsg("Login successful!");

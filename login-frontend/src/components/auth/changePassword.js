@@ -20,7 +20,6 @@ function ChangePassword(props) {
           return;
         }
         const response = await auth.login(email, password);
-        console.log("response data: ", response);
         if (response.message === "Password changed successfully.") {
           setErrorMsg(null);
           setSuccessMsg(response.message);

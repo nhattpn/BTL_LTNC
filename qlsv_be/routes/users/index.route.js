@@ -1,7 +1,9 @@
 const teacherRoute = require('./teacher.route');
 const studentRoute = require('./student.route');
 
-
+//***************/
+// route: "/" 
+//***************/
 module.exports = (app) => {
     app.get('/home', (req, res) => {
         res.send('Welcome to the home page');

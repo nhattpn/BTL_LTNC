@@ -3,7 +3,10 @@ const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const adminModel = require('../../models/admin.model');
 
-const login = async (req, res) => {
+//***************/
+// route: "/admin" 
+//***************/
+const login = async (req, res) => { // route: ../login
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -31,7 +34,7 @@ const login = async (req, res) => {
     }
 };
 
-const addAdmin = async (req, res) => {
+const addAdmin = async (req, res) => { // route: ../addadmin
     const { email, password, role } = req.body;
     try {
         const admin = await adminModel.findOne({ email: email });

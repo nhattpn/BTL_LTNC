@@ -3,7 +3,11 @@ const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const studentModel = require('../../../models/student.model');
 
-const login = async (req, res) => {
+//***************/
+// route: "/student" 
+//***************/
+
+const login = async (req, res) => { // post: ../login
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -44,7 +48,7 @@ const login = async (req, res) => {
     }
 };
 
-const changePassword = async (req, res) => {
+const changePassword = async (req, res) => { // post: ../changepassword
     const { email, password } = req.body;
     
     try {
@@ -77,31 +81,31 @@ const changePassword = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
-const updateStudent = async (req, res) => {
-    try {
-        const studentUpdated = {
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password,
-            mssv: req.body.mssv,
-            image: req.body.image,
-            private_info: req.body.private_info,
-            training_info: req.body.training_info,
-            courseReg: req.body.courseReg,
-            courseEnroll: req.body.courseEnroll
-        }
+// const updateStudent = async (req, res) => { // post: ../login
+//     try {
+//         const studentUpdated = {
+//             name: req.body.name,
+//             email: req.body.email,
+//             password: req.body.password,
+//             mssv: req.body.mssv,
+//             image: req.body.image,
+//             private_info: req.body.private_info,
+//             training_info: req.body.training_info,
+//             courseReg: req.body.courseReg,
+//             courseEnroll: req.body.courseEnroll
+//         }
 
-        const student = await Student.findOneAndUpdate({ mssv: req.params.mssv }, studentUpdated, { new: true });
+//         const student = await Student.findOneAndUpdate({ mssv: req.params.mssv }, studentUpdated, { new: true });
 
-        if (!student) {
-            return res.status(404).send();
-        }
+//         if (!student) {
+//             return res.status(404).send();
+//         }
 
-        res.send(student);
-    } catch (e) {
-        res.status(400).send(e);
-    }
-};;
+//         res.send(student);
+//     } catch (e) {
+//         res.status(400).send(e);
+//     }
+// };
 
 module.exports = {
     login,

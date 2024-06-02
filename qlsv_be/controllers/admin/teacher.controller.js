@@ -1,8 +1,12 @@
 const Teacher = require('../../models/teacher.model');
 const { generateUniqueMsgv } = require ('../../helpers/generateMsgv');
 
+//***************/
+// route: "/admin/dashboard/teacher" 
+//***************/
+
 // Get all teachers
-const getAllTeachers = async (req, res) => {
+const getAllTeachers = async (req, res) => { // get: ../
     try {
         const teachers = await Teacher.find();
         res.json(teachers);
@@ -11,7 +15,7 @@ const getAllTeachers = async (req, res) => {
     }
 };
 
-const addTeacher = async (req, res) => {
+const addTeacher = async (req, res) => { // post: ../add
     try {
         const { name, email, private_info, training_info } = req.body;
 
@@ -34,12 +38,12 @@ const addTeacher = async (req, res) => {
         });
 
         await newTeacher.save();
-        res.status(201).json({ message: "Add successfully", newTeacher });
+        res.status(201).json({ message: "Teacher add successfully", newTeacher });
     } catch (error) {
         res.status(400).send(error.message);
     }
 };
-const deleteTeacher = async (req, res) => {
+const deleteTeacher = async (req, res) => { // delete: ../:msgv
     const { msgv } = req.params;
 
     try {
@@ -55,7 +59,7 @@ const deleteTeacher = async (req, res) => {
     }
 };
 
-const updateTeacher = async (req, res) => {
+const updateTeacher = async (req, res) => { // put: ../:mssv
     try {
         const teacherUpdated = {
             name: req.body.name,
@@ -69,17 +73,16 @@ const updateTeacher = async (req, res) => {
         const teacher = await Teacher.findOneAndUpdate({ msgv: req.params.msgv }, teacherUpdated, { new: true });
 
         if (!teacher) {
-            return res.status(404).send();
+            return res.status(404).json({ message: 'Failed to update teacher!'});
         }
-
-        res.send(teacher);
+        res.status(200).json({ message: 'Update successfully.'});  // No content to send back, but indicate success
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
 
 // Find a teacher by msgv
-const findTeacherByMsgv = async (req, res) => {
+const findTeacherByMsgv = async (req, res) => { // get: ../:mssv
     const { msgv } = req.params;
 
     try {

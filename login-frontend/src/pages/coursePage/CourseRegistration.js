@@ -18,8 +18,9 @@ const CourseRegistration = () => {
       'stt': '',
       'courseCode': '',
       'courseName': '',
-      'classroom': '',
       'credit': '',
+      'classroom': '',
+      'enrollment': '',
       'instructorName': '',
       'scheduleDay': '',
       'scheduleTime': '',
@@ -29,7 +30,7 @@ const CourseRegistration = () => {
   // Lấy JWT từ Session Storage
   const jwtToken = sessionStorage.getItem('jwtToken');
   // Gửi yêu cầu GET với JWT trong header
-  const getCourses = async () => {
+  const getAllCourses = async () => {
     try {
       const response = await fetch("http://localhost:5000/student/dashboard/dangkimon", {
         method: "GET",
@@ -40,8 +41,6 @@ const CourseRegistration = () => {
       });
       if (response.status === 200) {
         const result = await response.json();
-        console.log("All course(s):", result);
-
         setCourses(result);
       }
       else {
@@ -62,8 +61,6 @@ const CourseRegistration = () => {
       });
       if (response.status === 200) {
         const result = await response.json();
-        console.log("All registered course(s):", result);
-
         setRegisteredCourses(result);
       }
       else {
@@ -136,7 +133,7 @@ const CourseRegistration = () => {
   };
 
   useEffect(() => {
-    getCourses();
+    getAllCourses();
     getRegCourses();
   }, []);
 
@@ -144,7 +141,7 @@ const CourseRegistration = () => {
     () => [
       {
         accessorKey: 'courseCode',
-        header: 'Mã môn học',
+        header: 'Course Code',
         muiEditTextFieldProps: {
           type: 'text',
           required: true,
@@ -157,10 +154,9 @@ const CourseRegistration = () => {
             }),
           //readOnly: true,
         },
-      },
-      {
+      }, {
         accessorKey: 'courseName',
-        header: 'Tên môn học',
+        header: 'Course Name',
         muiEditTextFieldProps: {
           type: 'text',
           required: true,
@@ -172,10 +168,9 @@ const CourseRegistration = () => {
               courseName: undefined,
             }),
         },
-      },
-      {
+      }, {
         accessorKey: 'classroom',
-        header: 'Phòng học',
+        header: 'Classroom',
         muiEditTextFieldProps: {
           type: 'text',
           required: true,
@@ -187,10 +182,9 @@ const CourseRegistration = () => {
               classroom: undefined,
             }),
         },
-      },
-      {
+      }, {
         accessorKey: 'credit',
-        header: 'Số lượng',
+        header: 'Credit',
         muiEditTextFieldProps: {
           type: 'text',
           required: true,
@@ -202,10 +196,9 @@ const CourseRegistration = () => {
               credit: undefined,
             }),
         },
-      },
-      {
+      }, {
         accessorKey: 'instructorName',
-        header: 'Giảng viên',
+        header: 'Instructor Name',
         muiEditTextFieldProps: {
           type: 'text',
           required: true,
@@ -217,10 +210,9 @@ const CourseRegistration = () => {
               instructorName: undefined,
             }),
         },
-      },
-      {
+      }, {
         accessorKey: 'scheduleDay',
-        header: 'Ngày học',
+        header: 'Schedule Day',
         muiEditTextFieldProps: {
           type: 'text',
           required: true,
@@ -232,10 +224,9 @@ const CourseRegistration = () => {
               scheduleDay: undefined,
             }),
         },
-      },
-      {
+      }, {
         accessorKey: 'scheduleTime',
-        header: 'Giờ học',
+        header: 'Schedule Time',
         muiEditTextFieldProps: {
           type: 'text',
           required: true,
@@ -247,14 +238,12 @@ const CourseRegistration = () => {
               scheduleTime: undefined,
             }),
         },
-      },
-
-      {
+      }, {
         accessorKey: 'register',
-        header: 'Đăng ký môn',
+        header: '',
         Cell: ({ row }) => (
           <Button onClick={() => handleRegister(row)}>
-            Đăng ký
+            Register
           </Button>
         ),
       },
@@ -293,7 +282,7 @@ const CourseRegistration = () => {
             <Tab.Content>
               <Tab.Pane eventKey="#register">
                 <h4>Choose your subject</h4>
-                <MaterialReactTable style={{ minWidth: '1000px' }} table={table} />
+                <MaterialReactTable style={{ minWidth: '80vh' }} table={table} />
 
                 <h4 style={{ marginTop: '2rem' }}>Registered Course</h4>
                 <Table striped bordered hover>
@@ -301,8 +290,9 @@ const CourseRegistration = () => {
                     <tr>
                       <th>Course Code</th>
                       <th>courseName</th>
+                      <th>Credit</th>
                       <th>Classroom</th>
-                      <th>Amount</th>
+                      <th>Enrollment</th>
                       <th>Instructor Name</th>
                       <th>Schedule Day</th>
                       <th>Schedule Time</th>
@@ -313,8 +303,9 @@ const CourseRegistration = () => {
                       <tr key={registeredCourse.id}>
                         <td>{registeredCourse.courseCode}</td>
                         <td>{registeredCourse.courseName}</td>
-                        <td>{registeredCourse.classroom}</td>
                         <td>{registeredCourse.credit}</td>
+                        <td>{registeredCourse.classroom}</td>
+                        <td>{registeredCourse.enrollment}</td>
                         <td>{registeredCourse.instructorName}</td>
                         <td>{registeredCourse.scheduleDay}</td>
                         <td>{registeredCourse.scheduleTime}</td>

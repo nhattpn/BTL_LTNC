@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup } from 'react-bootstrap';
-import { ViewContext } from '../../pages/dashboardPage/TeacherDashBoard';
+import { ViewContext } from '../../../pages/dashboardPage/TeacherDashBoard';
 
-function StudentInfo(props) {
+function InfoStudent(props) {
   const {currentView, setCurrentView} = useContext(ViewContext);
   const toggleSwitch = () => {
-    setCurrentView(currentView === 'TeacherInfo' ? 'EditTeacher' : 'TeacherInfo');
+    setCurrentView(currentView === 'InfoTeacher' ? 'EditTeacher' : 'InfoTeacher');
   }
   const [msgv, setMsgv] = useState('');
   const [gender, setGender] = useState('O');
@@ -117,4 +117,4 @@ function StudentInfo(props) {
   );
 }
 
-export default StudentInfo;
+export default InfoStudent;

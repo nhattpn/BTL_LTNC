@@ -6,6 +6,11 @@ const SinhVien = require('../../controllers/users/teacher/SinhVien.controller');
 const {CloudinaryStorage} = require('multer-storage-cloudinary')
 const cloudinary = require('../../configs/cloudinary')
 const multer = require('multer');
+
+//***************/
+// route: "/teacher"
+//***************/
+
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {

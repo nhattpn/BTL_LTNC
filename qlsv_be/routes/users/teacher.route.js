@@ -6,6 +6,9 @@ const { body } = require('express-validator');
 const authenticate = require('../../middlewares/authenticate');
 
 
+//***************/
+// route: "/" 
+//***************/
 // login route
 router.post('/login', [
     body('email').isEmail().withMessage('Invalid email address'),

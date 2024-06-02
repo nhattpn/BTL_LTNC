@@ -53,9 +53,15 @@ const addCourseReg = async (req, res) => {
           courseId: course_match._id,
           semester: course_match.semester,
           courseCode: course_match.courseCode,
+          courseName: course_match.courseName,
           credit: course_match.credit,
+          classroom: course_match.classroom,
+          enrollment: course_match.enrollment,
+          capacity: course_match.capacity,
+          msgv: course_match.msgv,
           instructorName: course_match.instructorName,
-          msgv: course_match.msgv
+          scheduleDay: course_match.scheduleDay,
+          scheduleTime: course_match.scheduleTime,
       }
       const find_filter = {mssv: mssv};
       const update_filter = {$push: {courseReg: newCouSem} };
@@ -67,7 +73,7 @@ const addCourseReg = async (req, res) => {
       res.json(courseRet);
     } catch (e) {
       res.status(400).send(e);
-  }
+  } 
 }
 
 //Delete a course registered by a student

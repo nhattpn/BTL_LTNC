@@ -1,15 +1,15 @@
 import React, {createContext, useState } from 'react';
-import StudentInfo from '../../components/dashboard/studentInfo';
-import Footer from '../../components/header_footer/Footer';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import StudentHeader from '../../components/header_footer/StudentHeader';
 import './Dashboard.css';
-import EditStudent from '../../components/dashboard/editStudent';
+import InfoStudent from '../../components/dashboard/student/infoStudent';
+import EditStudent from '../../components/dashboard/student/editStudent';
+import StudentHeader from '../../components/header_footer/StudentHeader';
+import Footer from '../../components/header_footer/Footer';
 
 export const ViewContext = createContext();
 function DataTable() {
-  const [currentView, setCurrentView] = useState('StudentInfo');
+  const [currentView, setCurrentView] = useState('InfoStudent');
   const handleNavigation = (viewName) => {
     setCurrentView(viewName);
   };
@@ -22,7 +22,7 @@ function DataTable() {
           <div className="col-md-2 leftBody">
             <ul className="nav flex-column">
               <li className="nav-item" style={{ marginTop: '2rem', cursor: 'pointer' }}>
-                <a onClick={() => handleNavigation('StudentInfo')}>
+                <a onClick={() => handleNavigation('InfoStudent')}>
                     <i className="fa-regular fa-address-book fa-2x"></i> Personal
                 </a>
               </li>
@@ -49,7 +49,7 @@ function DataTable() {
           <div className="col-md-10 rightBody">
             <div className="dataTable mx-auto">
               <ViewContext.Provider value={{currentView, setCurrentView}} >
-                {currentView === 'StudentInfo' && <StudentInfo />}
+                {currentView === 'InfoStudent' && <InfoStudent />}
                 {currentView === 'EditStudent' && <EditStudent />}
               </ViewContext.Provider>
             </div>
