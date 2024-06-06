@@ -1,7 +1,10 @@
 const bangdiemModel = require("../../../models/course.model");
 const student = require("../../../models/student.model")
+//***************/
+// route: "/student/dashboard" 
+//***************/
 
-const getbangdiem = async (req, res) => {
+const getbangdiem = async (req, res) => {// get: ../bangdiem
     const { mssv } = req.user;
     try {
         const sv_filter = {"mssv": mssv};
@@ -17,7 +20,7 @@ const getbangdiem = async (req, res) => {
     }
 }
 
-const getbangdiemBySem = async (req, res) => {
+const getbangdiemBySem = async (req, res) => {// get: ../bangdiem/:semester
     const { mssv } = req.user;
     const { semester } = req.params
     try {

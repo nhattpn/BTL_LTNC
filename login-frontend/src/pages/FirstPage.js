@@ -8,20 +8,28 @@ import { firstBG } from '../components/image';
 function FirstPage() {
   return (
     <>
-      <FirstHeader />
-      <div style={{ height: '75vh', backgroundImage: `url(${firstBG})`, backgroundSize: 'cover', backgroundPositionX: 'center', backgroundRepeat: 'noRepeat' }}>
-        <div style={{ marginTop: '0%', marginRight: '50%', marginBottom: '0%', marginLeft: '22%', width: '28%', padding: '0%', border: 'none', }}>
-          <h2 style={{ color: '#fff', fontSize: '1.5em' }}>
-            CHƯƠNG TRÌNH CHẤT LƯỢNG VỚI ĐA DẠNG NGÀNH
-          </h2>
-          <div style={{ marginTop: '1%', marginRight: '35%', marginBottom: '1%', marginLeft: '10%', width: '55%', padding: '0%', borderColor: '#ebff00', borderStyle: 'solid', borderWidth: '1px', borderRadius: '20px' }}>
-            <h3 style={{ color: '#ebff00', textAlign: 'center', marginBlockStart: '3px', marginBlockEnd: '3px', fontSize: '1.17em' }}>
-              Training Program
-            </h3>
+      <div className='container-fluid' >
+        <FirstHeader />
+        <div style={{backgroundColor: 'rgb(58, 35, 35)'}}>
+        <div style={{ height: '80vh', width: '188vh', backgroundImage: `url(${firstBG})`,backgroundRepeat: 'no-repeat', backgroundPositionX: 'center'}}>
+          <div className="row justify-content-center" >
+            <div className="col-md-12" style={{ justifyContent: 'center', width: '40%', paddingTop: '4%'}}>
+              <h3 style={{ color: '#fff', justifyContent: 'center', fontWeight: 'bold' , textShadow: '2px 2px 5px black'}}>
+                <p>QUALITY PROGRAM WITH DIVERSITY OF INDUSTRY</p>
+              </h3>
+            </div>
           </div>
+          <div className='row justify-content-center'>
+            <div style={{ width: '22%', padding: '0%', borderColor: '#ebff00', borderStyle: 'solid', borderWidth: '1px', borderRadius: '20px' }}>
+              <h4 style={{ color: '#ebff00', textAlign: 'center', padding: '1%'}}>
+                Training Program
+              </h4>
+            </div>
+          </div>
+        </div> 
         </div>
+        <FirstFooter/>
       </div>
-      <FirstFooter/>
     </>
   );
 }

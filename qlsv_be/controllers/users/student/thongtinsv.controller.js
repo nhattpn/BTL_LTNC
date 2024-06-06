@@ -1,19 +1,22 @@
 const student = require('../../../models/student.model');
+//***************/
+// route: "/student/dashboard" 
+//***************/
 
-module.exports.dashboard = async (req, res) => {
+module.exports.dashboard = async (req, res) => {// get: ../thongtinsinhvien
   const {mssv} = req.user; 
   try {
-        const thongtinsinhvien = await student.find({
+        const thongtinsinhvien = await student.findOne({
           "mssv": mssv
         });
-        res.json(thongtinsinhvien); // send response to client
+        res.status(200).json({thongtinsinhvien}); // send response to client
     } catch (error) {
         console.error(error);
         res.status(500).send('Server error'); // send error response to client
     }
 };
 
-module.exports.updatePicture = async (req, res) => {
+module.exports.updatePicture = async (req, res) => {// post: ../thongtinsinhvien/updatePicture
   const {mssv} = req.user
   try {
       const find_filter = {"mssv": mssv}
@@ -23,7 +26,7 @@ module.exports.updatePicture = async (req, res) => {
       if(!picup){
           return res(400).send('Cannot update picture!')
       }
-      res.json(picup); // send response to client
+      res.status(200).json({picup}); // send response to client
   } catch (error) {
       console.error(error);
       res.status(500).send('Server error'); // send error response to client
@@ -31,7 +34,7 @@ module.exports.updatePicture = async (req, res) => {
 };
 
 // Update an existing student
-module.exports.updateStudent = async (req, res) => {
+module.exports.updateStudent = async (req, res) => {// put: ../thongtinsinhvien
   const {mssv} = req.user
   try {
       const studentUpdated = {
@@ -45,7 +48,7 @@ module.exports.updateStudent = async (req, res) => {
       if (!stu) {
           return res.status(404).send();
       }
-      res.send(stu);
+      res.status(200).json({stu});
   } catch (e) {
       res.status(400).send(e);
   }

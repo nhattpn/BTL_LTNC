@@ -1,6 +1,4 @@
 import React, { useMemo, useState, useEffect, useRef, createContext, useContext } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
-import { ViewContext } from '../../../pages/dashboardPage/AdminDashboard';
 import {
   MRT_EditActionButtons,
   MaterialReactTable,

@@ -1,8 +1,11 @@
 const student = require("../../../models/student.model");
 const course = require("../../../models/course.model");
+//***************/
+// route: "/student/dashboard" 
+//***************/
 
 // Get all tkb of all courseEnrolled
-const getTKB = async (req, res) => {
+const getTKB = async (req, res) => {// get: ../tkb
     const {mssv} = req.user
     try {
         const sv_filter = {"mssv": mssv};

@@ -1,8 +1,11 @@
 const student = require("../../../models/student.model");
 const course = require("../../../models/course.model")
+//***************/
+// route: "/student/dashboard" 
+//***************/
 
 // Get all lich thi of all courseEnrolled
-const getAllLichThi = async (req, res) => {
+const getAllLichThi = async (req, res) => {// get: ../lichthi
     const {mssv} = req.user
     try {
         const sv_filter = {"mssv": mssv};
@@ -41,7 +44,7 @@ const getAllLichThi = async (req, res) => {
 };
 
 //Get info of a lich thi of courseEnrolled in a semester
-const getLichThi = async (req, res) => {
+const getLichThi = async (req, res) => {// get: ../lichthi/:semester
     const {mssv} = req.user
     const { semester } = req.params;
     try {

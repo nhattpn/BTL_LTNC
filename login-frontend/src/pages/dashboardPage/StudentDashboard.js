@@ -1,14 +1,40 @@
-import React, {createContext, useState } from 'react';
+import React, {createContext, useEffect, useState } from 'react';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './Dashboard.css';
 import InfoStudent from '../../components/dashboard/student/infoStudent';
-import EditStudent from '../../components/dashboard/student/editStudent';
+import EditStudent from '../../components/dashboard/student/test';
 import StudentHeader from '../../components/header_footer/StudentHeader';
 import Footer from '../../components/header_footer/Footer';
+import Schedule from '../../components/dashboard/student/scheduleStudent';
 
 export const ViewContext = createContext();
 function DataTable() {
+  const [user, setUser] = useState(undefined);
+  const jwtToken = sessionStorage.getItem('jwtToken');
+  const getData = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/student/dashboard/thongtinsinhvien", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        const result = await response.json();
+        setUser(result);
+      }
+      else {
+        console.error("Failed to get all student(s)");
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  useEffect(()=>{
+    getData();
+  }, [])
   const [currentView, setCurrentView] = useState('InfoStudent');
   const handleNavigation = (viewName) => {
     setCurrentView(viewName);
@@ -32,9 +58,6 @@ function DataTable() {
                 {isOpen && (
                   <ul>      
                     <li className="nav-item" style={{ paddingTop: '2rem' }}>
-                      <Link to={'/student/course'} style={{ color: 'white', padding: '0', textDecoration: 'none'}}>Schedule</Link>
-                    </li>
-                    <li className="nav-item" style={{ paddingTop: '2rem' }}>
                       <Link to={'/student/course'} style={{ color: 'white', padding: '0', textDecoration: 'none'}}>Course</Link>
                     </li>
                     <li className="nav-item" style={{ paddingTop: '2rem' }}>
@@ -43,15 +66,22 @@ function DataTable() {
                   </ul>
                 )}
               </li>
+              <li className="nav-item" style={{ paddingTop: '2rem', cursor: 'pointer' }}>
+                <i class="fa-solid fa-calendar-days fa-md fa-2x"></i>
+                <a onClick={() => handleNavigation('Schedule')}> Schedule</a>
+              </li>
             </ul>
           </div>
 
           <div className="col-md-10 rightBody">
             <div className="dataTable mx-auto">
-              <ViewContext.Provider value={{currentView, setCurrentView}} >
+              {user!=undefined && (
+              <ViewContext.Provider value={{currentView, setCurrentView, user, setUser}} >
                 {currentView === 'InfoStudent' && <InfoStudent />}
                 {currentView === 'EditStudent' && <EditStudent />}
+                {currentView === 'Schedule' && <Schedule />}
               </ViewContext.Provider>
+              )}
             </div>
           </div>
         </div>

@@ -1,7 +1,10 @@
 const daotaoModel = require("../../../models/student.model");
+//***************/
+// route: "/student/dashboard" 
+//***************/
 
 // Get all lich thi
-const getAllDaoTao = async (req, res) => {
+const getAllDaoTao = async (req, res) => {// get: ../thongtindaotao
     const { mssv } = req.user;
     try {
         const student = await daotaoModel.find({
