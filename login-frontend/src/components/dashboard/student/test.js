@@ -9,21 +9,23 @@ function EditStudent() {
   const toggleSwitch = () => {
     setCurrentView(currentView === 'InfoStudent' ? 'EditStudent' : 'InfoStudent');
   };
-  const fields = [
+  const fields = [[
     { name: 'name', label: '#Full Name', type: 'text' },
-    { name: 'mssv', label: '#Student ID', type: 'text', readOnly: true },
-    { name: 'gender', label: '#Sex', type: 'radio' }, // Radio button for gender
     { name: 'birthday', label: '#Day of Birth', type: 'date' },
-    { name: 'classId', label: '#Class', type: 'text' },
-    { name: 'faculty', label: '#Faculty', type: 'text' },
     { name: 'cccd', label: '#Identity Card Number', type: 'text' },
+    { name: 'mssv', label: '#Student ID', type: 'text', readOnly: true },
+    { name: 'classId', label: '#Class', type: 'text' },
     { name: 'cccdDay', label: '#Date of issue of identity card', type: 'date' },
+    { name: 'gender', label: '#Sex', type: 'radio' },
+    { name: 'faculty', label: '#Faculty', type: 'text' },
     { name: 'cccdLocation', label: '#Place of issue of identity card', type: 'text' },
+  ],[
     { name: 'address', label: '#Address', type: 'text' },
     { name: 'phoneNumber', label: '#Telephone Number', type: 'text' },
     { name: 'email', label: '#University Email', type: 'email' },
     { name: 'personalEmail', label: '#Other Email', type: 'email' },
-  ];
+  ]];
+  const [personVal, setPersonVal] = useState();
   
   // Training Information fields
   const trainingFields = [
@@ -41,13 +43,10 @@ function EditStudent() {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUser(prevUser => ({
-      ...prevUser,
-      thongtinsinhvien: {
-        ...prevUser.thongtinsinhvien,
-        [name]: value,
-      },
-    }));
+    // setFormData({
+    //   ...formData,
+    //   [name]: value,
+    // });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -88,8 +87,8 @@ function EditStudent() {
     </div>
       <Tab.Content>
         <Tab.Pane eventKey='#info' style={{ borderTop: 'none' }}>
-          <div style={{ backgroundColor: 'rgb(204, 203, 203)', fontWeight: 'bold', width: '96%', margin: '2% auto' }}>
-            <p style={{ boxShadow: '2px 2px 10px rgb(104, 103, 103)' }}>
+          <div className="smallbox" >
+            <p>
               Personal Information
             </p>
           </div>
@@ -105,29 +104,36 @@ function EditStudent() {
                 </b>
               </div>
             </Col>
-
-            {fields.map((field) => (
-              <Col sm={3} key={field.name} style={{ paddingLeft: '1vh', borderLeft: field.name !== 'hovaten' ? '1px solid rgb(204, 203, 203)' : 'none' }}>
-                <Form.Group controlId={`form${field.name.charAt(0).toUpperCase() + field.name.slice(1)}`}>
-                  <Form.Label><b>{field.label}</b></Form.Label>
-                  <Form.Control
-                    type={field.type}
-                    placeholder="Enter"
-                    value={user?.thongtinsinhvien?.[field.name] || ''}
-                    onChange={handleInputChange}
-                    readOnly={field.readOnly}
-                  />
-                </Form.Group>
-              </Col>
-          ))}
-          {/*cac phan khac*/}
-        </Row>
+            <Col sm={9}>
+              <Row>
+                {fields[0].map((field) => (
+                <Col sm={4} key={field.name} style={{ paddingLeft: '1vh', borderLeft: field.name !== 'hovaten' ? '1px solid rgb(204, 203, 203)' : 'none' }}>
+                  <Form.Group controlId={`form${field.name.charAt(0).toUpperCase() + field.name.slice(1)}`}>
+                    <Form.Label><b>{field.label}</b></Form.Label>
+                    <Form.Control
+                      type={field.type}
+                      placeholder="Enter"
+                      value={user?.thongtinsinhvien?.[field.name] || ''}
+                      onChange={handleInputChange}
+                      readOnly={field.readOnly}
+                    />
+                  </Form.Group>
+                </Col>
+                ))}
+              </Row>
+            </Col>
+          </Row>
+        <div style={{ backgroundColor: 'rgb(204, 203, 203)', fontWeight: 'bold', width: '96%', margin: '2% auto' }}>
+          <p style={{ boxShadow: '2px 2px 10px rgb(104, 103, 103)' }}>
+            Address Information
+          </p>
+        </div>
 
         </Tab.Pane>
 
         <Tab.Pane eventKey="#training" style={{ borderTop: 'none' }}>
-          <div style={{ backgroundColor: 'rgb(204, 203, 203)', fontWeight: 'bold', width: '96%', margin: '2% auto' }}>
-            <p style={{ boxShadow: '2px 2px 10px rgb(104, 103, 103)' }}>
+          <div className="smallbox">
+            <p>
               Training Infomation
             </p>
           </div>
@@ -158,7 +164,7 @@ function EditStudent() {
               </Col>
             ))}
           </Row>
-          {/* ... (các phần khác) */}
+
         </Tab.Pane>
       </Tab.Content>
     </Tab.Container>

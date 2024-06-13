@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AuthProvider } from '../context/authContext';
+import { AuthProvider } from '../lib/authContext';
 import Login from '../components/auth/login';
 import ChangePassword from './../components/auth/changePassword';
 import { logo } from '../components/image';

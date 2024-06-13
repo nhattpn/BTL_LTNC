@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {LogOut} from './../../components/auth/logout';
+import LogOut from './../../components/auth/logout';
 import { logo } from '../image';
+import { Navbar, Nav, Button} from "react-bootstrap";
 function AdminHeader() {
   const [info, setInfo] = useState({});
   useEffect(() => {
@@ -12,20 +13,13 @@ function AdminHeader() {
   }, [])
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="/">
-          <img className="logo" src={logo} alt="logo" />
+      <Navbar expand="lg" style={{border: '0'}}>
+        <a href="/">
+          <img style={{ width: '25%', marginLeft: '7vh' }} src={logo} alt="logo" />
         </a>
-        <ul className="navbar-nav ms-auto">
-          <li style={{padding: '2vh'}}>
-            <p>{info.name} - ADMIN</p>
-          </li>
-          <li style={{padding: '2vh', cursor: 'pointer'}} onClick={LogOut}>
-            <i className="fa fa-solid fa-bell fa-lg fa-3x"></i>
-            LogOut
-          </li>
-        </ul>
-      </nav>
+        <p style={{width: '20vh', marginLeft: '100vh'}}>{info.name} - ADMIN</p>
+        <LogOut />
+      </Navbar>
     </>
   );
 }

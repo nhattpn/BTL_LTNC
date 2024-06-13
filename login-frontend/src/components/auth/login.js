@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../hooks/useAuth'; // Assuming useAuth hook exists
+import { useAuth } from '../../lib/useAuth'; // Assuming useAuth hook exists
 import Alert from '@mui/material/Alert'
 import { useNavigate } from 'react-router-dom';
+
+import {useSelector, useDispatch} from 'react-redux';
+import { setUserData } from '../../store/feature/userReducer';
+
 function Login(props) {
   const path = window.location.pathname.split('/');
   const [email, setEmail] = useState('');
@@ -10,6 +14,7 @@ function Login(props) {
   const [successMsg, setSuccessMsg] = useState(null);
   const auth = useAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -18,13 +23,16 @@ function Login(props) {
       if (response.message === "Login successful") {
         setErrorMsg(null);
         setSuccessMsg("Login successful!");
+        dispatch(setUserData(response.userdata));
         navigate('/' + path[1] + '/dashboard');
+
       } else if(response.message === "Default password in use. Password change required."){
         setErrorMsg(response.message);
         setSuccessMsg(null);
         sessionStorage.clear();
         navigate('/' + path[1] + '/changepassword');
         window.location.reload();
+
       } else{
         setErrorMsg(response.message);
         setSuccessMsg(null);

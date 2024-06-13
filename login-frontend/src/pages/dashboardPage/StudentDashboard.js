@@ -2,16 +2,21 @@ import React, {createContext, useEffect, useState } from 'react';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './Dashboard.css';
+import {store} from '../../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+
 import InfoStudent from '../../components/dashboard/student/infoStudent';
 import EditStudent from '../../components/dashboard/student/test';
+import Schedule from '../../components/dashboard/student/scheduleStudent';
+
 import StudentHeader from '../../components/header_footer/StudentHeader';
 import Footer from '../../components/header_footer/Footer';
-import Schedule from '../../components/dashboard/student/scheduleStudent';
 
 export const ViewContext = createContext();
 function DataTable() {
   const [user, setUser] = useState(undefined);
   const jwtToken = sessionStorage.getItem('jwtToken');
+
   const getData = async () => {
     try {
       const response = await fetch("http://localhost:5000/student/dashboard/thongtinsinhvien", {

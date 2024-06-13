@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../hooks/useAuth'; // Assuming useAuth hook exists
+import { useAuth } from '../../lib/useAuth'; // Assuming useAuth hook exists
 import Alert from '@mui/material/Alert'
 import { useNavigate } from 'react-router-dom';
 function ChangePassword(props) {

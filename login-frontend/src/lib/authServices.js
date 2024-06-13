@@ -1,4 +1,6 @@
 const BASE_URL = 'http://localhost:5000'
+
+// Store all function working API with Backend in authentication
 export const login = async (email, password) => {
   const API_URL = BASE_URL + window.location.pathname;
   const response = await fetch(API_URL, {
