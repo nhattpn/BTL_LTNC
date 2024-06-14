@@ -11,7 +11,7 @@ export const login = async (email, password) => {
   const data = await response.json();
   if (response.ok) {
     sessionStorage.setItem('jwtToken', data.token); // Lưu token
-    sessionStorage.setItem('userdata', JSON.stringify(data.userdata));
+    // sessionStorage.setItem('userdata', JSON.stringify(data.userdata));
   }
   return data;
 };

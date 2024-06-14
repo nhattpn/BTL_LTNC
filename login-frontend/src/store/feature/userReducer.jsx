@@ -10,7 +10,8 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUserData: (state, action) => {
-      return {isLoggin: true, ...action.payload};
+      state.isLoggin = true;
+      state.userData = action.payload;
     },
     logout: () => initialState
   }

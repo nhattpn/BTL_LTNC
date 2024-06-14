@@ -14,7 +14,7 @@ const LogOut = () => {
             });
             dispatch(logout());
             sessionStorage.clear();
-            console.log(response.message);
+            console.log(response.message || "logout");
         } catch (error) {
             console.error('Error logging out (backend):', error);
         } finally {

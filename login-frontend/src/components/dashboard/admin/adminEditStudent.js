@@ -29,7 +29,7 @@ function EditStudent() {
       AAC: '',
       GPA: '',
       major: '',
-      expectGrationDate: '',
+      expectGraduationDate: '',
     }    
   });
   const getData = async () => {
@@ -272,8 +272,8 @@ function EditStudent() {
             </Col>
             <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
               <label htmlFor="sdt" className="form-label"><b>#Expected Graduation Date</b></label>
-              <input type="text" className="form-control" id="sdt" placeholder="Enter" value={formData.training_info.expectGrationDate} 
-                onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, expectGrationDate: e.target.value}} )} />
+              <input type="text" className="form-control" id="sdt" placeholder="Enter" value={formData.training_info.expectGraduationDate} 
+                onChange={(e) => setFormData({...formData, training_info: {...formData.training_info, expectGraduationDate: e.target.value}} )} />
             </Col>
           </Row>
           <Button type="submit" onClick={handleSubmit} style={{marginLeft: '40em', backgroundColor: 'green', width: '10vh'}}>

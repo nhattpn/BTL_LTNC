@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import { Outlet, Navigate, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { Outlet, useNavigate } from 'react-router-dom'
 
 const PrivateRoutes = () => {
   const navigate = useNavigate();
   const token = sessionStorage.getItem('jwtToken');
-  const info = sessionStorage.getItem('userdata');
+  const user = useSelector(state => state.user.userData);
 
   const path = window.location.pathname.split('/');
   const loginUrl = '/' + path[1] + '/login';
@@ -13,9 +14,8 @@ const PrivateRoutes = () => {
       navigate(loginUrl, {replace: true });
     }
     else{
-      const userdata = JSON.parse(info);
-      if(path[1] != userdata.role){
-        navigate('/' + userdata.role + '/dashboard');
+      if(path[1] !== user.role){
+        navigate('/' + user.role + '/dashboard');
       }
     }
   }, []);

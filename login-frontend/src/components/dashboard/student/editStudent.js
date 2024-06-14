@@ -2,12 +2,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup } from 'react-bootstrap';
 import '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { ViewContext } from '../../../pages/dashboardPage/StudentDashboard';
+import { useSelector } from 'react-redux';
+
 function EditStudent() {
   const jwtToken = sessionStorage.getItem('jwtToken');
-  const {currentView, setCurrentView, user, setUser} = useContext(ViewContext);
+  const {currentView, setCurrentView} = useContext(ViewContext);
   const toggleSwitch = () => {
     setCurrentView(currentView === 'InfoStudent' ? 'EditStudent' : 'InfoStudent');
   };
+  const user = useSelector(state => state.user?.userData);
+
   const [mssv, setMssv] = useState('');  const [gender, setGender] = useState('');
   const [faculty, setFaculty] = useState('');  const [name, setName] = useState('');
   const [birthday, setBirthday] = useState('');  const [classId, setClassId] = useState('');
@@ -20,7 +24,7 @@ function EditStudent() {
   const [educationProgram, setEducationProgram] = useState('');  const [status, setEtatus] = useState('');
   const [expectSemester, setExpectSemester] = useState('');  const [maximumSemester, setMaximumSemester] = useState('');
   const [AAC, setAAC] = useState('');  const [GPA, setGPA] = useState('');
-  const [major, setMajor] = useState('');  const [expectGrationDate, setExpectGrationDate] = useState('');
+  const [major, setMajor] = useState('');  const [expectGraduationDate, setExpectGraduationDate] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -236,8 +240,8 @@ function EditStudent() {
             </Col>
             <Col sm={3} style={{ paddingLeft: '1vh', borderLeft: '1px solid rgb(204, 203, 203)' }}>
               <label htmlFor="sdt" className="form-label"><b>#Expected Graduation Date</b></label>
-              <input type="text" className="form-control" id="sdt" placeholder="Enter" value={expectGrationDate} 
-                onChange={(e) => setExpectGrationDate( e.target.value)} />
+              <input type="text" className="form-control" id="sdt" placeholder="Enter" value={expectGraduationDate} 
+                onChange={(e) => setExpectGraduationDate( e.target.value)} />
             </Col>
           </Row>
           <Button type="submit" onClick={handleSubmit} style={{marginLeft: '40em', backgroundColor: 'green', width: '10vh'}}>

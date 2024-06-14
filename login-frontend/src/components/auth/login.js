@@ -57,7 +57,7 @@ function Login(props) {
             placeholder="Enter email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            id="email" 
+            id="email"
             required
           />
           <div className="valid-feedback">Valid</div>
