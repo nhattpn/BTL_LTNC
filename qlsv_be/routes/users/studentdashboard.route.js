@@ -20,7 +20,7 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage: storage });
 
 // Route to update a student's information and handle image upload
-router.post('/thongtinsinhvien/updatePicture', upload.fields([{name: 'img', maxCount: 1}]), (req, res) => {
+router.post('/studentinfo/updatePicture', upload.fields([{name: 'img', maxCount: 1}]), (req, res) => {
   const link_img = req.files['img'][0]
   res.send(link_img);
 });
@@ -31,7 +31,7 @@ const dangkymonRoute = require('./dangkymon.route')
 //*************************//
 
 //controller
-const thongtinSinhVien = require('../../controllers/users/student/thongtinsv.controller');
+const studentInfo = require('../../controllers/users/student/studentInfo');
 const thongtinDaoTao = require('../../controllers/users/student/thongtindt.controller');
 const tkb = require('../../controllers/users/student/tkb.controller');
 const bangdiem = require('../../controllers/users/student/bangdiem.controller');
@@ -40,9 +40,9 @@ const khoahoc = require('../../controllers/users/student/khoahoc.controller');
 //*************************//
 
 //get all route
-router.get('/thongtinsinhvien', thongtinSinhVien.dashboard);
-router.put('/thongtinsinhvien', thongtinSinhVien.updateStudent);
-router.post('/thongtinsinhvien/updatePicture', upload.single('image'), thongtinSinhVien.updatePicture);
+router.get('/studentinfo', studentInfo.dashboard);
+router.put('/studentinfo', studentInfo.updateStudent);
+router.post('/studentinfo/updatePicture', upload.single('image'), studentInfo.updatePicture);
 router.get('/thongtindaotao', thongtinDaoTao.getAllDaoTao);
 router.get('/tkb', tkb.getTKB);
 router.get('/lichthi', lichthi.getAllLichThi);

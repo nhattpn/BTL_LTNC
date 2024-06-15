@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './Dashboard.css';
 
 import InfoStudent from '../../components/dashboard/student/infoStudent';
-import EditStudent from '../../components/dashboard/student/test';
+import EditStudent from '../../components/dashboard/student/editStudent';
 import Schedule from '../../components/dashboard/student/scheduleStudent';
 
 import StudentHeader from '../../components/header_footer/StudentHeader';

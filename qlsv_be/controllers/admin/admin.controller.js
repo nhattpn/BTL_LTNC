@@ -26,7 +26,7 @@ const login = async (req, res) => { // route: ../login
 
         // Setting the session info
         req.session.isAdmin = true;
-        req.session.email = admin.email
+        req.session.email = admin.email;
 
         res.status(200).json({ message: "Login successful", token: token, userdata: admin});
     } catch (err) {

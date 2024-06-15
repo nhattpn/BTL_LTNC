@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const thongtinGiangVien = require('../../controllers/users/teacher/thongtingv.controller');
-const SinhVien = require('../../controllers/users/teacher/SinhVien.controller');
+const teacherInfo = require('../../controllers/users/teacher/thongtingv.controller');
+const Student = require('../../controllers/users/teacher/Student.controller');
 
 const {CloudinaryStorage} = require('multer-storage-cloudinary')
 const cloudinary = require('../../configs/cloudinary')
@@ -23,7 +23,7 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage: storage });
 
 // Route to update a student's information and handle image upload
-router.post('/thongtingiangvien/updatePicture', upload.fields([{name: 'img', maxCount: 1}]), (req, res) => {
+router.post('/teacherinfo/updatePicture', upload.fields([{name: 'img', maxCount: 1}]), (req, res) => {
   const link_img = req.files['img'][0]
   res.send(link_img);
 });
@@ -31,10 +31,10 @@ router.post('/thongtingiangvien/updatePicture', upload.fields([{name: 'img', max
 
 const bangdieukhienRoute = require('./bangdieukhien.route')
 
-router.get('/thongtingiangvien',thongtinGiangVien.dashboard);
-router.put('/thongtingiangvien',thongtinGiangVien.updateTeacher);
-router.use('/SinhVien',SinhVien.dashboard);
-//router.post('/thongtingiangvien/updatePicture', upload.single('image'), thongtinGiangVien.updatePicture);
+router.get('/teacherinfo',teacherInfo.dashboard);
+router.put('/teacherinfo',teacherInfo.updateTeacher);
+router.use('/Student',Student.dashboard);
+//router.post('/teacherinfo/updatePicture', upload.single('image'), teacherInfo.updatePicture);
 
 
 //use route

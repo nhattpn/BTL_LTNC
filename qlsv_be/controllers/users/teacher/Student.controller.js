@@ -1,8 +1,8 @@
-const SinhVienModel = require('../../../models/student.model');
+const StudentModel = require('../../../models/student.model');
 
 module.exports.dashboard = async (req, res) => {
     try {
-        const SinhVien = await SinhVienModel.find()
+        const Student = await StudentModel.find()
         .select({
             _id: 0,
             name: 1,
@@ -11,8 +11,8 @@ module.exports.dashboard = async (req, res) => {
             training_info: 1,
             courseEnroll: 1
         });
-        console.log(SinhVien);
-        res.json(SinhVien); // send response to client
+        console.log(Student);
+        res.json(Student); // send response to client
     } catch (error) {
         console.error(error);
         res.status(500).send('Server error'); // send error response to client

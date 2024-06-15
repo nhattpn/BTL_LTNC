@@ -47,7 +47,7 @@ const studentSchema = new mongoose.Schema(
         AAC: String,
         GPA: String,
         major: String,
-        expectGrationDate: String,
+        expectGraduationDate: String,
     },
     courseEnroll: {
         type: [couSem],

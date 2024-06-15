@@ -27,7 +27,7 @@ function EditTeacher() {
   });
   const getData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/teacher/dashboard/thongtingiangvien", {
+      const response = await fetch("http://localhost:5000/teacher/dashboard/teacherinfo", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
@@ -48,7 +48,7 @@ function EditTeacher() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:5000/teacher/dashboard/thongtingiangvien`, {
+      const response = await fetch(`http://localhost:5000/teacher/dashboard/teacherinfo`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${jwtToken}`,
