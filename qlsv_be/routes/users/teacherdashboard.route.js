@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const teacherInfo = require('../../controllers/users/teacher/thongtingv.controller');
-const Student = require('../../controllers/users/teacher/Student.controller');
 
 const {CloudinaryStorage} = require('multer-storage-cloudinary')
 const cloudinary = require('../../configs/cloudinary')
@@ -30,12 +28,15 @@ router.post('/teacherinfo/updatePicture', upload.fields([{name: 'img', maxCount:
 
 
 const bangdieukhienRoute = require('./bangdieukhien.route')
+//*************************//
 
+const teacherInfo = require('../../controllers/users/teacher/teacherInfo.controller');
+const Student = require('../../controllers/users/teacher/Student.controller');
+//*************************//
 router.get('/teacherinfo',teacherInfo.dashboard);
 router.put('/teacherinfo',teacherInfo.updateTeacher);
 router.use('/Student',Student.dashboard);
-//router.post('/teacherinfo/updatePicture', upload.single('image'), teacherInfo.updatePicture);
-
+//*************************//
 
 //use route
 router.use('/bangdieukhien', bangdieukhienRoute)

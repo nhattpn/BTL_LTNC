@@ -1,4 +1,5 @@
 import { Col, Form, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 export const Avatar = () => {
   return(
@@ -15,11 +16,28 @@ export const Avatar = () => {
   )
 };
 
+export const DisplayMap = ({ fields, row }) => {
+  const user = useSelector(state => state.user?.userData);
+  return(
+    <Row style={{marginBottom: '2%'}}>
+      {fields.map(field => (
+      <Col sm={row} key={field.name} style={{ padding: '0 1vh', marginBottom: '1%'}}>
+        <p style={{ fontWeight: 'bold' }}>{field.label}</p>
+        <p>{user?.[field.name]
+          || user?.private_info?.[field.name]
+          || user?.training_info?.[field.name] 
+          || 'None'}</p>
+      </Col>
+      ))}
+    </Row>
+  );
+};
+
 export const FormMap = ({ fields, formData, handleInputChange, row }) => {
   return (
     <Row style={{marginBottom: '2%'}}>
       {fields.map(field => (
-      <Col sm={row} key={field.name} style={{ paddingLeft: '1vh', borderLeft:'1px solid rgb(204, 203, 203)', marginBottom: '1%'}}>
+      <Col sm={row} key={field.name} style={{ padding: '0 2vh', borderLeft:'1px solid rgb(204, 203, 203)', marginBottom: '1%'}}>
         <Form.Group as={Row} controlId={`form${field.name.charAt(0).toUpperCase() + field.name.slice(1)}`}>
           <Form.Label><b>{field.label}</b></Form.Label>
           {field.name === "gender" ? (
@@ -60,7 +78,10 @@ export const FormMap = ({ fields, formData, handleInputChange, row }) => {
             type={field.type}
             placeholder="Enter"
             name={field.name}
-            value={formData?.[field.name] || formData?.training_info?.[field.name] || ''}
+            value={formData?.[field.name]
+              || formData?.private_info?.[field.name]
+              || formData?.training_info?.[field.name]
+              || ''}
             onChange={handleInputChange}
           />
           )}

@@ -1,79 +1,23 @@
 import React, {useContext, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup } from 'react-bootstrap';
-import '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { Avatar, FormMap, CrossBar, handleSubmit } from '../../generalComponent';
+import { Avatar, FormMap, CrossBar, handleSubmit } from '../../general/generalComponent';
+import { StudentModel, Fields, TrainingFields} from '../../general/studentObj';
 import { ViewContext } from '../../../pages/dashboardPage/StudentDashboard';
 import { setUserData } from '../../../store/feature/userReducer';
 
 function EditStudent() {
-  const jwtToken = sessionStorage.getItem('jwtToken');
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userData);
+  const dispatch = useDispatch();
 
   const {currentView, setCurrentView} = useContext(ViewContext);
   const toggleSwitch = () => {
     setCurrentView(currentView === 'InfoStudent' ? 'EditStudent' : 'InfoStudent');
   };
 
-  const [formData, setFormData] = useState({
-    name: '',
-    mssv: '',
-    private_info: {
-      gender: 'O',
-      birthday: '',
-      classId: '',
-      faculty: '',
-      cccd: '',
-      cccdDay: '',
-      cccdLocation: '',
-      address: '',
-      phoneNumber: '',
-      email: '',
-      personalEmail: '',
-    },
-    training_info: {
-      yearOfAdmission: '',
-      trainingTime: '',
-      educationProgram: '',
-      status: '',
-      expectSemester: '',
-      maximumSemester: '',
-      AAC: '',
-      GPA: '',
-      major: '',
-      expectGraduationDate: '',
-    }    
-  });
-  const fields = [[
-    { name: 'name', label: '#Full Name', type: 'text' },
-    { name: 'birthday', label: '#Day of Birth', type: 'date' },
-    { name: 'cccd', label: '#Identity Card Number', type: 'text' },
-    { name: 'mssv', label: '#Student ID', type: 'text', readOnly: true },
-    { name: 'classId', label: '#Class', type: 'text' },
-    { name: 'cccdDay', label: '#Date of issue of identity card', type: 'date' },
-    { name: 'gender', label: '#Sex', type: 'radio' },
-    { name: 'faculty', label: '#Faculty', type: 'text' },
-    { name: 'cccdLocation', label: '#Place of issue of identity card', type: 'text' },
-  ],[
-    { name: 'address', label: '#Address', type: 'text' },
-    { name: 'phoneNumber', label: '#Telephone Number', type: 'text' },
-    { name: 'email', label: '#University Email', type: 'email' },
-    { name: 'personalEmail', label: '#Other Email', type: 'email' },
-  ]];
-  const trainingFields = [[
-    { name: 'yearOfAdmission', label: '#Year of Admission', type: 'text' },
-    { name: 'trainingTime', label: '#Training Time', type: 'text' },
-    { name: 'educationProgram', label: '#Education Program', type: 'text' },
-    { name: 'status', label: '#Status', type: 'text' },
-    { name: 'expectSemester', label: '#Expected number of semesters', type: 'number' },
-    { name: 'maximumSemester', label: '#Maximum Number of Semesters', type: 'number' },
-    { name: 'AAC', label: '#Accumulate Academic Credits', type: 'number' },
-    { name: 'GPA', label: '#GPA', type: 'number' },
-  ], [
-    { name: 'major', label: '#Major', type: 'text' },
-    { name: 'expectGraduationDate', label: '#Expected Graduation Date', type: 'date' },
-  ]];
+  const [formData, setFormData] = useState(StudentModel);
+  const fields = Fields;
+  const trainingFields = TrainingFields;
 
   useEffect(() => {
     setFormData(prevFormData => ({
@@ -90,27 +34,26 @@ function EditStudent() {
     }));
   }, [user]);
 
-const handleInputChange = (event) => {
-  const { name, value } = event.target;
-  console.log(formData);
-  if(formData?.[name] !== undefined){
-    setFormData({...formData, [name]: value});
-  }
-  else if (formData?.private_info?.[name] !== undefined ){ 
-    setFormData({...formData, private_info: {...formData.private_info, [name]: value}});
-  }
-  else if (formData?.training_info?.[name] !== undefined ){
-    setFormData({...formData, training_info: {...formData.training_info, [name]: value}});
-  }
-  else{
-    console.log(formData?.training_info?.[name]);
-  }
-    
-};
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    if(formData?.[name] !== undefined){
+      setFormData({...formData, [name]: value});
+    }
+    else if (formData?.private_info?.[name] !== undefined ){ 
+      setFormData({...formData, private_info: {...formData.private_info, [name]: value}});
+    }
+    else if (formData?.training_info?.[name] !== undefined ){
+      setFormData({...formData, training_info: {...formData.training_info, [name]: value}});
+    }
+    else{
+      console.log(formData?.training_info?.[name]);
+    }
+      
+  };
 
-const handleFormSubmit = (e) => {
-  handleSubmit(e, 'student', formData, dispatch, setUserData); 
-};
+  const handleFormSubmit = (e) => {
+    handleSubmit(e, 'student', formData, dispatch, setUserData); 
+  };
 
   return(
     <Tab.Container defaultActiveKey={'#info'}>
@@ -127,6 +70,7 @@ const handleFormSubmit = (e) => {
       <i style={{ fontWeight: 'bold' }}>Last updated time: dd/mm/yyyy realtime</i>
       <Button onClick={toggleSwitch} style={{marginLeft :'100vh', marginRight: '1vh'}}>Edit</Button>
     </div>
+
       <Tab.Content>
         <Tab.Pane eventKey='#info' style={{ borderTop: 'none' }}>
           <CrossBar content="Personal Infomation"/>

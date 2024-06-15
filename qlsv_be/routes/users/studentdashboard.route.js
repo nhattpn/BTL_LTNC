@@ -31,7 +31,7 @@ const dangkymonRoute = require('./dangkymon.route')
 //*************************//
 
 //controller
-const studentInfo = require('../../controllers/users/student/studentInfo');
+const studentInfo = require('../../controllers/users/student/studentInfo.controller');
 const thongtinDaoTao = require('../../controllers/users/student/thongtindt.controller');
 const tkb = require('../../controllers/users/student/tkb.controller');
 const bangdiem = require('../../controllers/users/student/bangdiem.controller');
