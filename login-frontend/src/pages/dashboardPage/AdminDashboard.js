@@ -1,10 +1,9 @@
-import React, {createContext, useContext, useEffect, useState} from 'react';
+import React, {createContext, useState} from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
-import ListUser from '../../components/dashboard/admin/listUser';
-import AdminEditStudent from '../../components/dashboard/admin/adminEditStudent';
-import AdminEditTeacher from '../../components/dashboard/admin/adminEditTeacher';
-import DashBoard from '../../components/dashboard/admin/dashboardAdmin';
+import ListUser from '../../components/dashboard/primaryFeature/listUser';
+import EditUser from '../../components/dashboard/primaryFeature/editUser';
+import DashBoard from '../../components/dashboard/scheduleComponent/dashboardAdmin';
 import AdminHeader from '../../components/header_footer/AdminHeader';
 import Footer from '../../components/header_footer/Footer';
 
@@ -17,8 +16,8 @@ function AdminDashboard() {
     switch (currentView){
       case 'Student': return <ListUser type="student" />;
       case 'Teacher': return <ListUser type="teacher" />; 
-      case 'AdminEditStudent': return <AdminEditStudent />;
-      case 'AdminEditTeacher': return <AdminEditTeacher />;
+      case 'AdminEditStudent': return <EditUser />;
+      case 'AdminEditTeacher': return <EditUser />;
       case 'DashBoard': return <DashBoard />;
       default: return; 
     }
@@ -37,14 +36,14 @@ function AdminDashboard() {
               {isOpen && (
                 <ul>
                   <ol className="nav-item" style={{ paddingTop: '2rem' }}>
-                      <p onClick={() => setCurrentView('Student')} className={currentView === 'Student' && 'greentext'} style={{ marginBottom: '0', cursor: 'pointer' }}>
-                        Student
-                      </p>
+                      <Link to={'/admin/dashboard'} onClick={() => setCurrentView('Student')} className={`linkbar ${currentView === 'Student' ? 'greentext' : ''}`} style={{}}>
+                        Student 
+                      </Link>
                   </ol>
                   <ol className="nav-item" style={{ paddingTop: '2rem' }}>
-                      <p onClick={() => {setCurrentView('Teacher')}} className={currentView === 'Teacher' && 'greentext'} style={{ marginBottom: '0', cursor: 'pointer' }}>
+                      <Link to={'/admin/dashboard'} onClick={() => {setCurrentView('Teacher')}} className={`linkbar ${currentView === 'Teacher' ? 'greentext' : ''}`} style={{ marginBottom: '0', cursor: 'pointer', textDecoration: 'none'}}>
                         Teacher
-                      </p>
+                      </Link>
                   </ol>
                 </ul>
               )}

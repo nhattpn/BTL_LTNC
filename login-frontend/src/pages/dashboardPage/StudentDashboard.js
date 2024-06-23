@@ -1,11 +1,11 @@
-import React, {createContext, useState } from 'react';
+import React, {useState } from 'react';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './Dashboard.css';
+import './../../styles/Dashboard.css';
 
-import InfoUser from '../../components/dashboard/infoUser';
-import EditUser from '../../components/dashboard/editUser';
-import Schedule from '../../components/dashboard/student/scheduleStudent';
+import InfoUser from '../../components/dashboard/primaryFeature/infoUser';
+import EditUser from '../../components/dashboard/primaryFeature/editUser';
+import StudentSchedule from '../../components/dashboard/scheduleComponent/studentSchedule';
 
 import StudentHeader from '../../components/header_footer/StudentHeader';
 import Footer from '../../components/header_footer/Footer';
@@ -48,7 +48,7 @@ function DataTable() {
                 )}
               </li>
               <li className="nav-item" style={{ paddingTop: '2rem', cursor: 'pointer' }}>
-                <div onClick={() => handleNavigation('Schedule')}>
+                <div onClick={() => handleNavigation('StudentSchedule')}>
                   <i class="fa-solid fa-calendar-days fa-md fa-2x"></i>Schedule
                 </div>
               </li>
@@ -59,7 +59,7 @@ function DataTable() {
             <div className="dataTable mx-auto">
                 {currentView === 'Info' && <InfoUser />}
                 {currentView === 'Edit' && <EditUser />}
-                {currentView === 'Schedule' && <Schedule />}
+                {currentView === 'StudentSchedule' && <StudentSchedule />}
             </div>
           </div>
         </div>

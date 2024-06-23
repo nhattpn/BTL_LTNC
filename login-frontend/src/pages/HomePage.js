@@ -1,17 +1,17 @@
 import React from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../node_modules/@fortawesome/fontawesome-free/css/all.css';
-import FirstHeader from './../components/header_footer/FirstHeader';
-import FirstFooter from '../components/header_footer/FirstFooter';
-import { firstBG } from '../components/image';
+import HomeHeader from './../components/header_footer/HomeHeader';
+import HomeFooter from '../components/header_footer/HomeFooter';
+import { homeBG } from '../components/image';
 
-function FirstPage() {
+function HomePage() {
   return (
     <>
       <div className='container-fluid' >
-        <FirstHeader />
+        <HomeHeader />
         <div style={{backgroundColor: 'rgb(58, 35, 35)'}}>
-        <div style={{ height: '80vh', width: '188vh', backgroundImage: `url(${firstBG})`,backgroundRepeat: 'no-repeat', backgroundPositionX: 'center'}}>
+        <div style={{ height: '80vh', width: '188vh', backgroundImage: `url(${homeBG})`,backgroundRepeat: 'no-repeat', backgroundPositionX: 'center'}}>
           <div className="row justify-content-center" >
             <div className="col-md-12" style={{ justifyContent: 'center', width: '40%', paddingTop: '4%'}}>
               <h3 style={{ color: '#fff', justifyContent: 'center', fontWeight: 'bold' , textShadow: '2px 2px 5px black'}}>
@@ -28,10 +28,10 @@ function FirstPage() {
           </div>
         </div> 
         </div>
-        <FirstFooter/>
+        <HomeFooter/>
       </div>
     </>
   );
 }
 
-export default FirstPage;
+export default HomePage;

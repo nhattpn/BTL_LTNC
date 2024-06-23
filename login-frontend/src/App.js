@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-import FirstPage from './pages/FirstPage';
+import HomePage from './pages/HomePage';
 import AuthPage from './pages/authPage';
 import Course from './pages/coursePage/Course';
 import MyCourse from './pages/coursePage/MyCourse';
@@ -17,7 +17,7 @@ function App() {
   return (
       <Router>
         <Routes>
-          <Route path='/' element={<FirstPage />} />
+          <Route path='/' element={<HomePage />} />
           <Route path='/teacher/login' element={<AuthPage />} />
           <Route path='/student/login' element={<AuthPage />} />
           <Route path='/admin/login' element={<AuthPage />} />

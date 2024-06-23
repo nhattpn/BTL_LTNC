@@ -7,7 +7,7 @@ import Badge from "@mui/material/Badge";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import {logo} from './../image';
 
-function FirstHeader() {
+function HomeHeader() {
   const [notifications, setNotifications] = useState([]);
 
   const StyledBadge = styled(Badge)(() => ({
@@ -70,4 +70,4 @@ function FirstHeader() {
   );
 }
 
-export default FirstHeader;
+export default HomeHeader;

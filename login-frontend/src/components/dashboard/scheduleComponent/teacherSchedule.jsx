@@ -1,10 +1,5 @@
 import React, { useMemo, useState, useEffect, useRef } from 'react';
 import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup, TabContainer } from 'react-bootstrap';
-import {
-  MRT_EditActionButtons,
-  MaterialReactTable,
-  useMaterialReactTable,
-} from 'material-react-table';
 const DashBoard = () => {
   const jwtToken = sessionStorage.getItem('jwtToken');
   const [courses, setCourses] = useState([

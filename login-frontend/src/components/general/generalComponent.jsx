@@ -1,13 +1,7 @@
 import { Col, Form, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import React, { useMemo, useState, useEffect, useRef, createContext, useContext } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import IconButton from '@mui/material/IconButton';
-import {
-  MRT_EditActionButtons,
-  MaterialReactTable,
-  useMaterialReactTable,
-} from 'material-react-table';
+import React from 'react';
+
 
 export const Avatar = () => {
   return(
@@ -31,10 +25,15 @@ export const DisplayMap = ({ fields, row }) => {
       {fields.map(field => (
       <Col sm={row} key={field.name} style={{ padding: '0 1vh', marginBottom: '1%'}}>
         <p style={{ fontWeight: 'bold' }}>{field.label}</p>
-        <p>{user?.[field.name]
+        <p>{field.type === "date"
+          ? (user?.[field.name]?.slice(0, 10)
+          || user?.private_info?.[field.name]?.slice(0, 10)
+          || user?.training_info?.[field.name]?.slice(0, 10)
+          || 'None')
+          : (user?.[field.name]
           || user?.private_info?.[field.name]
           || user?.training_info?.[field.name] 
-          || 'None'}</p>
+          || 'None')}</p>
       </Col>
       ))}
     </Row>
@@ -86,10 +85,16 @@ export const FormMap = ({ fields, formData, handleInputChange, row }) => {
             type={field.type}
             placeholder="Enter"
             name={field.name}
-            value={formData?.[field.name]
+            value={field.type === 'date'
+              ? (formData?.[field.name]?.slice(0, 10)
+              || formData?.private_info?.[field.name]?.slice(0, 10)
+              || formData?.training_info?.[field.name]?.slice(0, 10)
+              || '')
+              : (formData?.[field.name] 
               || formData?.private_info?.[field.name]
               || formData?.training_info?.[field.name]
-              || ''}
+              || '')
+            }
             onChange={handleInputChange}
           />
           )}
@@ -108,29 +113,4 @@ export const CrossBar = ({content}) => {
       </p>
     </div>
   )
-};
-
-export const handleSubmit = async (e, userType, formData, dispatch, setUserData) => {
-  e.preventDefault();
-  const jwtToken = sessionStorage.getItem('jwtToken');
-  try {
-    const response = await fetch(`http://localhost:5000/${userType}/dashboard/${userType}info`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData), // Sử dụng dữ liệu từ Redux store
-    });
-
-    if (response.ok) {
-      dispatch(setUserData(formData));
-      alert('Update successfully.');
-    } else {
-      console.error('Failed to update student');
-      alert('Failed to update student!');
-    }
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
 };

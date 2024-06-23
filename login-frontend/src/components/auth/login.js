@@ -4,8 +4,8 @@ import Alert from '@mui/material/Alert'
 import { useNavigate } from 'react-router-dom';
 
 import {useSelector, useDispatch} from 'react-redux';
-import { setUserData } from '../../store/feature/userReducer';
-import { setAdminData } from '../../store/feature/adminReducer';
+import { LogginOn as userLoggin } from '../../store/feature/userReducer';
+import { LogginOn as adminLoggin} from '../../store/feature/adminReducer';
 
 function Login(props) {
   const path = window.location.pathname.split('/');
@@ -25,7 +25,7 @@ function Login(props) {
         setErrorMsg(null);
         setSuccessMsg("Login successful!");
         const data = response.userdata;
-        dispatch(data.role === "admin" ? setAdminData(data) : setUserData(data));
+        dispatch(data.role === "admin" ? adminLoggin(data) : userLoggin(data));
         navigate('/' + path[1] + '/dashboard');
 
       } else if(response.message === "Default password in use. Password change required."){

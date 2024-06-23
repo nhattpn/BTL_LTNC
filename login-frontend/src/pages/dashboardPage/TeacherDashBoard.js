@@ -1,9 +1,9 @@
-import React, {createContext, useState } from 'react';
+import React, { useState } from 'react';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-import InfoUser from '../../components/dashboard/infoUser';
-import EditUser from '../../components/dashboard/editUser';
-import TeacherSchedule from '../../components/dashboard/teacher/teacherSchedule';
+import InfoUser from '../../components/dashboard/primaryFeature/infoUser';
+import EditUser from '../../components/dashboard/primaryFeature/editUser';
+import TeacherSchedule from '../../components/dashboard/scheduleComponent/teacherSchedule';
 
 import TeacherHeader from '../../components/header_footer/TeacherHeader';
 import Footer from '../../components/header_footer/Footer';

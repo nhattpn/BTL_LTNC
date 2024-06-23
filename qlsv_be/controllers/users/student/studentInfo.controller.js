@@ -39,16 +39,17 @@ module.exports.updateStudent = async (req, res) => {// put: ../studentinfo
   try {
       const studentUpdated = {
           name: req.body.name,
+          image: req.body.image,
           private_info: req.body.private_info,
           training_info: req.body.training_info,
       }
 
-      const stu = await student.updateOne({ "userId": userId }, studentUpdated, { new: true });
+      const stu = await student.findOneAndUpdate({ userId: userId }, studentUpdated, { new: true });
 
       if (!stu) {
-          return res.status(404).send();
+          return res.status(404).json({ message:'Failed to update student!'});
       }
-      res.status(200).json({stu});
+      res.status(200).json({ message: 'Update successfully.'});
   } catch (e) {
       res.status(400).send(e);
   }

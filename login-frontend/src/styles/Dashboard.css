@@ -43,9 +43,11 @@
   text-decoration: none;
   color: #020202;
 }
-.left_navbar{
-  color: white;
+.linkbar{
+  margin-bottom: 0;
+  cursor: pointer;
   text-decoration: none;
+  color: white;
 }
 .active{
   border-top: 3px solid blue;

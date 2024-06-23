@@ -10,18 +10,21 @@ const adminSlice = createSlice({
   name: "admin",
   initialState,
   reducers: {
-    setAdminData: (state, action) => {
+    LogginOn: (state, action) => {
       state.isLoggin = true;
       state.view = "Info";
+      state.adminData = action.payload;
+    },
+    setAdminData: (state, action) => {
       state.adminData = action.payload;
     },
     setView: (state, action) => {
       state.view = action.payload;
     },
-    logoutAdmin: () => initialState
+    logOut: () => initialState
   }
 });
 
-export const {setAdminData, setView, logoutAdmin} = adminSlice.actions;
+export const {LogginOn, setAdminData, setView, logOut} = adminSlice.actions;
 export default adminSlice.reducer;
 

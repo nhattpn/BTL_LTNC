@@ -1,6 +1,7 @@
 export const TeacherModel = {
   name: '',
   userId: '',
+  role: 'teacher',
   private_info: {
     gender: 'O',
     birthday: '',

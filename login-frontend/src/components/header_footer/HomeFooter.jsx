@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-function FirstFooter() {
+function HomeFooter() {
   return (
     <>
     <div className="foot" style={{ color: '#13f7ce', height: '30vh', margin: '0'}}>
@@ -63,4 +63,4 @@ function FirstFooter() {
   );
 }
 
-export default FirstFooter;
+export default HomeFooter;

@@ -1,15 +1,18 @@
-import {useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup } from 'react-bootstrap';
 
-import { Avatar, FormMap, CrossBar, handleSubmit } from '../general/generalComponent';
-import { StudentModel, TrainingFields, Fields as StudentFields} from '../general/studentObj';
-import { TeacherModel, Fields as TeacherFields } from '../general/teacherObj';
-import { setView, setUserData } from '../../store/feature/userReducer';
+import { Avatar, FormMap, CrossBar } from '../../general/generalComponent';
+import { handleSubmit as AdminHandleSubmit} from '../../API/adminAPI';
+import { handleSubmit as UserHandleSubmit } from '../../API/userAPI';
+import { StudentModel, TrainingFields, Fields as StudentFields} from '../../general/studentModel';
+import { TeacherModel, Fields as TeacherFields } from '../../general/teacherModel';
+import { setView, setUserData } from '../../../store/feature/userReducer';
 
 function EditUser() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userData);
+  const loggin = useSelector((state) => state.user.isLoggin);
   const currentView = useSelector(state => state.user.view);
 
   const toggleSwitch = () => {
@@ -26,6 +29,7 @@ function EditUser() {
     setFormData(prevFormData => ({
       name: user.name,
       userId: user.userId,
+      role: user.role,
       private_info: {
         ...prevFormData.private_info, 
         ...user.private_info
@@ -39,23 +43,29 @@ function EditUser() {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+    let newVal = value;
+
     if(formData?.[name] !== undefined){
-      setFormData({...formData, [name]: value});
+      setFormData({...formData, [name]: newVal});
     }
     else if (formData?.private_info?.[name] !== undefined ){ 
-      setFormData({...formData, private_info: {...formData.private_info, [name]: value}});
+      setFormData({...formData, private_info: {...formData.private_info, [name]: newVal}});
     }
     else if (formData?.training_info?.[name] !== undefined ){
-      setFormData({...formData, training_info: {...formData.training_info, [name]: value}});
+      setFormData({...formData, training_info: {...formData.training_info, [name]: newVal}});
     }
     else{
       console.log(formData?.training_info?.[name]);
     }
-      
   };
 
-  const handleFormSubmit = (e) => {
-    handleSubmit(e, 'student', formData, dispatch, setUserData); 
+  const updateUser = () => {
+    dispatch(setUserData(formData));
+  };
+  
+  const handleSubmit = (e) => {
+    if(!loggin) AdminHandleSubmit(e, formData, updateUser);
+    else UserHandleSubmit(e, formData, updateUser);
   };
 
   return(
@@ -70,12 +80,13 @@ function EditUser() {
           </ListGroup.Item>
         )}
       </ListGroup>
-      
-      <div style={{ padding: '10px' }}>
-      <i style={{ fontWeight: 'bold' }}>Last updated time: dd/mm/yyyy realtime</i>
-      <Button onClick={toggleSwitch} style={{marginLeft :'100vh', marginRight: '1vh'}}>Edit</Button>
-    </div>
 
+        <div style={{ padding: '10px' }}>
+          <i style={{ fontWeight: 'bold' }}>Last updated time: dd/mm/yyyy realtime</i>
+      { loggin && ( 
+          <Button onClick={toggleSwitch} style={{marginLeft :'100vh', marginRight: '1vh'}}>Edit</Button>
+      )}
+        </div>
       <Tab.Content>
         <Tab.Pane eventKey='#info' style={{ borderTop: 'none' }}>
           <CrossBar content="Personal Infomation"/>
@@ -90,7 +101,7 @@ function EditUser() {
         <Row style={{ width: '96%', margin: 'auto' }}>
           <FormMap fields={fields[1]} formData={formData} handleInputChange={handleInputChange} row={3} />
         </Row>
-        <Button type="submit" onClick={handleFormSubmit} style={{marginLeft: '40em', backgroundColor: 'green', width: '10vh'}}>
+        <Button type="submit" onClick={e => handleSubmit(e)} style={{marginLeft: '40em', backgroundColor: 'green', width: '10vh'}}>
           Save
         </Button>
         </Tab.Pane>
@@ -109,10 +120,9 @@ function EditUser() {
             <Row style={{ width: '96%', margin: 'auto' }}>
               <FormMap fields={trainingFields[1]} formData={formData} handleInputChange={handleInputChange} row={3} /> 
             </Row>
-            <Button type="submit" onClick={handleFormSubmit} style={{marginLeft: '40em', backgroundColor: 'green', width: '10vh'}}>
+            <Button type="submit" onClick={(e) => handleSubmit(e)} style={{marginLeft: '40em', backgroundColor: 'green', width: '10vh'}}>
               Save
             </Button>
-
           </Tab.Pane>
         )}
       </Tab.Content>

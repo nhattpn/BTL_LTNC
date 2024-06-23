@@ -10,7 +10,7 @@ const { generateUniqueUserId } = require('../../helpers/generateuserid');
 const getAllStudents = async (req, res) => { // get: ../
     try {
         const students = await Student.find().select('name userId email');;
-        res.json(students);
+        res.json({listusers: students});
     } catch (error) {
         res.json({ message: error });
     }
@@ -69,12 +69,9 @@ const updateStudent = async (req, res) => { // put: ../:userId
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
-            userId: req.body.userId,
             image: req.body.image,
             private_info: req.body.private_info,
             training_info: req.body.training_info,
-            courseReg: req.body.courseReg,
-            courseEnroll: req.body.courseEnroll
         }
 
         const student = await Student.findOneAndUpdate({ userId: req.params.userId }, studentUpdated, { new: true });

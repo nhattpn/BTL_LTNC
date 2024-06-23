@@ -1,6 +1,7 @@
 export const StudentModel = {
   name: '',
   userId: '',
+  role: 'student',
   private_info: {
     gender: 'O',
     birthday: '',

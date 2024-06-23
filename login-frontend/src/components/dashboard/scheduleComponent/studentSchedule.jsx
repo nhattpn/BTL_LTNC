@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
-import { ViewContext } from '../../../pages/dashboardPage/StudentDashboard';
+import {  useState } from "react";
 
 function Schedule(){
     const [schedule, setSchedule] = useState({});
     const jwtToken = sessionStorage.getItem('jwtToken');
-    // useEffect(()=>{
-    //     setSchedule();
-    // }, [schedule]);
     const getData = async (row) => {
         let id = row.original.userId;
         try {

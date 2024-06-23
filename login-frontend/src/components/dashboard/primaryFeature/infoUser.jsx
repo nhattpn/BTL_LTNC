@@ -1,11 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Avatar, CrossBar, DisplayMap } from '../general/generalComponent';
-import { StudentModel, TrainingFields, Fields as StudentFields} from '../general/studentObj';
-import { TeacherModel, Fields as TeacherFields } from '../general/teacherObj';
-import {setView} from '../../store/feature/userReducer'
+import { Avatar, CrossBar, DisplayMap } from '../../general/generalComponent';
+import { TrainingFields, Fields as StudentFields} from '../../general/studentModel';
+import { Fields as TeacherFields } from '../../general/teacherModel';
+import {setView} from '../../../store/feature/userReducer';
 
 function InfoUser() {
   const dispatch = useDispatch();
