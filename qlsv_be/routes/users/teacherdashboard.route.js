@@ -6,7 +6,7 @@ const cloudinary = require('../../configs/cloudinary')
 const multer = require('multer');
 
 //***************/
-// route: "/teacher"
+// route: "/teacher/dashboard"
 //***************/
 
 const storage = new CloudinaryStorage({

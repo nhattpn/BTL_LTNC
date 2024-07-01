@@ -2,7 +2,12 @@ const mongoose = require('mongoose')
 const student = require('../../../models/student.model')
 const course = require('../../../models/course.model')
 
-module.exports.dashboard = async (req, res) => {
+//***************/
+// route: "/teacher/dashboard/bangdieukhien" 
+//***************/
+
+// View all courses
+module.exports.dashboard = async (req, res) => { //get: ../
   const { userId } = req.user;
   try {
     const cou = await course.aggregate([
@@ -35,28 +40,12 @@ module.exports.dashboard = async (req, res) => {
     }
     res.send(cou);
   } catch (error) {
-    // Xử lý lỗi khi có lỗi xảy ra
-    res.send("Xin lỗi! Đây là dòng tin nhắn thất bại của bangdieukhien.");
+    res.send("Opps! This is failure message of bangdieukhien.");
   }
 };
 
 //View all student studying a course
-module.exports.viewCourse = async (req, res) => {
-  const { courseCode } = req.params;
-  try {
-    const find_filter = { "courseCode": courseCode }
-    const courseRet = await course.find(find_filter);
-    if (!courseRet) {
-      return res.status(404).send();
-    }
-    res.send(courseRet);
-  } catch (e) {
-    res.status(400).send(e);
-  }
-}
-
-//View all student studying a course
-module.exports.viewStudentEnrollCourse = async (req, res) => {
+module.exports.viewStudentEnrollCourse = async (req, res) => { //get ../:courseCode
   const { courseCode } = req.params;
   try {
     const find_filter = { "courseEnroll.courseCode": courseCode }
@@ -78,8 +67,23 @@ module.exports.viewStudentEnrollCourse = async (req, res) => {
   }
 }
 
+//View a course's infomation
+module.exports.viewCourse = async (req, res) => { //get ../:courseCode/course
+  const { courseCode } = req.params;
+  try {
+    const find_filter = { "courseCode": courseCode }
+    const courseRet = await course.find(find_filter);
+    if (!courseRet) {
+      return res.status(404).send();
+    }
+    res.send(courseRet);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+}
+
 //Count students studying a course
-module.exports.countStudentEnrollCourse = async (req, res) => {
+module.exports.countStudentEnrollCourse = async (req, res) => { //get ../:courseCode/student
   const { courseCode, semester } = req.params;
   try {
     const find_filter = { "courseEnroll.courseCode": courseCode, "courseEnroll.semseter": semester }
@@ -102,7 +106,7 @@ module.exports.countStudentEnrollCourse = async (req, res) => {
 }
 
 //Update grade of a course for a student
-module.exports.updateGradeforStudent = async (req, res) => {
+module.exports.updateGradeforStudent = async (req, res) => { //put ../:courseCode/student/updateGrade
   const {courseCode} = req.params;
   const { userId, lab, midterm, final } = req.body;
   try {
@@ -130,7 +134,7 @@ module.exports.updateGradeforStudent = async (req, res) => {
 }
 
 // Update lesson method
-module.exports.updateLesson = async (req, res) => {
+module.exports.updateLesson = async (req, res) => { //post ../:courseCode/course/uploadLesson
   try {
     const { courseCode } = req.params;
     const { content } = req.body; // New content for the lesson

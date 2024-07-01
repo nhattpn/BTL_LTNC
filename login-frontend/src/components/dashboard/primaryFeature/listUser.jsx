@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect, useRef} from 'react';
 import { BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 import { useContext } from 'react';
 import { ViewContext } from '../../../pages/dashboardPage/AdminDashboard';
-import { getData, getAllUser, handleAdd, handleDelete } from '../../API/adminAPI';
+import { getData, getAllUser, handleAdd, handleDelete } from '../../API/admin/adminAPI';
 import {
   MRT_EditActionButtons,
   MaterialReactTable,
@@ -27,8 +27,8 @@ function ListUser({type}) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getAllUser(type);
-        setUsers(data);
+        const result = await getAllUser(type);
+        setUsers(result);
       } catch (err) {
         console.log("Error fetching listusers");
       } 
@@ -113,7 +113,7 @@ function ListUser({type}) {
         accessorKey: 'delete',
         header: 'Delete',
         Cell: ({ row }) => (
-          <IconButton onClick={() => handleDelete(type, row)}>
+          <IconButton onClick={() => handleDelete(type, row, setUsers)}>
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="23" height="26" viewBox="0 0 48 48">
               <path fill="#F44336" d="M21.5 4.5H26.501V43.5H21.5z" transform="rotate(45.001 24 24)"></path><path fill="#F44336" d="M21.5 4.5H26.5V43.501H21.5z" transform="rotate(135.008 24 24)"></path>
             </svg>
@@ -152,7 +152,7 @@ function ListUser({type}) {
       </div>
       <MaterialReactTable style={{ minWidth: '1000px' }} table={table} />
 
-      <Modal show={showModal} onHide={handleCloseModal}>
+      <Modal show={showModal} onHide={() => handleCloseModal()}>
         <Modal.Header closeButton>
           <Modal.Title>Add {type}...</Modal.Title>
         </Modal.Header>
@@ -182,7 +182,7 @@ function ListUser({type}) {
           <Button variant="secondary" onClick={handleCloseModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={() => {handleAdd(type, name, email); handleCloseModal()}}>
+          <Button variant="primary" onClick={() => {handleAdd(type, name, email, setUsers); handleCloseModal()}}>
             Comfirm
           </Button>
         </Modal.Footer>

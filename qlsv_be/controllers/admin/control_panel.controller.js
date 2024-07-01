@@ -12,7 +12,7 @@ const getAllCourses = async (req, res) => { // get: ../courses
     const courses = await Course.find({});
     res.json(courses);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send({message: error.message});
   }
 };
 const getCourse = async (req, res) => { // get: ../courses:courseCode
@@ -43,7 +43,7 @@ const addCourse = async (req, res) => { // post: ../courses
         scheduleDay: req.body.scheduleDay,
         scheduleTime: req.body.scheduleTime,
         scheduleWeek: req.body.scheduleWeek,
-        tinhchihocphi: req.body.tinhchihocphi,
+        tuitionCredits: req.body.tuitionCredits,
         STT: req.body.STT,
         classroom: req.body.classroom,
         midterm: req.body.midterm,
@@ -69,7 +69,7 @@ const updateCourse = async (req, res) => { // put: ../courses/:courseCode
       scheduleDay: req.body.scheduleDay,
       scheduleTime: req.body.scheduleTime,
       scheduleWeek: req.body.scheduleWeek,
-      tinhchihocphi: req.body.tinhchihocphi,
+      tuitionCredits: req.body.tuitionCredits,
       STT: req.body.STT,
       classroom: req.body.classroom,
       midterm: req.body.midterm,
@@ -81,7 +81,7 @@ const updateCourse = async (req, res) => { // put: ../courses/:courseCode
     if (!course) {
       return res.status(404).json({message: 'Course not found'});
     }
-    res.status(204).json({message: 'Course updated successfully.'}); 
+    res.status(200).json({message: 'Course updated successfully.'}); 
   } catch (e) {
     res.status(400).send(e);
   }
@@ -98,7 +98,7 @@ const deleteCourse = async (req, res) => { // delete: ../courses/:courseCode
           return res.status(404).json({message: 'Course not found'});
       }
 
-      res.status(204).json({message: 'Course deleted successfully.'});  // No content to send back, but indicate success
+      res.status(200).json({message: 'Course deleted successfully.'});  // No content to send back, but indicate success
   } catch (error) {
       res.status(500).send(error.message);
   }

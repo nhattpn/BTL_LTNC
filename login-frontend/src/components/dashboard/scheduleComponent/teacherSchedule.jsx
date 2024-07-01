@@ -18,7 +18,7 @@ const DashBoard = () => {
   }, []);
   const getAllCourses = async () => {
     try {
-      const response = await fetch("http://localhost:5000/teacher/dashboard/bangdieukhien/", {
+      const response = await fetch("http://localhost:5000/teacher/dashboard/bangdieukhien", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${jwtToken}`, // Include the token in the request header

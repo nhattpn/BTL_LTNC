@@ -1,6 +1,10 @@
 const teacher = require('../../../models/teacher.model');
 
-module.exports.dashboard = async (req, res) => {
+//***************/
+// route: "/teacher/dashboard"
+//***************/
+
+module.exports.dashboard = async (req, res) => { //get ../teacherinfo
     const {userId} = req.user
     try {
         const tea = await teacher.findOne({"userId": userId})
@@ -12,7 +16,7 @@ module.exports.dashboard = async (req, res) => {
     }
 };
 
-module.exports.updatePicture = async (req, res) => {
+module.exports.updatePicture = async (req, res) => {// post: ../teacherinfo/updatePicture
     const {userId} = req.user
     try {
         const find_filter = {"userId": userId}
@@ -29,7 +33,7 @@ module.exports.updatePicture = async (req, res) => {
     }
   };
 
-module.exports.updateTeacher = async (req, res) => {
+module.exports.updateTeacher = async (req, res) => { //put ../teacherinfo
     const {userId} = req.user
     try {
         const teacherUpdated = {

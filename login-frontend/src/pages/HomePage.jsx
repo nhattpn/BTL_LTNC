@@ -1,9 +1,9 @@
-import React from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../node_modules/@fortawesome/fontawesome-free/css/all.css';
-import HomeHeader from './../components/header_footer/HomeHeader';
+import HomeHeader from '../components/header_footer/HomeHeader';
 import HomeFooter from '../components/header_footer/HomeFooter';
 import { homeBG } from '../components/image';
+
 
 function HomePage() {
   return (

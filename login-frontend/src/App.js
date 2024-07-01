@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import HomePage from './pages/HomePage';
-import AuthPage from './pages/authPage';
+import AuthPage from './pages/AuthPage';
 import Course from './pages/coursePage/Course';
 import MyCourse from './pages/coursePage/MyCourse';
 import CourseRegistration from './pages/coursePage/CourseRegistration';

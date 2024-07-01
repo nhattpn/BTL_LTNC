@@ -27,14 +27,14 @@ const bangdieukhienController = require('../../controllers/users/teacher/bangdie
 router.get('/', bangdieukhienController.dashboard);
 router.get('/:courseCode', bangdieukhienController.viewStudentEnrollCourse);
 
-router.get('/:courseCode/khoahoc', bangdieukhienController.viewCourse);
-//router.post('/:courseCode/khoahoc/uploadLesson', upload.single('lessonFile'), bangdieukhienController.updateLesson);
-router.post('/:courseCode/khoahoc/uploadLesson', upload.fields([{name: 'file', maxCount: 99}]), (req, res) => {
+router.get('/:courseCode/course', bangdieukhienController.viewCourse);
+//router.post('/:courseCode/course/uploadLesson', upload.single('lessonFile'), bangdieukhienController.updateLesson);
+router.post('/:courseCode/course/uploadLesson', upload.fields([{name: 'file', maxCount: 99}]), (req, res) => {
   const link_file = req.files['file'][0]
   res.send(link_file);
 });
 
-router.get('/:courseCode/sinhvien', bangdieukhienController.viewStudentEnrollCourse);
-router.put('/:courseCode/sinhvien/updateGrade', bangdieukhienController.updateGradeforStudent);
+router.get('/:courseCode/student', bangdieukhienController.countStudentEnrollCourse);
+router.put('/:courseCode/student/updateGrade', bangdieukhienController.updateGradeforStudent);
 
 module.exports = router;

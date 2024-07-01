@@ -2,7 +2,7 @@
 const course = require('../../../models/course.model');
 const student = require('../../../models/student.model')
 //***************/
-// route: "/student/dashboard/dangkymon" 
+// route: "/student/dashboard/courseregister" 
 //***************/
 
 const viewAvailableCourse = async (req, res) => {// get: ../
@@ -118,22 +118,26 @@ const confirmReg = async (req, res) => {// put: ../confirmReg
 }
 
 //Delete a course registered by a student
-const deleteCourseReg = async (req, res) => {// delete: ../delOne/:courseCode
-  const {courseCode} = req.params
+const deleteCourseReg = async (req, res) => {
+  const { courseCode } = req.params;
+  const userId = req.user.userId; 
   try {
-      const userId = req.user.userId;
-      const find_filter = {"userId": userId};
-      const update_filter = {$pull: {courseReg: {"courseCode": req.body.courseCode}} };
-      const option = {};
-      const courseRet = await student.updateMany(find_filter, update_filter, option);
-      if (!courseRet) {
-        return res.status(404).send();
-      }
-      res.json(courseRet);
-    } catch (e) {
-      res.status(400).send(e);
+    const find_filter = { userId }; 
+    const update_filter = { $pull: { courseReg: { courseCode } } }; 
+    const option = { new: true };
+    const updatedStudent = await student.findOneAndUpdate(
+      find_filter,
+      update_filter,
+      option
+    );
+    if (!updatedStudent) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+    res.status(200).json({ message: 'Course deleted successfully from student registrations' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-}
+};
 
 //Delete all course registered by a student
 const deleteAllCourseReg = async (req, res) => {// delete: ../delAll

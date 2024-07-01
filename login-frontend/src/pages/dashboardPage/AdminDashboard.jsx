@@ -1,11 +1,12 @@
-import React, {createContext, useState} from 'react';
+import {Suspense, createContext, lazy, useState} from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
-import ListUser from '../../components/dashboard/primaryFeature/listUser';
-import EditUser from '../../components/dashboard/primaryFeature/editUser';
-import DashBoard from '../../components/dashboard/scheduleComponent/dashboardAdmin';
-import AdminHeader from '../../components/header_footer/AdminHeader';
+import UserHeader from '../../components/header_footer/UserHeader';
 import Footer from '../../components/header_footer/Footer';
+
+const ListUser = lazy(() => import('../../components/dashboard/primaryFeature/listUser'));
+const EditUser = lazy(() => import('../../components/dashboard/primaryFeature/editUser'));
+const DashBoard = lazy(() => import('../../components/dashboard/scheduleComponent/dashboardAdmin'));
 
 export const ViewContext = createContext();
 function AdminDashboard() {
@@ -21,10 +22,10 @@ function AdminDashboard() {
       case 'DashBoard': return <DashBoard />;
       default: return; 
     }
-  }
+  };
   return (
     <>
-      <AdminHeader />
+      <UserHeader />
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-2 leftBody">
@@ -36,30 +37,32 @@ function AdminDashboard() {
               {isOpen && (
                 <ul>
                   <ol className="nav-item" style={{ paddingTop: '2rem' }}>
-                      <Link to={'/admin/dashboard'} onClick={() => setCurrentView('Student')} className={`linkbar ${currentView === 'Student' ? 'greentext' : ''}`} style={{}}>
+                      <Link to={'/admin/dashboard'} onClick={() => setCurrentView('Student')} className={`linkbar ${currentView === 'Student' ? 'greentext' : ''}`} >
                         Student 
                       </Link>
                   </ol>
                   <ol className="nav-item" style={{ paddingTop: '2rem' }}>
-                      <Link to={'/admin/dashboard'} onClick={() => {setCurrentView('Teacher')}} className={`linkbar ${currentView === 'Teacher' ? 'greentext' : ''}`} style={{ marginBottom: '0', cursor: 'pointer', textDecoration: 'none'}}>
+                      <Link to={'/admin/dashboard'} onClick={() => {setCurrentView('Teacher')}} className={`linkbar ${currentView === 'Teacher' ? 'greentext' : ''}`} >
                         Teacher
                       </Link>
                   </ol>
                 </ul>
               )}
               <li className="nav-item" style={{ paddingTop: '2rem' }}>
-                <Link to='/admin/dashboard' style={{ color: 'white', padding: '0', textDecoration: 'none' }}>
+                <Link to='/admin/dashboard' onClick={() => {setCurrentView('DashBoard')}} className={`linkbar ${currentView === 'DashBoard' ? 'greentext' : ''}`}>
                   <i className="fa-brands fa-blackberry fa-2x"></i> 
-                  <span onClick={() => {setCurrentView('DashBoard')}} className={currentView === 'DashBoard' && 'greentext'}> Dashboard </span>
+                  <span > Dashboard </span>
                 </Link> 
               </li>
             </ul>
           </div>
           <div className='col-md-10 rightBody'>
             <div className="dataTable mx-auto">
-              <ViewContext.Provider value={{currentView, setCurrentView}} >
-                {renderTableData()}
-              </ViewContext.Provider>
+              <Suspense fallback={<div>Loading...</div>}>
+                <ViewContext.Provider value={{currentView, setCurrentView}} >
+                  { renderTableData() }
+                </ViewContext.Provider>
+              </Suspense>
             </div>
           </div>
         </div>

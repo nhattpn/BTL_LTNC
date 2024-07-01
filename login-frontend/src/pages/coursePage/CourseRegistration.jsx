@@ -1,10 +1,12 @@
-import React, { useMemo, useState, useEffect, useRef } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup } from 'react-bootstrap';
 import {
   MRT_EditActionButtons,
   MaterialReactTable,
   useMaterialReactTable,
 } from 'material-react-table';
+
+import { getAllCourses, getRegCourses, handleRegister, handleDelete, handleDeleteAll, handleEnroll } from '../../components/API/courseAPI';
 
 import CourseHeader from '../../components/header_footer/CourseHeader';
 import Footer from '../../components/header_footer/Footer';
@@ -27,114 +29,9 @@ const CourseRegistration = () => {
     }
   ]);
 
-  // Lấy JWT từ Session Storage
-  const jwtToken = sessionStorage.getItem('jwtToken');
-  // Gửi yêu cầu GET với JWT trong header
-  const getAllCourses = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/student/dashboard/dangkymon", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.status === 200) {
-        const result = await response.json();
-        setCourses(result);
-      }
-      else {
-        console.error("Failed to get all course(s)");
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-  const getRegCourses = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/student/dashboard/dangkymon/viewReg", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.status === 200) {
-        const result = await response.json();
-        setRegisteredCourses(result);
-      }
-      else {
-        console.error("Failed to get all registered course(s)");
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-  
-  const handleRegister = async (row) => {
-    for (let i in registeredCourses) {
-      if (row.original.courseCode === registeredCourses[i]['courseCode']) {
-        alert('Subject has been registered!!!');
-        return;
-      }
-    }
-    console.log('Đăng ký cho:', row.original);
-    let courseid = row.original.courseCode;
-    try {
-      const response = await fetch(`http://localhost:5000/student/dashboard/dangkymon/reg/${courseid}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.status === 200) {
-        const result = await response.json();
-        console.log("Register subject successfully");
-
-        alert('Register subject successfully.');
-
-        getRegCourses();
-      }
-      else {
-        console.error("Failed to register subject");
-
-        alert('Subject has been registered!');
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-  const handleDelete = async (courseCode) => {
-    //event.preventDefault();
-
-    try {
-      const response = await fetch(`http://localhost:5000/student/dashboard/dangkymon/delOne/${courseCode}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.status === 200) {
-        const result = await response.json();
-        console.log("Registered subject deleted successfully");
-
-        alert('Registered subject deleted successfully.');
-
-        getRegCourses();
-      }
-      else {
-        console.error("Failed to delete registered subject");
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
   useEffect(() => {
-    getAllCourses();
-    getRegCourses();
+    getAllCourses(setCourses);
+    getRegCourses(setRegisteredCourses);
   }, []);
 
   const columns = useMemo(
@@ -242,13 +139,13 @@ const CourseRegistration = () => {
         accessorKey: 'register',
         header: '',
         Cell: ({ row }) => (
-          <Button onClick={() => handleRegister(row)}>
+          <Button onClick={() => handleRegister(row, registeredCourses, setRegisteredCourses)}>
             Register
           </Button>
         ),
       },
     ],
-    [validationErrors]
+    [validationErrors, registeredCourses]
   );
   const table = useMaterialReactTable({
     columns,
@@ -289,7 +186,7 @@ const CourseRegistration = () => {
                   <thead>
                     <tr>
                       <th>Course Code</th>
-                      <th>courseName</th>
+                      <th>Course Name</th>
                       <th>Credit</th>
                       <th>Classroom</th>
                       <th>Enrollment</th>
@@ -309,14 +206,18 @@ const CourseRegistration = () => {
                         <td>{registeredCourse.instructorName}</td>
                         <td>{registeredCourse.scheduleDay}</td>
                         <td>{registeredCourse.scheduleTime}</td>
-                        <td><Button variant='danger' onClick={() => handleDelete(registeredCourse.courseCode)}>Cancel Registrattion</Button></td>
+                        <td><Button variant='danger' onClick={() => handleDelete(registeredCourse.courseCode, setRegisteredCourses)}>Cancel Registrattion</Button></td>
                       </tr>
                     ))}
                   </tbody>
                 </Table>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', marginRight: '8vh' }}>
+                <Button onClick={() => handleEnroll()} style={{ marginRight: '55vh' }} variant='outline-success'>Comfirm Register</Button>
+                <Button onClick={() => handleDeleteAll(setRegisteredCourses)} variant='warning'>Cancel All Registration</Button>
+              </div>
               </Tab.Pane>
               <Tab.Pane eventKey="#education">
-                <h1>CHƯƠNG TRÌNH ĐÀO TẠO</h1>
+                <h1>TRAINING EDUCATION</h1>
               </Tab.Pane>
             </Tab.Content>
           </Col>

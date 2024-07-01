@@ -33,7 +33,7 @@ const getTKB = async (req, res) => {// get: ../tkb
                 "semester": 1,
                 "courseCode": 1,
                 "credit": 1,
-                "tinhchihocphi": 1,
+                "tuitionCredits": 1,
                 "scheduleDay": 1,
                 "scheduleTime": 1,
                 "scheduleWeek": 1,

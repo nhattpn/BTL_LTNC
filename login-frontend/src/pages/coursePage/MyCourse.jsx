@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup } from 'react-bootstrap';
 
@@ -21,7 +21,7 @@ function MyCourse() {
   // Gửi yêu cầu GET với JWT trong header
   const getData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/student/dashboard/khoahoc", {
+      const response = await fetch("http://localhost:5000/student/dashboard/course", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${jwtToken}`, // Include the token in the request header

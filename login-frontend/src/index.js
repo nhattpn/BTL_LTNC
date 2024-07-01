@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 
 import { persistor, store } from './store/store';
 import { Provider } from 'react-redux';
 
 import reportWebVitals from './reportWebVitals';
 import { PersistGate } from 'redux-persist/integration/react';
+import { ProgressSpinner } from 'primereact/progressspinner';
+import { Panel } from 'primereact/panel';
+
+const App = lazy(() => import('./App'));
+// import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate loading={<i><h1>Loading...</h1></i>} persistor={persistor}>
-        <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <Suspense fallback={ <Panel header={ <ProgressSpinner />}> </Panel>}>
+          <App />
+        </Suspense>
       </PersistGate>
     </Provider>
   </React.StrictMode>

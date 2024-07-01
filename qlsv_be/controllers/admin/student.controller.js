@@ -29,7 +29,6 @@ const addStudent = async (req, res) => { // post: ../add
         if (existingEmail) {
             return res.status(400).json({ message: "Email is already taken." });
         }
-
         const newStudent = new Student({
             name,
             email,
@@ -39,6 +38,7 @@ const addStudent = async (req, res) => { // post: ../add
             training_info
         });
 
+        // return res.status(400).send(userId);
         await newStudent.save();
         res.status(201).json({ message: "Student add successfully", newStudent });
     } catch (error) {

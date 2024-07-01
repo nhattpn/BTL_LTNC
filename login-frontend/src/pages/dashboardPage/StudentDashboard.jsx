@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import  {useState } from 'react';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './../../styles/Dashboard.css';
@@ -7,7 +7,7 @@ import InfoUser from '../../components/dashboard/primaryFeature/infoUser';
 import EditUser from '../../components/dashboard/primaryFeature/editUser';
 import StudentSchedule from '../../components/dashboard/scheduleComponent/studentSchedule';
 
-import StudentHeader from '../../components/header_footer/StudentHeader';
+import UserHeader from '../../components/header_footer/UserHeader';
 import Footer from '../../components/header_footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import {setView} from '../../store/feature/userReducer'
@@ -23,7 +23,7 @@ function DataTable() {
 
   return (
     <div>
-      <StudentHeader />
+      <UserHeader />
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-2 leftBody">

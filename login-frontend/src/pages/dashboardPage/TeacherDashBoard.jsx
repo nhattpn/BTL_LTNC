@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import InfoUser from '../../components/dashboard/primaryFeature/infoUser';
 import EditUser from '../../components/dashboard/primaryFeature/editUser';
 import TeacherSchedule from '../../components/dashboard/scheduleComponent/teacherSchedule';
 
-import TeacherHeader from '../../components/header_footer/TeacherHeader';
+import UserHeader from '../../components/header_footer/UserHeader';
 import Footer from '../../components/header_footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import {setView} from '../../store/feature/userReducer'
@@ -19,7 +19,7 @@ function DataTable() {
   
   return (
     <div>
-      <TeacherHeader />
+      <UserHeader />
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-2 leftBody">

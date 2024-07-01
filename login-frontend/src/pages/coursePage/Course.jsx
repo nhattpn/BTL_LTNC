@@ -1,4 +1,3 @@
-import React from 'react';
 
 import CourseHeader from '../../components/header_footer/CourseHeader';
 import Footer from '../../components/header_footer/Footer';

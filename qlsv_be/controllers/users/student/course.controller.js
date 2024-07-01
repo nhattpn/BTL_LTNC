@@ -4,7 +4,7 @@ const student = require('../../../models/student.model')
 // route: "/student/dashboard" 
 //***************/
 
-module.exports.dashboard = async (req, res) => {// get: ../khoahoc
+module.exports.dashboard = async (req, res) => {// get: ../course
     const {userId} = req.user
     try {
         const st = await student.findOne({ "userId": userId })
@@ -20,7 +20,7 @@ module.exports.dashboard = async (req, res) => {// get: ../khoahoc
 
 
 //View a course's description
-module.exports.viewCourseDescription = async (req, res) => {// get: ../khoahoc/:courseCode
+module.exports.viewCourseDescription = async (req, res) => {// get: ../course/:courseCode
     const {courseCode} = req.params;
     try {
       const find_filter = {"courseCode": courseCode}

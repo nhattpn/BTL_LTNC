@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup } from 'react-bootstrap';
 
 import { Avatar, FormMap, CrossBar } from '../../general/generalComponent';
-import { handleSubmit as AdminHandleSubmit} from '../../API/adminAPI';
+import { handleSubmit as AdminHandleSubmit} from '../../API/admin/adminAPI';
 import { handleSubmit as UserHandleSubmit } from '../../API/userAPI';
 import { StudentModel, TrainingFields, Fields as StudentFields} from '../../general/studentModel';
 import { TeacherModel, Fields as TeacherFields } from '../../general/teacherModel';

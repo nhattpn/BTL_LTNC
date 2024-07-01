@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { AuthProvider } from '../lib/authContext';
 import Login from '../components/auth/login';
-import ChangePassword from './../components/auth/changePassword';
+import ChangePassword from '../components/auth/changePassword';
 import { logo } from '../components/image';
 import { authBG } from '../components/image';
 

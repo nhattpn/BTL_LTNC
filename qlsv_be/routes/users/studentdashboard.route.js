@@ -27,7 +27,7 @@ router.post('/studentinfo/updatePicture', upload.fields([{name: 'img', maxCount:
 
 
 //router
-const dangkymonRoute = require('./dangkymon.route')
+const courseregisterRoute = require('./courseregister.route')
 //*************************//
 
 //controller
@@ -36,7 +36,7 @@ const thongtinDaoTao = require('../../controllers/users/student/thongtindt.contr
 const tkb = require('../../controllers/users/student/tkb.controller');
 const bangdiem = require('../../controllers/users/student/bangdiem.controller');
 const lichthi = require('../../controllers/users/student/lichthi.controller');
-const khoahoc = require('../../controllers/users/student/khoahoc.controller');
+const course = require('../../controllers/users/student/course.controller');
 //*************************//
 
 //get all route
@@ -49,11 +49,11 @@ router.get('/lichthi', lichthi.getAllLichThi);
 router.get('/lichthi/:semester', lichthi.getLichThi);
 router.get('/bangdiem', bangdiem.getbangdiem);
 router.get('/bangdiem/:semester', bangdiem.getbangdiemBySem);
-router.get('/khoahoc',khoahoc.dashboard);
-router.get('/khoahoc/:courseCode',khoahoc.viewCourseDescription);
+router.get('/course',course.dashboard);
+router.get('/course/:courseCode',course.viewCourseDescription);
 //*************************//
 
 //use route
-router.use('/dangkymon', dangkymonRoute);
+router.use('/courseregister', courseregisterRoute);
 
 module.exports = router;
