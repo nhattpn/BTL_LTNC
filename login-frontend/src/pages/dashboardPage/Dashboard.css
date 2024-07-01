@@ -1,0 +1,65 @@
+.logo{
+  width: 40%;
+  padding-left: 10vh;
+}
+.leftBody {
+  height: 83vh;
+  background-color: rgb(58, 35, 35);
+  color: white;
+}
+.rightBody {
+  background-color: rgb(206, 206, 206);
+}
+.foot {
+  margin-bottom: 0px;
+  width: 100%;
+  background-color: #0b3942;
+  color: wheat;
+  text-align: center;
+}
+.dataTable {
+  background-color: white;
+  height: 92%;
+  width: 98%;
+  margin-top: 1.2rem;
+  box-shadow: 5px 10px burlywood;
+}
+.navigation {
+  display: flex;
+  justify-content: center;
+  background-color: wheat;
+  font-weight: bold;
+}
+.long_navigation{
+  display: flex;
+  background-color: white;
+  justify-content: center;
+  padding: 1vh;
+  padding-bottom: 3vh;
+  border-bottom: 1px solid gray;
+}
+.top_navbar{
+  padding: 2vh 10vh;
+  text-decoration: none;
+  color: #020202;
+}
+.left_navbar{
+  color: white;
+  text-decoration: none;
+}
+.active{
+  border-top: 3px solid blue;
+}
+.greentext{
+  color: #90f216;
+}
+.smallbox {
+  background-color: rgb(204, 203, 203);
+  font-weight: bold;
+  width: 95%;
+  margin: auto;
+  box-shadow: 2px 2px 10px rgb(104, 103, 103);
+}
+.data-box{
+  width: 35vh;
+}
