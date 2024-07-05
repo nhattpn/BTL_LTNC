@@ -12,20 +12,16 @@ const multer = require('multer');
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'image',  // Thay 'desired_folder_name' bằng tên folder bạn chọn
-    allowedFormats: ['jpeg', 'png'],  // Định dạng file cho phép
-    public_id: (req, file) => file.originalname  // Sử dụng tên file gốc làm public ID
-  }
+    folder: 'teacher_image',
+    public_id: (req, file) => `GV_${req.user.userId}`,
+    overwrite: true, 
+    allowed_formats: ['jpg', 'png', 'jpeg', 'webp', 'jfif', 'avif'],
+  },
 });
 
 const upload = multer({ storage: storage });
 
 // Route to update a student's information and handle image upload
-router.post('/teacherinfo/updatePicture', upload.fields([{name: 'img', maxCount: 1}]), (req, res) => {
-  const link_img = req.files['img'][0]
-  res.send(link_img);
-});
-
 
 const bangdieukhienRoute = require('./bangdieukhien.route')
 //*************************//
@@ -35,6 +31,7 @@ const Student = require('../../controllers/users/teacher/Student.controller');
 //*************************//
 router.get('/teacherinfo',teacherInfo.dashboard);
 router.put('/teacherinfo',teacherInfo.updateTeacher);
+router.post('/teacherinfo/updatePicture', upload.single('teacher_image'), teacherInfo.updatePicture);
 router.use('/Student',Student.dashboard);
 //*************************//
 

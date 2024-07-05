@@ -1,116 +1,105 @@
-import { Col, Form, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import React from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Image } from 'primereact/image';
+import { FileUpload } from 'primereact/fileupload';
+import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
+import { Calendar } from 'primereact/calendar';
+import { RadioButton } from 'primereact/radiobutton';
+import { uploadImg } from '../API/userAPI';
+
 
 
 export const Avatar = () => {
+  const [imgSelect, setImgSelect] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState('');
+  const [lastUpdateTime, setLastUpdateTime] = useState('');
+  const user = useSelector(state => state.user?.userData);
+  const currentView = useSelector(state => state.view.currentView);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (user?.image) {
+      setPreviewUrl(user.image);
+    }
+    if (user?.imageLastUpdate) {
+      setLastUpdateTime(new Date(user.imageLastUpdate).toLocaleString());
+    }
+  }, [user]);
+
+  const handleImageChange = (e) => {
+    const file = e.files[0];
+    setImgSelect(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return(
-    <Col sm={3}>
-      <div style={{ textAlign: 'center' }}>
-        <img src={''} alt="avatar" style={{ padding: '3vh', backgroundColor: 'rgb(204, 203, 203)' }} />
-      </div>
-      <div style={{ textAlign: 'center', marginBottom: '0'}}>
-        <b style={{ textAlign: 'center' }}>
-          Last profile photo update time: ___
-        </b>
-      </div>
-    </Col>
+    <div className='col-3 mb-2'>
+      <Image src={previewUrl || user?.image || ''} alt="avatar" height='250'  preview className='grid grid-nogutter justify-content-center'/>
+        {currentView === 'EditUser' && (
+          <>
+            <FileUpload mode="basic" name="image" accept="image/*" onSelect={handleImageChange} className='grid grid-nogutter justify-content-center'/>
+            <Button label="Upload" onClick={() => uploadImg(imgSelect, user, dispatch)} severity='success' className='grid gird-nogutter m-auto'/>
+          </>
+        )}
+        <small className="font-bold mt-2 grid justify-content-center">Last update: {lastUpdateTime || 'Never'}</small>
+    </div>
   )
 };
 
 export const DisplayMap = ({ fields, row }) => {
   const user = useSelector(state => state.user?.userData);
   return(
-    <Row style={{marginBottom: '2%'}}>
+    <div className="grid">
       {fields.map(field => (
-      <Col sm={row} key={field.name} style={{ padding: '0 1vh', marginBottom: '1%'}}>
-        <p style={{ fontWeight: 'bold' }}>{field.label}</p>
-        <p>{field.type === "date"
-          ? (user?.[field.name]?.slice(0, 10)
-          || user?.private_info?.[field.name]?.slice(0, 10)
-          || user?.training_info?.[field.name]?.slice(0, 10)
-          || 'None')
-          : (user?.[field.name]
-          || user?.private_info?.[field.name]
-          || user?.training_info?.[field.name] 
-          || 'None')}</p>
-      </Col>
+        <div key={field.name} className={`col-${row} mb-2`}>
+          <p className="font-bold">{field.label}</p>
+          <p>{field.type === "date"
+            ? (user?.[field.name]?.slice(0, 10) || user?.private_info?.[field.name]?.slice(0, 10) || user?.training_info?.[field.name]?.slice(0, 10) || 'None')
+            : (user?.[field.name] || user?.private_info?.[field.name] || user?.training_info?.[field.name] || 'None')}
+          </p>
+        </div>
       ))}
-    </Row>
+    </div>
   );
 };
 
 export const FormMap = ({ fields, formData, handleInputChange, row }) => {
   return (
-    <Row style={{marginBottom: '2%'}}>
+    <div className="grid">
       {fields.map(field => (
-      <Col sm={row} key={field.name} style={{ padding: '0 2vh', borderLeft:'1px solid rgb(204, 203, 203)', marginBottom: '1%'}}>
-        <Form.Group as={Row} controlId={`form${field.name.charAt(0).toUpperCase() + field.name.slice(1)}`}>
-          <Form.Label><b>{field.label}</b></Form.Label>
+        <div key={field.name} className={`col-${row} mb-2`}>
+          <label htmlFor={field.name} className="font-bold block mb-2">{field.label}</label>
           {field.name === "gender" ? (
-              <>
-                <Col >
-                  <Form.Check
-                    type="radio"
-                    label="Male"
-                    name="gender"
-                    value="M"
-                    checked={formData?.private_info?.gender === 'M'} // Giả sử gender nằm trong private_info
-                    onChange={handleInputChange}
-                  />
-                </Col>
-                <Col >
-                  <Form.Check
-                    type="radio"
-                    label="Female"
-                    name="gender"
-                    value="F"
-                    checked={formData?.private_info?.gender === 'F'}
-                    onChange={handleInputChange}
-                  />
-                </Col>
-                <Col >
-                  <Form.Check
-                    type="radio"
-                    label="Other"
-                    name="gender"
-                    value="O"
-                    checked={formData?.private_info?.gender === 'O'}
-                    onChange={handleInputChange}
-                  />
-                </Col>
-              </>
-            ) : (
-          <Form.Control
-            type={field.type}
-            placeholder="Enter"
-            name={field.name}
-            value={field.type === 'date'
-              ? (formData?.[field.name]?.slice(0, 10)
-              || formData?.private_info?.[field.name]?.slice(0, 10)
-              || formData?.training_info?.[field.name]?.slice(0, 10)
-              || '')
-              : (formData?.[field.name] 
-              || formData?.private_info?.[field.name]
-              || formData?.training_info?.[field.name]
-              || '')
-            }
-            onChange={handleInputChange}
-          />
+            <div className="flex flex-wrap gap-3">
+              {['Male', 'Female', 'Other'].map((option) => (
+                <div key={option} className="flex align-items-center">
+                  <RadioButton inputId={option} name="gender" value={option[0]} onChange={handleInputChange} checked={formData?.private_info?.gender === option[0]} />
+                  <label htmlFor={option} className="ml-2">{option}</label>
+                </div>
+              ))}
+            </div>
+          ) : field.type === 'date' ? (
+            <Calendar id={field.name} name={field.name} placeholder="dd/mm/yyyy" className="p-inputtext-sm" value={new Date(formData?.[field.name] || formData?.private_info?.[field.name] || formData?.training_info?.[field.name] || '')} onChange={handleInputChange} />
+          ) : (
+            <InputText id={field.name} name={field.name} placeholder='Enter' disabled={field.name === 'userId'} className="p-inputtext-sm" value={formData?.[field.name] || formData?.private_info?.[field.name] || formData?.training_info?.[field.name] || ''} onChange={handleInputChange} />
           )}
-        </Form.Group>
-      </Col>
+        </div>
       ))}
-    </Row>
+    </div>
   );
 };
 
 export const CrossBar = ({content}) => {
   return(
-    <div style={{ backgroundColor: 'rgb(204, 203, 203)', fontWeight: 'bold', width: '96%', margin: 'auto'}}>
-      <p style={{ boxShadow: '2px 2px 10px rgb(104, 103, 103)' }}>
-        {content}
-      </p>
-    </div>
+      <div className="m-auto bg-gray-200 font-bold w-11 shadow-4">
+        <p>{content}</p>
+      </div>
   )
 };

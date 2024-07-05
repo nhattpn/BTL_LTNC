@@ -1,11 +1,19 @@
 import { useState, useEffect } from 'react';
-import Card from 'react-bootstrap/Card';
-import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
 
 import CourseHeader from '../../components/header_footer/CourseHeader';
 import Footer from '../../components/header_footer/Footer';
+import { courseIMG } from '../../components/image';
 
 function MyCourse() {
+
+  const header =  (<img src={courseIMG} alt="Course Image" style={{width: '100%', height: '100%'}} />);
+  const footer = (<div >
+    <Button label='View Detail' style={{width: '100%'}} severity='info'/>
+  </div>);
+
   const [mycourses, setMycourses] = useState([
     {
       'courseCode': 'COxxxx',
@@ -16,9 +24,7 @@ function MyCourse() {
     }
   ])
   
-  // Lấy JWT từ Session Storage
   const jwtToken = sessionStorage.getItem('jwtToken');
-  // Gửi yêu cầu GET với JWT trong header
   const getData = async () => {
     try {
       const response = await fetch("http://localhost:5000/student/dashboard/course", {
@@ -30,8 +36,6 @@ function MyCourse() {
       });
       if (response.status === 200) {
         const result = await response.json();
-        console.log("My course:", result);
-
         setMycourses(result);
       }
       else {
@@ -51,19 +55,17 @@ function MyCourse() {
       <CourseHeader />
       <div style={{ margin: '5% 10%' }}>
         <div style={{ marginBottom: '2%' }}>
-          <h2 style={{ color: '#eba234' }}>My Course</h2>
+          <h2 style={{ color: '#eba234', fontWeight: 'bold' }}>My Course</h2>
         </div>
-        <Row xs={1} md={3} className="g-4">
-          {mycourses.map((mycourse, idx) => (
-            <Col key={mycourse.id}>
-              <Card>
-                <Card.Img variant="top" src="holder.js/100px160" />
-                <Card.Body>
-                  <Card.Title>({mycourse.courseCode})_{mycourse.instructorName}-{mycourse.userId}</Card.Title>
-                  <Card.Text>
-                    (CQ_HK{mycourse.semester})_Số lượng {mycourse.credit}
-                  </Card.Text>
-                </Card.Body>
+        <Row xs={1} md={4} className="g-4">
+          {mycourses.map((course) => (
+            <Col key={course.courseCode}>
+              <Card 
+                  header={header}
+                  footer={footer}
+                  title={course.courseName} 
+                  subTitle={course.courseCode}
+              >
               </Card>
             </Col>
           ))}

@@ -27,10 +27,12 @@ module.exports.dashboard = async (req, res) => { //get: ../
         $project: {
           semester: 1,
           courseCode: 1,
-          credit: 1,
-          scheduleDay: 1,
-          scheduleTime: 1,
+          courseName: 1,
           classroom: 1,
+          credit: 1,
+          scheduleTime: 1,
+          scheduleDay: 1,
+          scheduleWeek: 1,
           studentCount: { $size: "$cou_info" }
         }
       }

@@ -61,7 +61,6 @@ const handleRegister = async (row, registeredCourses, setRegisteredCourses) => {
     });
 
     if (response.status === 200) {
-      const result = await response.json();
       alert('Register subject successfully.');
       getRegCourses(setRegisteredCourses);
     } else {
@@ -84,7 +83,6 @@ const handleDelete = async (courseCode, setRegisteredCourses) => {
       },
     });
     if (response.status === 200) {
-      const result = await response.json();
       alert('Registered subject deleted successfully.');
       getRegCourses(setRegisteredCourses);
     }
@@ -107,7 +105,6 @@ const handleDeleteAll = async (setRegisteredCourses) => {
       },
     });
     if (response.status === 200) {
-      const result = await response.json();
       alert('Entire registered subject deleted successfully.');
       getRegCourses(setRegisteredCourses);
     }
@@ -119,7 +116,7 @@ const handleDeleteAll = async (setRegisteredCourses) => {
   }
 };
 
-const handleEnroll = async () => {
+const handleEnroll = async (setRegisteredCourses) => {
   const jwtToken = sessionStorage.getItem('jwtToken');
   try {
     const response = await fetch(`http://localhost:5000/student/dashboard/courseregister/confirmReg`, {
@@ -130,7 +127,7 @@ const handleEnroll = async () => {
       },
     });
     if (response.status === 200) {
-      const result = await response.json();
+      getRegCourses(setRegisteredCourses);
       alert('Enrollment successfully.');
     }
     else {

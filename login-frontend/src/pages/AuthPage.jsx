@@ -1,9 +1,11 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AuthProvider } from '../lib/authContext';
-import Login from '../components/auth/login';
-import ChangePassword from '../components/auth/changePassword';
+import { Login, ChangePassword } from '../components/auth/authForm';
 import { logo } from '../components/image';
 import { authBG } from '../components/image';
+import { Image } from 'primereact/image';
+import { Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function App() {
   const [authType, setAuthType] = useState('Login');
@@ -29,29 +31,16 @@ function App() {
   }
   return (<>
     <AuthProvider>
-      <div
-        className="container-fluid text-center"
-        style={{
-          margin: '0',
-          fontFamily:
-            "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
-          webkitFontSmoothing: 'antialiased',
-          mozOsxFontSmoothing: 'grayscale',
-          backgroundImage: `url(${authBG})`,
-          backgroundSize: 'cover',
-        }}
-      >
-        <div className="row">
-          <div
-            style={{ width: '25%', height: '100vh', backgroundColor: 'rgb(62, 161, 168)' }}
-          >
-            <div>
-              <a href='/'><img className="img-thumbnail no-gutter" id="logo" alt="" src={logo} /></a>
-              <h1 style={{marginTop: '5vh'}}>Welcome</h1>
-              {switchToChangePassword()}
+      <div className="h-screen flex justify-content-center align-items-center" style={{ backgroundImage: `url(${authBG})`, backgroundSize: 'cover' }}> 
+        <Card className="col-3 fadeindown animation-duration-1000 h-auto bg-white-alpha-40 flex justify-content-center align-items-center border-double border-4 border-primary">
+            <div className="bg-white-100">
+              <Link to="/">
+                <Image src={logo} alt="Logo" width="350"  />
+              </Link>
             </div>
-          </div>
-        </div>
+            <h1 className="text-3xl mt-4 font-bold text-center">Welcome</h1>
+            {switchToChangePassword()}
+        </Card>
       </div>
     </AuthProvider>
     </>

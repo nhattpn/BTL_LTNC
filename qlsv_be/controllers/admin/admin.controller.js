@@ -34,8 +34,9 @@ const login = async (req, res) => { // route: ../login
     }
 };
 
-const addAdmin = async (req, res) => { // route: ../addadmin
-    const { email, password, role } = req.body;
+const addAdmin = async (req, res) => { // route: ../dashboard/admin/add
+    const { email, password, name } = req.body;
+    console.log(email, password, name);
     try {
         const admin = await adminModel.findOne({ email: email });
         if (admin) {
@@ -46,7 +47,8 @@ const addAdmin = async (req, res) => { // route: ../addadmin
         const newAdmin = new adminModel({
             email: email,
             password: hashedPassword,
-            role: role
+            name: name,
+            role: "admin" 
         });
         await newAdmin.save();
         res.status(201).json({ message: "Admin created successfully" });
@@ -56,8 +58,18 @@ const addAdmin = async (req, res) => { // route: ../addadmin
     }
 }
 
+const getAllAdmin = async (req, res) => { //route: ../admin/dashboard/admin
+    try {
+        const admins = await adminModel.find();
+        res.status(200).json(admins);
+    } catch (err) {
+        res.status(500).json({ message: "Error retrieving admins", error: err.message });
+    }
+}
+
 module.exports = {
     login,
-    addAdmin
+    addAdmin, 
+    getAllAdmin
 }
 

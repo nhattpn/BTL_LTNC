@@ -1,5 +1,5 @@
-import { useMemo, useState, useEffect, useRef } from 'react';
-import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup } from 'react-bootstrap';
+import { useMemo, useState, useEffect } from 'react';
+import { Table, Button, Row, Col, Tab, ListGroup } from 'react-bootstrap';
 import {
   MRT_EditActionButtons,
   MaterialReactTable,
@@ -14,7 +14,6 @@ import Footer from '../../components/header_footer/Footer';
 const CourseRegistration = () => {
   const [validationErrors, setValidationErrors] = useState({});
   const [courses, setCourses] = useState([{}]);
-  const [selectedCourse, setSelectedCourse] = useState(null);
   const [registeredCourses, setRegisteredCourses] = useState([
     {
       'stt': '',
@@ -178,10 +177,10 @@ const CourseRegistration = () => {
           <Col sm={10}>
             <Tab.Content>
               <Tab.Pane eventKey="#register">
-                <h4>Choose your subject</h4>
+                <h3 style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}>Choose your subject</h3>
                 <MaterialReactTable style={{ minWidth: '80vh' }} table={table} />
 
-                <h4 style={{ marginTop: '2rem' }}>Registered Course</h4>
+                <h3 style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}>Registered Course</h3>
                 <Table striped bordered hover>
                   <thead>
                     <tr>
@@ -211,9 +210,9 @@ const CourseRegistration = () => {
                     ))}
                   </tbody>
                 </Table>
-              <div style={{ display: 'flex', justifyContent: 'flex-end', marginRight: '8vh' }}>
-                <Button onClick={() => handleEnroll()} style={{ marginRight: '55vh' }} variant='outline-success'>Comfirm Register</Button>
-                <Button onClick={() => handleDeleteAll(setRegisteredCourses)} variant='warning'>Cancel All Registration</Button>
+              <div style={{ display: 'flex', justifyContent: 'center' , margin: '1rem'}}>
+                <Button onClick={() => handleEnroll()} style={{ marginLeft: '35rem' }} variant='outline-success'>Comfirm Register</Button>
+                <Button onClick={() => handleDeleteAll(setRegisteredCourses)} style={{ marginLeft: '25rem' }} variant='warning'>Cancel All Registration</Button>
               </div>
               </Tab.Pane>
               <Tab.Pane eventKey="#education">

@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isLoggin: false,
-  view: null,
   userData: null,
 };
 
@@ -12,19 +11,20 @@ const userSlice = createSlice({
   reducers: {
     LogginOn: (state, action) => {
       state.isLoggin = true;
-      state.view = "Info"
       state.userData = action.payload;
     },
     setUserData: (state, action) => {
       state.userData = action.payload;
     },
-    setView: (state, action) => {
-      state.view = action.payload;
+    
+    updateUserImage: (state, action) => {
+      state.userData.image = action.payload;
+      state.userData.imageLastUpdate = new Date();
     },
     logOut: () => initialState
   }
 });
 
-export const {LogginOn, setUserData, setView, logOut} = userSlice.actions;
+export const {LogginOn, setUserData, updateUserImage, logOut} = userSlice.actions;
 export default userSlice.reducer;
 

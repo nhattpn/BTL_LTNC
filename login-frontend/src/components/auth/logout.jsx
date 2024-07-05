@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { logOut as logoutUser } from "../../store/feature/userReducer";
 import { logOut as logoutAdmin } from "../../store/feature/adminReducer";
-import { Navbar, Nav, Button} from "react-bootstrap";
+import { Button} from "react-bootstrap";
 
 const BASE_URL = 'http://localhost:5000'
 

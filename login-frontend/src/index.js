@@ -10,14 +10,14 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import { Panel } from 'primereact/panel';
 
 const App = lazy(() => import('./App'));
-// import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Suspense fallback={ <Panel header={ <ProgressSpinner />}> </Panel>}>
+        <Suspense fallback={ <Panel header={ <ProgressSpinner /> 
+          } style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}> </Panel>}>
           <App />
         </Suspense>
       </PersistGate>

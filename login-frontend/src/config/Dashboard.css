@@ -3,7 +3,6 @@
   padding-left: 10vh;
 }
 .leftBody {
-  height: 83vh;
   background-color: rgb(58, 35, 35);
   color: white;
 }
@@ -30,14 +29,7 @@
   background-color: wheat;
   font-weight: bold;
 }
-.long_navigation{
-  display: flex;
-  background-color: white;
-  justify-content: center;
-  padding: 1vh;
-  padding-bottom: 3vh;
-  border-bottom: 1px solid gray;
-}
+
 .top_navbar{
   padding: 2vh 10vh;
   text-decoration: none;

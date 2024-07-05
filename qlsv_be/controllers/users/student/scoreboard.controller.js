@@ -1,17 +1,17 @@
-const bangdiemModel = require("../../../models/course.model");
+const scoreboardModel = require("../../../models/course.model");
 const student = require("../../../models/student.model")
 //***************/
 // route: "/student/dashboard" 
 //***************/
 
-const getbangdiem = async (req, res) => {// get: ../bangdiem
+const getScoreboard = async (req, res) => {// get: ../scoreboard
     const { userId } = req.user;
     try {
         const sv_filter = {"userId": userId};
         const st = await student.findOne(sv_filter)
         const cou = st.courseEnroll;
         if (!cou) {
-            return res.status(404).json({ message: "Bang diem not found." });
+            return res.status(404).json({ message: "Scoreboard not found." });
         }
         res.send(cou);
     }
@@ -20,7 +20,7 @@ const getbangdiem = async (req, res) => {// get: ../bangdiem
     }
 }
 
-const getbangdiemBySem = async (req, res) => {// get: ../bangdiem/:semester
+const getScoreboardBySem = async (req, res) => {// get: ../scoreboard/:semester
     const { userId } = req.user;
     const { semester } = req.params
     try {
@@ -33,7 +33,7 @@ const getbangdiemBySem = async (req, res) => {// get: ../bangdiem/:semester
             {$match: sem_filter}
         ])
         if (!cou) {
-            return res.status(404).json({ message: "Bang diem not found." });
+            return res.status(404).json({ message: "Scoreboard not found." });
         }
         res.send(cou);
     }
@@ -42,4 +42,4 @@ const getbangdiemBySem = async (req, res) => {// get: ../bangdiem/:semester
     }
 }
 
-module.exports = { getbangdiem, getbangdiemBySem };
+module.exports = { getScoreboard, getScoreboardBySem };
