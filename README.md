@@ -1,6 +1,7 @@
-- Install npm before do anything.
-- Type below command in each folder ~/login-frontend and ~/qlsv-be:
+How to deploy?
+1. Install npm.
+- Type command below in each folder ~/login-frontend and ~/qlsv-be:
   1. npm i
   2. npm start
-- REMEMBER: alway type and run command in ~/qlsv-be first to create sever.
-- Link demo: https://youtu.be/s7xp0EB3fAw
+- Link demo (for origin branch): https://youtu.be/s7xp0EB3fAw
+Team project (7 members): Programing advanced subject about "Academic management website".
