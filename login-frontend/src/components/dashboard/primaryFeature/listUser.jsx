@@ -50,7 +50,9 @@ function ListUser({type}) {
   const actionBodyTemplate = (rowData) => {
     return (
       <>
-        <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => handleEdit(rowData)} />
+        { type !== 'admin' &&
+          <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => handleEdit(rowData)} />
+        }
         <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => handleDelete(type, rowData, setUsers)} />
       </>
     );
