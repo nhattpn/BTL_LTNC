@@ -10,7 +10,7 @@ const { generateUniqueUserId } = require('../../helpers/generateuserid');
 const getAllStudents = async (req, res) => { // get: ../
     try {
         const students = await Student.find().select('name userId email');;
-        res.json({listusers: students});
+        res.json(students);
     } catch (error) {
         res.json({ message: error });
     }

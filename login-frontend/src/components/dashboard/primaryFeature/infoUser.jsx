@@ -1,75 +1,60 @@
-import { Table, Button, Modal, Form, Row, Col, Tab, ListGroup } from 'react-bootstrap';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { TabView, TabPanel } from 'primereact/tabview';
+import { Button } from 'primereact/button';
 
 import { Avatar, CrossBar, DisplayMap } from '../../general/generalComponent';
 import { TrainingFields, Fields as StudentFields} from '../../general/studentModel';
 import { Fields as TeacherFields } from '../../general/teacherModel';
-import {setView} from '../../../store/feature/userReducer';
+import { setCurrentView } from '../../../store/feature/viewReducer';
 
 function InfoUser() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userData);
-  const currentView = useSelector(state => state.user.view);
+  const currentView = useSelector(state => state.view.currentView);
 
   const toggleSwitch = () => {
-    dispatch(setView(currentView === 'Info' ? 'Edit' : 'Info'));
+    dispatch(setCurrentView(currentView === 'InfoUser' ? 'EditUser' : 'InfoUser'));
   }
 
-  const fields = user.role === 'student' ? StudentFields : TeacherFields;
-  const trainingFields = user.role === 'student' ? TrainingFields : [];
+  const fields = (user.role === 'student') ? StudentFields : TeacherFields;
+  const trainingFields = (user.role === 'student') ? TrainingFields : [];
 
   return (
-    <Tab.Container defaultActiveKey={'#info'}>
-      <ListGroup style={{ marginTop: '2%', flexDirection: 'row' }}>
-        <ListGroup.Item action href="#info" style={{ width: '25%' }}>
-          <b>Personal Information</b>
-        </ListGroup.Item>
-        {user.role === 'student' && (
-          <ListGroup.Item action href="#training" style={{ width: '25%' }}>
-            <b>Training Information</b>
-          </ListGroup.Item>
-        )}
-      </ListGroup>
-      
-      <div style={{ padding: '10px' }}>
-        <i style={{ fontWeight: 'bold' }}>Last updated time: dd/mm/yyyy realtime</i>
-        <Button onClick={toggleSwitch} style={{marginLeft :'100vh', marginRight: '1vh'}}>Edit</Button>
-      </div>
+    <div className="card">      
+          <div className="flex align-items-center justify-content-between">
+            <i className="font-bold ml-4">Last updated time: {new Date().toLocaleString()}</i>
+            <Button label={currentView === 'InfoUser' ? 'Edit' : 'View'} onClick={toggleSwitch} />
+          </div>
 
-      <Tab.Content>
-        <Tab.Pane eventKey='#info' style={{ borderTop: 'none' }}>
-          <CrossBar content="Personal Infomation"/>
-          <Row style={{ width: '96%', margin: 'auto' }}>
+      <TabView >
+        <TabPanel header="Personal Information" className='pt-0'>
+          <CrossBar content="Personal Information"/>
+          <div className="grid">
             <Avatar />
-            <Col sm={9}>
-              <DisplayMap fields={fields[0]} row={4}/>
-            </Col>
-          </Row>
-
-          <CrossBar content="Address Infomation"/>
-          <Row style={{ width: '96%', margin: 'auto' }}>
-            <DisplayMap fields={fields[1]} row={3}/>
-          </Row>
-        </Tab.Pane>
+            <div className="col-9">
+              <DisplayMap fields={fields[0]} row={4} />
+            </div>
+          </div>
+          <CrossBar content="Address Information"/>
+          <DisplayMap fields={fields[1]} row={3} />
+        </TabPanel>
 
         {user.role === 'student' && (
-          <Tab.Pane eventKey='#training' style={{ borderTop: 'none' }}>
-            < CrossBar content="Training Infomation"/>
-            <Row style={{ width: '96%', margin: 'auto' }}>
+          <TabPanel header="Training Information">
+            <CrossBar content="Training Information"/>
+            <div className="grid">
               <Avatar />
-              <Col sm={9}>
-                <DisplayMap fields={trainingFields[0]} row={4}/>
-              </Col>
-            </Row>
-
-            <CrossBar content="Graduate Infomation"/>
-            <Row style={{ width: '96%', margin: 'auto' }}>
-              <DisplayMap fields={trainingFields[1]} row={3}/>
-            </Row>
-          </Tab.Pane>
+              <div className="col-9">
+                <DisplayMap fields={trainingFields[0]} row={4} />
+              </div>
+            </div>
+            <CrossBar content="Graduate Information"/>
+            <DisplayMap fields={trainingFields[1]} row={3} />
+          </TabPanel>
         )}
-      </Tab.Content>
-    </Tab.Container>
+      </TabView>
+    </div>
   );
 }
 

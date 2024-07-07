@@ -6,9 +6,12 @@ import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import {logo} from './../image';
+import { useDispatch } from 'react-redux';
+import { setCurrentView } from '../../store/feature/viewReducer';
 
 function HomeHeader() {
   const [notifications, setNotifications] = useState([]);
+  const dispatch = useDispatch();
 
   const StyledBadge = styled(Badge)(() => ({
     "& .MuiBadge-badge": {
@@ -22,13 +25,13 @@ function HomeHeader() {
     <>
       <Navbar style={{ display: 'flex' }}>
         <img style={{ width: '20vh', marginLeft: '3vh' }} src={logo} alt="logo" />
-        <Link to={'/teacher/dashboard'} style={{ marginLeft: '5vh', color: 'black', textDecorationLine: 'none' }}>
+        <Link to={'/teacher/dashboard'} style={{ marginLeft: '5vh', color: 'black', textDecorationLine: 'none' }} onClick={() => dispatch(setCurrentView('InfoUser'))}>
           <h4 style={{marginLeft: '5vh', marginRight: '5vh', width:'15vh', textAlign: 'center' }}>TEACHER</h4>
         </Link>
-        <Link to={'/student/dashboard'} style={{ color: 'black', textDecorationLine: 'none' }}>
+        <Link to={'/student/dashboard'} style={{ color: 'black', textDecorationLine: 'none' }} onClick={() => dispatch(setCurrentView('InfoUser'))}>
           <h4 style={{marginLeft: '5vh', marginRight: '5vh', width:'15vh', textAlign: 'center' }}>STUDENT</h4>
         </Link>
-        <Link to={'/admin/dashboard'} style={{ color: 'black', textDecorationLine: 'none' }}>
+        <Link to={'/admin/dashboard'} style={{ color: 'black', textDecorationLine: 'none' }} onClick={() => dispatch(setCurrentView('ListStudent'))}>
           <h4 style={{marginLeft: '5vh', marginRight: '5vh', width:'15vh', textAlign: 'center' }}>ADMIN</h4>
         </Link>
         <div style={{ marginLeft: '35%', width: '10%' }}>

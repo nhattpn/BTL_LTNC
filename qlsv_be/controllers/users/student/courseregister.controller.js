@@ -5,6 +5,7 @@ const student = require('../../../models/student.model')
 // route: "/student/dashboard/courseregister" 
 //***************/
 
+//View all available course
 const viewAvailableCourse = async (req, res) => {// get: ../
   try {
     const select_filter = {
@@ -21,10 +22,11 @@ const viewAvailableCourse = async (req, res) => {// get: ../
 }
 }
 
+//View all course registered
 const viewCourseReg = async (req, res) => {// get: ../viewReg
-  const {userId} = req.user
+  const studentId = req.user.userId
   try {
-    const stu = await student.findOne({"userId": userId});
+    const stu = await student.findOne({"userId": studentId});
     const courseRet = stu.courseReg
     if (!courseRet) {
       return res.status(404).send();
@@ -40,16 +42,15 @@ const addCourseReg = async (req, res) => {// put: ../reg/:courseCode
   const {courseCode} = req.params
   try {
       
-      const userId = req.user.userId;
+      const studentId = req.user.userId;
       const isExist = await student.findOne({
-        "userId": userId,
+        "userId": studentId,
         $or: [
-          {"courseEnroll.courseCode": courseCode},
           {"courseReg.courseCode": courseCode}
         ]
       });
       if (isExist){
-        return res.status(400).send("The course has already been enrolled/registered!");
+        return res.status(400).send("The course has already been registered!");
       }
       const course_match = await course.findOne({courseCode: courseCode}); 
       const newCouSem = {
@@ -65,8 +66,9 @@ const addCourseReg = async (req, res) => {// put: ../reg/:courseCode
           instructorName: course_match.instructorName,
           scheduleDay: course_match.scheduleDay,
           scheduleTime: course_match.scheduleTime,
+          scheduleWeek: course_match.scheduleWeek,
       }
-      const find_filter = {userId: userId};
+      const find_filter = {userId: studentId};
       const update_filter = {$push: {courseReg: newCouSem} };
       const option = {new: true};
       const courseRet = await student.updateOne(find_filter, update_filter, option);
@@ -80,14 +82,13 @@ const addCourseReg = async (req, res) => {// put: ../reg/:courseCode
 }
 
 const confirmReg = async (req, res) => {// put: ../confirmReg
-  const userId = req.user.userId;
+  const studentId = req.user.userId;
   try {
-    const find_filter = {"userId": userId};
+    const find_filter = {"userId": studentId};
     const update_option = {};
     const stu = await student.findOne(find_filter)
-
     //Add all registered course to enrolled course
-    const enroll_update = {$push: {courseEnroll: {$each: stu.courseReg}}}
+    const enroll_update = {$set: {courseEnroll: stu.courseReg}}
     const addEnroll = await student.updateOne(find_filter, enroll_update, update_option)
     if (!addEnroll){
       return res.status(404).send();
@@ -99,18 +100,6 @@ const confirmReg = async (req, res) => {// put: ../confirmReg
       return res.status(404).send();
     }
     
-    // Save the enrolled courses to the course collection
-    const enrollCourses = stu.courseReg.map(course => ({
-      courseId: course.courseId,
-      semester: course.semester,
-      courseCode: course.courseCode,
-      teacherName: course.teacherName
-    }));
-    const saveEnrollCourses = await course.insertMany(enrollCourses);
-    if (!saveEnrollCourses) {
-      return res.status(500).send();
-    }
-    
     res.json(courseRet);
   } catch (e) {
     res.status(400).send(e);
@@ -120,9 +109,9 @@ const confirmReg = async (req, res) => {// put: ../confirmReg
 //Delete a course registered by a student
 const deleteCourseReg = async (req, res) => {
   const { courseCode } = req.params;
-  const userId = req.user.userId; 
+  const studentId = req.user.userId; 
   try {
-    const find_filter = { userId }; 
+    const find_filter = { "userId": studentId }; 
     const update_filter = { $pull: { courseReg: { courseCode } } }; 
     const option = { new: true };
     const updatedStudent = await student.findOneAndUpdate(
@@ -141,9 +130,9 @@ const deleteCourseReg = async (req, res) => {
 
 //Delete all course registered by a student
 const deleteAllCourseReg = async (req, res) => {// delete: ../delAll
-  const userId = req.user.userId;
+  const studentId = req.user.userId;
   try {
-      const find_filter = {"userId": userId};
+      const find_filter = {"userId": studentId};
       const update_filter = {$set: {courseReg: []} };
       const option = {};
       const courseRet = await student.updateMany(find_filter, update_filter, option);

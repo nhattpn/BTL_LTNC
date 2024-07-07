@@ -1,6 +1,6 @@
-
+import { useSelector } from "react-redux";
 export const getData = async (user, row) => {
-  let userId = row.original.userId;
+  let userId = row.userId;
   const jwtToken = sessionStorage.getItem('jwtToken');
   try {
     const response = await fetch(`http://localhost:5000/admin/dashboard/${user}/${userId}`, {
@@ -34,7 +34,7 @@ export const getAllUser = async (user) => {
     });
     if (response.status === 200) {
       const result = await response.json();
-      return result.listusers
+      return result
     }
     else {
       console.error("Failed to get all student(s)");
@@ -44,7 +44,7 @@ export const getAllUser = async (user) => {
   }
 };
 
-export const handleAdd = async (user, name, email, setUsers) => {
+export const handleAdd = async (user, name, email, password, setUsers) => {
   const jwtToken = sessionStorage.getItem('jwtToken');
 
   try {
@@ -54,7 +54,7 @@ export const handleAdd = async (user, name, email, setUsers) => {
         Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email }),
+      body: JSON.stringify({ name, email, password }),
     });
     const result = await response.json();
     if (response.status === 201) {
@@ -72,7 +72,7 @@ export const handleAdd = async (user, name, email, setUsers) => {
 
 export const handleDelete = async (user, row, setUsers) => {
   const jwtToken = sessionStorage.getItem('jwtToken');
-  let userId = row.original.userId;
+  let userId = row.userId;
   try {
     const response = await fetch(`http://localhost:5000/admin/dashboard/${user}/${userId}`, {
       method: "DELETE",
@@ -97,8 +97,8 @@ export const handleDelete = async (user, row, setUsers) => {
 
 export const handleSubmit = async (e, formData, updateUser) => {
   e.preventDefault();
-  const id = window.location.pathname.split('/')[4];
   const jwtToken = sessionStorage.getItem('jwtToken');
+  const id = formData.userId;
   try {
     const response = await fetch(`http://localhost:5000/admin/dashboard/${formData.role}/${id}`, {
       method: 'PUT',

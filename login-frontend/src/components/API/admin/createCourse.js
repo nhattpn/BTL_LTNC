@@ -21,29 +21,6 @@ const getAllCourses = async (setCourses) => {
   }
 };
 
-const getCourse = async (row) => {
-  const jwtToken = sessionStorage.getItem('jwtToken');
-  let id = row.original.courseCode;
-  try {
-    const response = await fetch(`http://localhost:5000/admin/dashboard/controlpanel/courses/${id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${jwtToken}`, // Include the token in the request header
-        "Content-Type": "application/json",
-      },
-    });
-    const result = await response.json();
-    if (response.status === 200) {
-      return result;
-    }
-    else {
-      console.error(result?.message);
-    }
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
-
 const handleAdd = async (update, setCourses) => {
   const jwtToken = sessionStorage.getItem('jwtToken');
   try {
@@ -96,7 +73,7 @@ const handleUpdate = async (update, setCourses) => {
 
 const handleDelete = async (row, setCourses) => {
   const jwtToken = sessionStorage.getItem('jwtToken');
-  let id = row.original.courseCode;
+  let id = row.courseCode;
   try {
     const response = await fetch(`http://localhost:5000/admin/dashboard/controlpanel/courses/${id}`, {
       method: "DELETE",
@@ -120,7 +97,6 @@ const handleDelete = async (row, setCourses) => {
 
 export {
   getAllCourses,
-  getCourse,
   handleAdd,
   handleUpdate,
   handleDelete}

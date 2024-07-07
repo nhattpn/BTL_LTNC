@@ -4,6 +4,7 @@ const student = require('../../../models/student.model')
 // route: "/student/dashboard" 
 //***************/
 
+//View all student's enrolled course
 module.exports.dashboard = async (req, res) => {// get: ../course
     const {userId} = req.user
     try {

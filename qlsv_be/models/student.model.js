@@ -19,6 +19,7 @@ const studentSchema = new mongoose.Schema(
         default: 'student'
     },
     image: { type: String, required: false },
+    imageLastUpdate: { type: Date, required: false },
     passwordChanged: {
         type: Boolean,
         default: false,

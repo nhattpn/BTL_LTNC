@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { image } = require('../configs/cloudinary.js');
 const couSem = require('./courseInSemester.model.js').Schema
 
 const teacherSchema = new mongoose.Schema({
@@ -18,6 +19,7 @@ const teacherSchema = new mongoose.Schema({
         default: 'teacher'
     },
     image: { type: String, required: false },
+    imageLastUpdate: { type: Date, required: false },
     private_info: {
         birthday: Date,
         gender: { type: String, enum: ['M', 'F'] },

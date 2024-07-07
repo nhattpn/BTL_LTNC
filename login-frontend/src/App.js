@@ -1,21 +1,25 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import 'primereact/resources/themes/lara-light-indigo/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+import 'primeflex/primeflex.css';
+import './config/Dashboard.css';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import HomePage from './pages/HomePage';
 import AuthPage from './pages/AuthPage';
+import PrivateRoute from './components/auth/PrivateRoute';
+
+import DashBoard from './pages/Dashboard';
 import Course from './pages/coursePage/Course';
 import MyCourse from './pages/coursePage/MyCourse';
 import CourseRegistration from './pages/coursePage/CourseRegistration';
-import StudentDashBoard from './pages/dashboardPage/StudentDashboard';
-import TeacherDashBoard from './pages/dashboardPage/TeacherDashBoard';
-import AdminDashBoard from './pages/dashboardPage/AdminDashboard';
-import PrivateRoute from './components/auth/PrivateRoute';
 
 function App() {
   return (
-      <Router>
+    <Router>
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/teacher/login' element={<AuthPage />} />
@@ -26,18 +30,18 @@ function App() {
           <Route path='/admin/changepassword' element={<AuthPage />} />
 
           <Route element={<PrivateRoute />} >
-            <Route path='/teacher/dashboard' element={<TeacherDashBoard />} />
-            <Route path='/student/dashboard' element={<StudentDashBoard />} />
-            <Route path='/admin/dashboard' element={<AdminDashBoard />} />
+            <Route path='/teacher/dashboard' element={<DashBoard />} />
+            <Route path='/student/dashboard' element={<DashBoard />} />
+            <Route path='/admin/dashboard' element={<DashBoard />} />
             <Route path='/student/course' element={<Course />} />
             <Route path='/student/mycourse' element={<MyCourse />} />
             <Route path='/student/courseRegistration' element={<CourseRegistration />} />
             
-            <Route path='/admin/dashboard/student/:studentid' element={<AdminDashBoard />} />
-            <Route path='/admin/dashboard/teacher/:teacherid' element={<AdminDashBoard />} />
+            <Route path='/admin/dashboard/student/:studentid' element={<DashBoard />} />
+            <Route path='/admin/dashboard/teacher/:teacherid' element={<DashBoard />} />
           </Route>
         </Routes>
-      </Router>
+    </Router>
   );
 }
 
